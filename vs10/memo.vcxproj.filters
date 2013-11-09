@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="allocators">
+      <UniqueIdentifier>{6c28f109-38e2-4826-9d16-ab9eac6b16c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="management">
+      <UniqueIdentifier>{6926a500-8f95-48d9-8bfa-0b66d2c75957}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external_sources">
+      <UniqueIdentifier>{a505b9ec-e3f4-4cb7-8e82-3147178337c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lifo">
+      <UniqueIdentifier>{9ab8b3d9-537b-4955-9baa-10d0a6fb28e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external_sources\tlsf">
+      <UniqueIdentifier>{94030294-64c5-4498-b96e-c4c96aec9e61}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\allocators\allocator_tester.cpp">
+      <Filter>allocators</Filter>
+    </ClCompile>
+    <ClCompile Include="..\allocators\allocators.cpp">
+      <Filter>allocators</Filter>
+    </ClCompile>
+    <ClCompile Include="..\allocators\debug_allocator.cpp">
+      <Filter>allocators</Filter>
+    </ClCompile>
+    <ClCompile Include="..\allocators\decorator_allocator.cpp">
+      <Filter>allocators</Filter>
+    </ClCompile>
+    <ClCompile Include="..\allocators\default_allocator.cpp">
+      <Filter>allocators</Filter>
+    </ClCompile>
+    <ClCompile Include="..\allocators\iallocator_config.cpp">
+      <Filter>allocators</Filter>
+    </ClCompile>
+    <ClCompile Include="..\allocators\region_allocator.cpp">
+      <Filter>allocators</Filter>
+    </ClCompile>
+    <ClCompile Include="..\allocators\statistics_allocator.cpp">
+      <Filter>allocators</Filter>
+    </ClCompile>
+    <ClCompile Include="..\allocators\tlsf_allocator.cpp">
+      <Filter>allocators</Filter>
+    </ClCompile>
+    <ClCompile Include="..\management\allocator_config_factory.cpp">
+      <Filter>management</Filter>
+    </ClCompile>
+    <ClCompile Include="..\management\context.cpp">
+      <Filter>management</Filter>
+    </ClCompile>
+    <ClCompile Include="..\management\management.cpp">
+      <Filter>management</Filter>
+    </ClCompile>
+    <ClCompile Include="..\management\memory_manager.cpp">
+      <Filter>management</Filter>
+    </ClCompile>
+    <ClCompile Include="..\management\serialization.cpp">
+      <Filter>management</Filter>
+    </ClCompile>
+    <ClCompile Include="..\management\static_name.cpp">
+      <Filter>management</Filter>
+    </ClCompile>
+    <ClCompile Include="..\management\thread_root.cpp">
+      <Filter>management</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lifo\data_stack.cpp">
+      <Filter>lifo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lifo\lifo.cpp">
+      <Filter>lifo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lifo\lifo_allocator.cpp">
+      <Filter>lifo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lifo\object_stack.cpp">
+      <Filter>lifo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external_sources\tlsf\tlsf.c">
+      <Filter>external_sources\tlsf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\address_functions.cpp" />
+    <ClCompile Include="..\allocation_functions.cpp" />
+    <ClCompile Include="..\memo.cpp" />
+    <ClCompile Include="..\memo_test.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\allocators\allocator_tester.h">
+      <Filter>allocators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\allocators\allocators.h">
+      <Filter>allocators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\allocators\debug_allocator.h">
+      <Filter>allocators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\allocators\decorator_allocator.h">
+      <Filter>allocators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\allocators\default_allocator.h">
+      <Filter>allocators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\allocators\iallocator.h">
+      <Filter>allocators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\allocators\region_allocator.h">
+      <Filter>allocators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\allocators\statistics_allocator.h">
+      <Filter>allocators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\allocators\tlsf_allocator.h">
+      <Filter>allocators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\management\allocator_config_factory.h">
+      <Filter>management</Filter>
+    </ClInclude>
+    <ClInclude Include="..\management\context.h">
+      <Filter>management</Filter>
+    </ClInclude>
+    <ClInclude Include="..\management\management.h">
+      <Filter>management</Filter>
+    </ClInclude>
+    <ClInclude Include="..\management\memory_manager.h">
+      <Filter>management</Filter>
+    </ClInclude>
+    <ClInclude Include="..\management\serialization.h">
+      <Filter>management</Filter>
+    </ClInclude>
+    <ClInclude Include="..\management\static_name.h">
+      <Filter>management</Filter>
+    </ClInclude>
+    <ClInclude Include="..\management\thread_root.h">
+      <Filter>management</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lifo\data_stack.h">
+      <Filter>lifo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lifo\lifo.h">
+      <Filter>lifo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lifo\lifo_allocator.h">
+      <Filter>lifo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lifo\object_stack.h">
+      <Filter>lifo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external_sources\tlsf\tlsfbits.h">
+      <Filter>external_sources\tlsf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external_sources\tlsf\tlsf.h">
+      <Filter>external_sources\tlsf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\address_functions.h" />
+    <ClInclude Include="..\allocation_functions.h" />
+    <ClInclude Include="..\memo.h" />
+    <ClInclude Include="..\memo_externals.h" />
+    <ClInclude Include="..\std_allocator.h" />
+    <ClInclude Include="..\std_containers.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\allocators\default_allocator.inl">
+      <Filter>allocators</Filter>
+    </None>
+    <None Include="..\lifo\data_stack.inl">
+      <Filter>lifo</Filter>
+    </None>
+    <None Include="..\lifo\lifo.inl">
+      <Filter>lifo</Filter>
+    </None>
+    <None Include="..\lifo\lifo_allocator.inl">
+      <Filter>lifo</Filter>
+    </None>
+    <None Include="..\lifo\object_stack.inl">
+      <Filter>lifo</Filter>
+    </None>
+    <None Include="..\allocation_functions.inl" />
+    <None Include="..\memo.inl" />
+  </ItemGroup>
+</Project>
