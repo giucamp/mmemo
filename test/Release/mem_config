@@ -1,0 +1,24 @@
+
+; memo configuration
+
+global_allocator: debug_allocator
+	new_memory_fill: NaNs
+	target: stat_allocator
+		target: default_allocator
+
+; contex tree
+context: restroom
+	allocator: debug_allocator
+		new_memory_fill: NaNs
+		target: stat_allocator
+			target: default_allocator
+	context: walls
+		allocator: debug_allocator
+			new_memory_fill: NaNs
+			target: stat_allocator
+				target: default_allocator
+	context: decor
+		allocator: tlsf_allocator
+			size:1M	
+
+					

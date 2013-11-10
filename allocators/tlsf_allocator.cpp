@@ -55,7 +55,7 @@
 			void * block = tlsf_malloc( m_tlsf, actual_size );
 			if( block == nullptr )
 			{
-				return nullptr;
+				return extern_allocator().alloc( i_size, i_alignment, i_alignment_offset );
 			}
 
 			// setup the header
@@ -82,7 +82,9 @@
 			const size_t new_actual_size = i_new_size + extra_size;
 			void * new_block = tlsf_realloc( m_tlsf, old_header.m_block, new_actual_size );
 			if( new_block == nullptr )
-				return nullptr;
+			{
+				return extern_allocator().realloc( i_address, i_new_size, i_alignment, i_alignment_offset );
+			}
 
 			// setup the header
 			void * aligned_address = lower_align( address_add( new_block, extra_size ), i_alignment, i_alignment_offset );
@@ -112,7 +114,11 @@
 		// TlsfAllocator::unaligned_alloc
 		void * TlsfAllocator::unaligned_alloc( size_t i_size )
 		{
-			return tlsf_malloc( m_tlsf, i_size );
+			void * result = tlsf_malloc( m_tlsf, i_size );
+			if( result != nullptr )
+				return result;
+			else
+				return extern_allocator().unaligned_alloc( i_size );
 		}
 	
 		// TlsfAllocator::unaligned_realloc
@@ -120,7 +126,11 @@
 		{
 			MEMO_ASSERT( i_address != nullptr );
 
-			return tlsf_realloc( m_tlsf, i_address, std::max<size_t>( i_new_size, 1 ) );
+			void * result = tlsf_realloc( m_tlsf, i_address, std::max<size_t>( i_new_size, 1 ) );
+			if( result != nullptr )
+				return result;
+			else
+				return extern_allocator().unaligned_realloc( i_address, i_new_size );
 		}
 
 		// TlsfAllocator::unaligned_free

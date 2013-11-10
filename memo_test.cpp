@@ -118,7 +118,7 @@ namespace memo
 			static StaticName context_name( "walls" );
 			memo::Context memory_context( context_name );
 
-			for( int i = 0; i < 100; i++ )
+			for( int i = 0; i < 5000; i++ )
 				m_strings[ rand() ] = "walls";
 		}
 
@@ -127,7 +127,7 @@ namespace memo
 			static StaticName context_name( "decor" );
 			memo::Context memory_context( context_name );
 
-			for( int i = 0; i < 100; i++ )
+			for( int i = 0; i < 5000; i++ )
 				m_strings[ rand() ] = "decor";
 		}
 
@@ -136,7 +136,7 @@ namespace memo
 			static StaticName context_name( "kitchen" );
 			memo::Context memory_context( context_name );
 
-			for( int i = 0; i < 100; i++ )
+			for( int i = 0; i < 5000; i++ )
 				m_strings[ rand() ] = "kit";
 			
 			//walls();
@@ -148,7 +148,7 @@ namespace memo
 			static StaticName context_name( "restroom" );
 			memo::Context memory_context( context_name );
 
-			for( int i = 0; i < 100; i++ )
+			for( int i = 0; i < 5000; i++ )
 				m_strings[ rand() ] = "rest";
 
 			walls();
@@ -160,7 +160,7 @@ namespace memo
 			static StaticName context_name( "livingroom" );
 			memo::Context memory_context( context_name );
 
-			for( int i = 0; i < 100; i++ )
+			for( int i = 0; i < 10000; i++ )
 				m_strings[ rand() ] = "live";
 
 			walls();

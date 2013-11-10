@@ -1,0 +1,8 @@
+<map id="IAllocator::Config" name="IAllocator::Config">
+<area shape="rect" id="node2" href="$structmemo_1_1_decorator_allocator_1_1_config.html" title="Config" alt="" coords="5,80,64,107"/>
+<area shape="rect" id="node4" href="$structmemo_1_1_default_allocator_1_1_config.html" title="Config" alt="" coords="88,80,147,107"/>
+<area shape="rect" id="node5" href="$structmemo_1_1_lifo_allocator_1_1_config.html" title="Config" alt="" coords="171,80,229,107"/>
+<area shape="rect" id="node6" href="$structmemo_1_1_region_allocator_1_1_config.html" title="Config" alt="" coords="253,80,312,107"/>
+<area shape="rect" id="node3" href="$structmemo_1_1_debug_allocator_1_1_config.html" title="Config" alt="" coords="5,155,64,181"/>
+<area shape="rect" id="node7" href="$structmemo_1_1_tlsf_allocator_1_1_config.html" title="Config" alt="" coords="253,155,312,181"/>
+</map>

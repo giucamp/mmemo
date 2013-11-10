@@ -41,7 +41,7 @@ namespace memo
 		size_t buffer_size() const						{ return m_buffer_size; }
 
 		/** retrieves the extern allocator. */
-		const IAllocator & extern_allocator() const
+		IAllocator & extern_allocator() const
 			{ return *m_extern_allocator; }
 
 		/** Destroys a RegionAllocator, freeing the buffer */

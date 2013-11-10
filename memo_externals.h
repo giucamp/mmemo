@@ -74,7 +74,7 @@
 #define MEMO_UNUSED( var )			&var
 
 /** \def MEMO_ONLY_DEFAULT_ALLOCATOR */
-#define MEMO_ONLY_DEFAULT_ALLOCATOR		(1)
+#define MEMO_ONLY_DEFAULT_ALLOCATOR		(0)
 
 /** \def MEMO_ENABLE_TLSF
 	If this macro evaluates to non-zero, tlsf.c is include in the build, and TlsfAllocator is defined and implemented. */

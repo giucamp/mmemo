@@ -1,0 +1,5 @@
+<map id="DecoratorAllocator" name="DecoratorAllocator">
+<area shape="rect" id="node3" href="$classmemo_1_1_debug_allocator.html" title="DebugAllocator" alt="" coords="5,155,115,181"/>
+<area shape="rect" id="node4" href="$classmemo_1_1_stat_allocator.html" title="StatAllocator" alt="" coords="139,155,236,181"/>
+<area shape="rect" id="node2" href="$classmemo_1_1_i_allocator.html" title="IAllocator" alt="" coords="86,5,161,32"/>
+</map>

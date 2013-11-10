@@ -293,7 +293,10 @@ namespace memo
 			
 			if( reader.get_result( error_msg, error_msg_len ) != eSuccessful )
 			{
-				std::cerr << error_msg;
+				// the memory configuration file is missing
+				memo_externals::output_message( error_msg );
+				memo_externals::output_message( "\n" );
+				memo_externals::debug_break();
 				return serialization::eCantOpenStream;
 			}
 
@@ -301,7 +304,9 @@ namespace memo
 
 			if( reader.get_result( error_msg, error_msg_len ) != eSuccessful )
 			{
-				std::cerr << error_msg;
+				memo_externals::output_message( error_msg );
+				memo_externals::output_message( "\n" );
+				memo_externals::debug_break();
 				return serialization::eBadFormed;
 			}
 
