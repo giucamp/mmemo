@@ -67,7 +67,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -97,7 +97,7 @@ Inheritance diagram for IAllocator::Config:</div>
 <div class="dyncontent">
 <div class="center"><img src="structmemo_1_1_i_allocator_1_1_config__inherit__graph.png" border="0" usemap="#_i_allocator_1_1_config_inherit__map" alt="Inheritance graph"/></div>
 <map name="_i_allocator_1_1_config_inherit__map" id="_i_allocator_1_1_config_inherit__map">
-<area shape="rect" id="node2" href="structmemo_1_1_decorator_allocator_1_1_config.html" title="Config" alt="" coords="5,80,64,107"/><area shape="rect" id="node4" href="structmemo_1_1_default_allocator_1_1_config.html" title="Config" alt="" coords="88,80,147,107"/><area shape="rect" id="node5" href="structmemo_1_1_lifo_allocator_1_1_config.html" title="Config" alt="" coords="171,80,229,107"/><area shape="rect" id="node6" href="structmemo_1_1_region_allocator_1_1_config.html" title="Config" alt="" coords="253,80,312,107"/><area shape="rect" id="node3" href="structmemo_1_1_debug_allocator_1_1_config.html" title="Config" alt="" coords="5,155,64,181"/><area shape="rect" id="node7" href="structmemo_1_1_tlsf_allocator_1_1_config.html" title="Config" alt="" coords="253,155,312,181"/></map>
+<area shape="rect" id="node2" href="structmemo_1_1_corruption_detector_allocator_1_1_config.html" title="Config" alt="" coords="5,80,64,107"/><area shape="rect" id="node3" href="structmemo_1_1_decorator_allocator_1_1_config.html" title="Config" alt="" coords="88,80,147,107"/><area shape="rect" id="node5" href="structmemo_1_1_default_allocator_1_1_config.html" title="Config" alt="" coords="171,80,229,107"/><area shape="rect" id="node6" href="structmemo_1_1_lifo_allocator_1_1_config.html" title="Config" alt="" coords="253,80,312,107"/><area shape="rect" id="node7" href="structmemo_1_1_region_allocator_1_1_config.html" title="Config" alt="" coords="336,80,395,107"/><area shape="rect" id="node4" href="structmemo_1_1_debug_allocator_1_1_config.html" title="Config" alt="" coords="88,155,147,181"/><area shape="rect" id="node8" href="structmemo_1_1_tlsf_allocator_1_1_config.html" title="Config" alt="" coords="336,155,395,181"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -151,7 +151,7 @@ Protected Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The return must be i_new_allocator if it is not null, otherwise a new instance created with MEMO_NEW. </dd></dl>
 
-<p>Reimplemented in <a class="el" href="structmemo_1_1_debug_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">DebugAllocator::Config</a>, <a class="el" href="structmemo_1_1_default_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">DefaultAllocator::Config</a>, <a class="el" href="structmemo_1_1_decorator_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">DecoratorAllocator::Config</a>, <a class="el" href="structmemo_1_1_region_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">RegionAllocator::Config</a>, and <a class="el" href="structmemo_1_1_tlsf_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">TlsfAllocator::Config</a>.</p>
+<p>Reimplemented in <a class="el" href="structmemo_1_1_debug_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">DebugAllocator::Config</a>, <a class="el" href="structmemo_1_1_corruption_detector_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">CorruptionDetectorAllocator::Config</a>, <a class="el" href="structmemo_1_1_default_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">DefaultAllocator::Config</a>, <a class="el" href="structmemo_1_1_decorator_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">DecoratorAllocator::Config</a>, <a class="el" href="structmemo_1_1_region_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">RegionAllocator::Config</a>, and <a class="el" href="structmemo_1_1_tlsf_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">TlsfAllocator::Config</a>.</p>
 
 </div>
 </div>
@@ -224,7 +224,7 @@ Protected Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the property has been recognized, false otherwise </dd></dl>
 
-<p>Implemented in <a class="el" href="structmemo_1_1_debug_allocator_1_1_config.html#aebc5154deb389a94e9bf397d420edb27">DebugAllocator::Config</a>, <a class="el" href="structmemo_1_1_decorator_allocator_1_1_config.html#aebc5154deb389a94e9bf397d420edb27">DecoratorAllocator::Config</a>, <a class="el" href="structmemo_1_1_region_allocator_1_1_config.html#aebc5154deb389a94e9bf397d420edb27">RegionAllocator::Config</a>, and <a class="el" href="structmemo_1_1_default_allocator_1_1_config.html#a7316b87e11f31c6a33a55a6f0b20d8ca">DefaultAllocator::Config</a>.</p>
+<p>Implemented in <a class="el" href="structmemo_1_1_debug_allocator_1_1_config.html#aebc5154deb389a94e9bf397d420edb27">DebugAllocator::Config</a>, <a class="el" href="structmemo_1_1_corruption_detector_allocator_1_1_config.html#aebc5154deb389a94e9bf397d420edb27">CorruptionDetectorAllocator::Config</a>, <a class="el" href="structmemo_1_1_decorator_allocator_1_1_config.html#aebc5154deb389a94e9bf397d420edb27">DecoratorAllocator::Config</a>, <a class="el" href="structmemo_1_1_region_allocator_1_1_config.html#aebc5154deb389a94e9bf397d420edb27">RegionAllocator::Config</a>, and <a class="el" href="structmemo_1_1_default_allocator_1_1_config.html#a7316b87e11f31c6a33a55a6f0b20d8ca">DefaultAllocator::Config</a>.</p>
 
 </div>
 </div>
@@ -235,7 +235,7 @@ Protected Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Nov 10 2013 14:25:58 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 6 2013 08:57:36 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

@@ -1,4 +1,13 @@
 
+
+/*! \mainpage Memo: overwiew and usage
+ *
+ * \section whats What's Memo
+ * Memo is an open source C++ library that provides data-driven and object-oriented memory management.
+ * The classic scenario of dynamic memory allocation consists of a program requesting randomly dynamic storage to a black-box allocator (implementing a set of malloc\realloc\free functions) which doesn’t know and can’t predict anything about the requests of the program. Implementing a good black-box is a well known difficult problem.  
+ * The main point of memo is not providing memory allocation algorithms, but rather adding a layer between the allocator and the program, to allow to select the best memory allocation strategy with the best tuning for every part of the program. Provided that the key functions in the source code are tagged with contexts, Memo allows to select and tune a different allocator for any context without altering the code, but just editing a memory configuration file.
+ */
+
 #ifndef MEMO_INCLUDED
 #define MEMO_INCLUDED
 

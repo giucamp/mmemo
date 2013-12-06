@@ -8,3 +8,4 @@
 #include "region_allocator.h"
 #include "tlsf_allocator.h"
 #include "allocator_tester.h"
+#include "corruption_detector_allocator.h"

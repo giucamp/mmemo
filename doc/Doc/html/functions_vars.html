@@ -77,7 +77,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -88,11 +88,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="contents">
 &#160;<ul>
+<li>m_bad_read_access_exception
+: <a class="el" href="structmemo_1_1_corruption_detector_allocator_1_1_config.html#a6d9e621d2774254300c1a3788ea2e10d">CorruptionDetectorAllocator::Config</a>
+</li>
+<li>m_bad_write_access_exception
+: <a class="el" href="structmemo_1_1_corruption_detector_allocator_1_1_config.html#af54abce988579552e2f8781a2070c87e">CorruptionDetectorAllocator::Config</a>
+</li>
 <li>m_deleted_memory_fill_mode
 : <a class="el" href="structmemo_1_1_debug_allocator_1_1_config.html#a50d2e0e02d82ade76bbc1025ae6ae6e6">DebugAllocator::Config</a>
 </li>
 <li>m_external_allocator
 : <a class="el" href="structmemo_1_1_lifo_allocator_1_1_config.html#a4828e6d5be1d64931e8bc8c44094c878">LifoAllocator::Config</a>
+</li>
+<li>m_heading_nomansland
+: <a class="el" href="structmemo_1_1_corruption_detector_allocator_1_1_config.html#a21a7aee6a5f2e65d1658fc4f56090f82">CorruptionDetectorAllocator::Config</a>
 </li>
 <li>m_new_memory_fill_mode
 : <a class="el" href="structmemo_1_1_debug_allocator_1_1_config.html#ab05e8d1d74fbbe6324a9f8bd8754d936">DebugAllocator::Config</a>
@@ -100,8 +109,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>m_nomansland_words
 : <a class="el" href="structmemo_1_1_debug_allocator_1_1_config.html#a8301a1320be37470402a07102b09cc56">DebugAllocator::Config</a>
 </li>
+<li>m_region_size
+: <a class="el" href="structmemo_1_1_corruption_detector_allocator_1_1_config.html#a28c7820f82c6c25af86cf18684c0afc7">CorruptionDetectorAllocator::Config</a>
+</li>
 <li>m_root_context
 : <a class="el" href="structmemo_1_1_memory_manager_1_1_config.html#a173376b35c4468171879d674f48d4a99">MemoryManager::Config</a>
+</li>
+<li>m_tailing_nomansland
+: <a class="el" href="structmemo_1_1_corruption_detector_allocator_1_1_config.html#ad7acb4fe24b5290049da675252921232">CorruptionDetectorAllocator::Config</a>
 </li>
 <li>m_target
 : <a class="el" href="structmemo_1_1_decorator_allocator_1_1_config.html#ac1344ad8534f6acbe53333a8bec27d65">DecoratorAllocator::Config</a>
@@ -110,7 +125,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Nov 10 2013 14:25:59 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 6 2013 08:57:37 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

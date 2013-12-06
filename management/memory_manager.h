@@ -40,7 +40,7 @@ namespace memo
 		/** Gets the allocator and the configuration of a context. The configuration can be used to iterate the child contexts.
 			@param i_context_path Path of the target context
 			@return Allocator associated to the context, or null if no allocator is associated to the context */
-		bool get_allocator_and_config( IAllocator * * o_allocator, const ContextConfig * * o_context_config ) const;
+		bool get_allocator_and_config( NamePath i_context_path, IAllocator * * o_allocator, const ContextConfig * * o_context_config ) const;
 
 		/** Retrieves the allocator config factor, that can be used to create config struct. The config struct can be then
 			used to create instances of the allocator. */

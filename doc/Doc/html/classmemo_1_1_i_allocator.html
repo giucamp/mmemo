@@ -67,7 +67,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -96,7 +96,7 @@ Inheritance diagram for IAllocator:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmemo_1_1_i_allocator__inherit__graph.png" border="0" usemap="#_i_allocator_inherit__map" alt="Inheritance graph"/></div>
 <map name="_i_allocator_inherit__map" id="_i_allocator_inherit__map">
-<area shape="rect" id="node2" href="classmemo_1_1_decorator_allocator.html" title="DecoratorAllocator" alt="" coords="59,80,188,107"/><area shape="rect" id="node5" href="classmemo_1_1_default_allocator.html" title="Implements IAllocator using the C dynamic memory allocation (malloc, realloc and free) This implement..." alt="" coords="213,80,325,107"/><area shape="rect" id="node6" href="classmemo_1_1_region_allocator.html" title="RegionAllocator" alt="" coords="350,80,463,107"/><area shape="rect" id="node3" href="classmemo_1_1_debug_allocator.html" title="DebugAllocator" alt="" coords="5,155,115,181"/><area shape="rect" id="node4" href="classmemo_1_1_stat_allocator.html" title="StatAllocator" alt="" coords="139,155,236,181"/><area shape="rect" id="node7" href="classmemo_1_1_tlsf_allocator.html" title="TlsfAllocator" alt="" coords="360,155,453,181"/></map>
+<area shape="rect" id="node2" href="classmemo_1_1_corruption_detector_allocator.html" title="CorruptionDetectorAllocator" alt="" coords="5,80,187,107"/><area shape="rect" id="node3" href="classmemo_1_1_decorator_allocator.html" title="DecoratorAllocator" alt="" coords="211,80,340,107"/><area shape="rect" id="node6" href="classmemo_1_1_default_allocator.html" title="Implements IAllocator using the C dynamic memory allocation (malloc, realloc and free) This implement..." alt="" coords="365,80,477,107"/><area shape="rect" id="node7" href="classmemo_1_1_region_allocator.html" title="RegionAllocator" alt="" coords="502,80,615,107"/><area shape="rect" id="node4" href="classmemo_1_1_debug_allocator.html" title="DebugAllocator" alt="" coords="157,155,267,181"/><area shape="rect" id="node5" href="classmemo_1_1_stat_allocator.html" title="StatAllocator" alt="" coords="291,155,388,181"/><area shape="rect" id="node8" href="classmemo_1_1_tlsf_allocator.html" title="TlsfAllocator" alt="" coords="512,155,605,181"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -210,7 +210,7 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the address of the first byte in the block, or nullptr if the allocation fails </dd></dl>
 
-<p>Implemented in <a class="el" href="classmemo_1_1_debug_allocator.html#a31adafa97455b9ed1afc71d76ecc5250">DebugAllocator</a>, <a class="el" href="classmemo_1_1_stat_allocator.html#a31adafa97455b9ed1afc71d76ecc5250">StatAllocator</a>, <a class="el" href="classmemo_1_1_default_allocator.html#aa0efeca40d5326beeff035039fe5cc36">DefaultAllocator</a>, and <a class="el" href="classmemo_1_1_tlsf_allocator.html#a31adafa97455b9ed1afc71d76ecc5250">TlsfAllocator</a>.</p>
+<p>Implemented in <a class="el" href="classmemo_1_1_debug_allocator.html#a31adafa97455b9ed1afc71d76ecc5250">DebugAllocator</a>, <a class="el" href="classmemo_1_1_corruption_detector_allocator.html#a31adafa97455b9ed1afc71d76ecc5250">CorruptionDetectorAllocator</a>, <a class="el" href="classmemo_1_1_stat_allocator.html#a31adafa97455b9ed1afc71d76ecc5250">StatAllocator</a>, <a class="el" href="classmemo_1_1_default_allocator.html#aa0efeca40d5326beeff035039fe5cc36">DefaultAllocator</a>, and <a class="el" href="classmemo_1_1_tlsf_allocator.html#a31adafa97455b9ed1afc71d76ecc5250">TlsfAllocator</a>.</p>
 
 </div>
 </div>
@@ -243,7 +243,7 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classmemo_1_1_debug_allocator.html#ae4612305ce0bee1f7cdaf8622772e079">DebugAllocator</a>, <a class="el" href="classmemo_1_1_stat_allocator.html#ae4612305ce0bee1f7cdaf8622772e079">StatAllocator</a>, <a class="el" href="classmemo_1_1_default_allocator.html#ae4612305ce0bee1f7cdaf8622772e079">DefaultAllocator</a>, and <a class="el" href="classmemo_1_1_tlsf_allocator.html#ae4612305ce0bee1f7cdaf8622772e079">TlsfAllocator</a>.</p>
+<p>Implemented in <a class="el" href="classmemo_1_1_debug_allocator.html#ae4612305ce0bee1f7cdaf8622772e079">DebugAllocator</a>, <a class="el" href="classmemo_1_1_corruption_detector_allocator.html#ae4612305ce0bee1f7cdaf8622772e079">CorruptionDetectorAllocator</a>, <a class="el" href="classmemo_1_1_stat_allocator.html#ae4612305ce0bee1f7cdaf8622772e079">StatAllocator</a>, <a class="el" href="classmemo_1_1_default_allocator.html#ae4612305ce0bee1f7cdaf8622772e079">DefaultAllocator</a>, and <a class="el" href="classmemo_1_1_tlsf_allocator.html#ae4612305ce0bee1f7cdaf8622772e079">TlsfAllocator</a>.</p>
 
 </div>
 </div>
@@ -277,7 +277,7 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classmemo_1_1_debug_allocator.html#aa008fa6d6cfae377d69e12c146adb98c">DebugAllocator</a>, <a class="el" href="classmemo_1_1_stat_allocator.html#aa008fa6d6cfae377d69e12c146adb98c">StatAllocator</a>, <a class="el" href="classmemo_1_1_default_allocator.html#aa008fa6d6cfae377d69e12c146adb98c">DefaultAllocator</a>, <a class="el" href="classmemo_1_1_tlsf_allocator.html#aa008fa6d6cfae377d69e12c146adb98c">TlsfAllocator</a>, <a class="el" href="classmemo_1_1_region_allocator.html#aa008fa6d6cfae377d69e12c146adb98c">RegionAllocator</a>, and <a class="el" href="classmemo_1_1_decorator_allocator.html#aa008fa6d6cfae377d69e12c146adb98c">DecoratorAllocator</a>.</p>
+<p>Implemented in <a class="el" href="classmemo_1_1_debug_allocator.html#aa008fa6d6cfae377d69e12c146adb98c">DebugAllocator</a>, <a class="el" href="classmemo_1_1_stat_allocator.html#aa008fa6d6cfae377d69e12c146adb98c">StatAllocator</a>, <a class="el" href="classmemo_1_1_corruption_detector_allocator.html#aa008fa6d6cfae377d69e12c146adb98c">CorruptionDetectorAllocator</a>, <a class="el" href="classmemo_1_1_default_allocator.html#aa008fa6d6cfae377d69e12c146adb98c">DefaultAllocator</a>, <a class="el" href="classmemo_1_1_tlsf_allocator.html#aa008fa6d6cfae377d69e12c146adb98c">TlsfAllocator</a>, <a class="el" href="classmemo_1_1_region_allocator.html#aa008fa6d6cfae377d69e12c146adb98c">RegionAllocator</a>, and <a class="el" href="classmemo_1_1_decorator_allocator.html#aa008fa6d6cfae377d69e12c146adb98c">DecoratorAllocator</a>.</p>
 
 </div>
 </div>
@@ -310,7 +310,7 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classmemo_1_1_debug_allocator.html#a5b9f79933455057df502c53e84758201">DebugAllocator</a>, <a class="el" href="classmemo_1_1_stat_allocator.html#a5b9f79933455057df502c53e84758201">StatAllocator</a>, <a class="el" href="classmemo_1_1_default_allocator.html#a5b9f79933455057df502c53e84758201">DefaultAllocator</a>, and <a class="el" href="classmemo_1_1_tlsf_allocator.html#a5b9f79933455057df502c53e84758201">TlsfAllocator</a>.</p>
+<p>Implemented in <a class="el" href="classmemo_1_1_debug_allocator.html#a5b9f79933455057df502c53e84758201">DebugAllocator</a>, <a class="el" href="classmemo_1_1_corruption_detector_allocator.html#a5b9f79933455057df502c53e84758201">CorruptionDetectorAllocator</a>, <a class="el" href="classmemo_1_1_stat_allocator.html#a5b9f79933455057df502c53e84758201">StatAllocator</a>, <a class="el" href="classmemo_1_1_default_allocator.html#a5b9f79933455057df502c53e84758201">DefaultAllocator</a>, and <a class="el" href="classmemo_1_1_tlsf_allocator.html#a5b9f79933455057df502c53e84758201">TlsfAllocator</a>.</p>
 
 </div>
 </div>
@@ -369,7 +369,7 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the new address of the first byte in the block, or nullptr if the reallocation fails </dd></dl>
 
-<p>Implemented in <a class="el" href="classmemo_1_1_debug_allocator.html#ae9b506f9f08866cd612df09df5729e15">DebugAllocator</a>, <a class="el" href="classmemo_1_1_stat_allocator.html#ae9b506f9f08866cd612df09df5729e15">StatAllocator</a>, <a class="el" href="classmemo_1_1_default_allocator.html#a395439b510ef188e61817cae0f28b255">DefaultAllocator</a>, and <a class="el" href="classmemo_1_1_tlsf_allocator.html#ae9b506f9f08866cd612df09df5729e15">TlsfAllocator</a>.</p>
+<p>Implemented in <a class="el" href="classmemo_1_1_debug_allocator.html#ae9b506f9f08866cd612df09df5729e15">DebugAllocator</a>, <a class="el" href="classmemo_1_1_corruption_detector_allocator.html#ae9b506f9f08866cd612df09df5729e15">CorruptionDetectorAllocator</a>, <a class="el" href="classmemo_1_1_stat_allocator.html#ae9b506f9f08866cd612df09df5729e15">StatAllocator</a>, <a class="el" href="classmemo_1_1_default_allocator.html#a395439b510ef188e61817cae0f28b255">DefaultAllocator</a>, and <a class="el" href="classmemo_1_1_tlsf_allocator.html#ae9b506f9f08866cd612df09df5729e15">TlsfAllocator</a>.</p>
 
 </div>
 </div>
@@ -395,7 +395,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Static function returning the name of the type, used for example in the configuration file, where a type of allocated must be specified. <a class="el" href="classmemo_1_1_allocator_config_factory.html">AllocatorConfigFactory</a> uses this function to associate a name to the allocator. Every class implementing <a class="el" href="classmemo_1_1_i_allocator.html">IAllocator</a> should define a static function with this name and signature. The returned string should lie in the static storage (a string literal is the best choice). </p>
 
-<p>Implemented in <a class="el" href="classmemo_1_1_debug_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">DebugAllocator</a>, <a class="el" href="classmemo_1_1_default_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">DefaultAllocator</a>, <a class="el" href="classmemo_1_1_stat_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">StatAllocator</a>, <a class="el" href="classmemo_1_1_region_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">RegionAllocator</a>, <a class="el" href="classmemo_1_1_tlsf_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">TlsfAllocator</a>, and <a class="el" href="classmemo_1_1_decorator_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">DecoratorAllocator</a>.</p>
+<p>Implemented in <a class="el" href="classmemo_1_1_debug_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">DebugAllocator</a>, <a class="el" href="classmemo_1_1_default_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">DefaultAllocator</a>, <a class="el" href="classmemo_1_1_corruption_detector_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">CorruptionDetectorAllocator</a>, <a class="el" href="classmemo_1_1_stat_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">StatAllocator</a>, <a class="el" href="classmemo_1_1_region_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">RegionAllocator</a>, <a class="el" href="classmemo_1_1_tlsf_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">TlsfAllocator</a>, and <a class="el" href="classmemo_1_1_decorator_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">DecoratorAllocator</a>.</p>
 
 </div>
 </div>
@@ -429,7 +429,7 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the address of the first byte in the block, or nullptr if the allocation fails </dd></dl>
 
-<p>Implemented in <a class="el" href="classmemo_1_1_debug_allocator.html#a503133ce3a0f9797d869d418cd6c44e3">DebugAllocator</a>, <a class="el" href="classmemo_1_1_stat_allocator.html#a503133ce3a0f9797d869d418cd6c44e3">StatAllocator</a>, <a class="el" href="classmemo_1_1_default_allocator.html#aa56dbfb1b844d2f82bb6b5582564559e">DefaultAllocator</a>, and <a class="el" href="classmemo_1_1_tlsf_allocator.html#a503133ce3a0f9797d869d418cd6c44e3">TlsfAllocator</a>.</p>
+<p>Implemented in <a class="el" href="classmemo_1_1_debug_allocator.html#a503133ce3a0f9797d869d418cd6c44e3">DebugAllocator</a>, <a class="el" href="classmemo_1_1_corruption_detector_allocator.html#a503133ce3a0f9797d869d418cd6c44e3">CorruptionDetectorAllocator</a>, <a class="el" href="classmemo_1_1_stat_allocator.html#a503133ce3a0f9797d869d418cd6c44e3">StatAllocator</a>, <a class="el" href="classmemo_1_1_default_allocator.html#aa56dbfb1b844d2f82bb6b5582564559e">DefaultAllocator</a>, and <a class="el" href="classmemo_1_1_tlsf_allocator.html#a503133ce3a0f9797d869d418cd6c44e3">TlsfAllocator</a>.</p>
 
 </div>
 </div>
@@ -462,7 +462,7 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classmemo_1_1_debug_allocator.html#aade440d3b38b571e4c3c4a1d654ae78a">DebugAllocator</a>, <a class="el" href="classmemo_1_1_stat_allocator.html#aade440d3b38b571e4c3c4a1d654ae78a">StatAllocator</a>, <a class="el" href="classmemo_1_1_default_allocator.html#aade440d3b38b571e4c3c4a1d654ae78a">DefaultAllocator</a>, and <a class="el" href="classmemo_1_1_tlsf_allocator.html#aade440d3b38b571e4c3c4a1d654ae78a">TlsfAllocator</a>.</p>
+<p>Implemented in <a class="el" href="classmemo_1_1_debug_allocator.html#aade440d3b38b571e4c3c4a1d654ae78a">DebugAllocator</a>, <a class="el" href="classmemo_1_1_stat_allocator.html#aade440d3b38b571e4c3c4a1d654ae78a">StatAllocator</a>, <a class="el" href="classmemo_1_1_corruption_detector_allocator.html#aade440d3b38b571e4c3c4a1d654ae78a">CorruptionDetectorAllocator</a>, <a class="el" href="classmemo_1_1_default_allocator.html#aade440d3b38b571e4c3c4a1d654ae78a">DefaultAllocator</a>, and <a class="el" href="classmemo_1_1_tlsf_allocator.html#aade440d3b38b571e4c3c4a1d654ae78a">TlsfAllocator</a>.</p>
 
 </div>
 </div>
@@ -495,7 +495,7 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classmemo_1_1_debug_allocator.html#ad879010ea7f782337c0f46c8425789ba">DebugAllocator</a>, <a class="el" href="classmemo_1_1_stat_allocator.html#ad879010ea7f782337c0f46c8425789ba">StatAllocator</a>, <a class="el" href="classmemo_1_1_default_allocator.html#ad879010ea7f782337c0f46c8425789ba">DefaultAllocator</a>, and <a class="el" href="classmemo_1_1_tlsf_allocator.html#ad879010ea7f782337c0f46c8425789ba">TlsfAllocator</a>.</p>
+<p>Implemented in <a class="el" href="classmemo_1_1_debug_allocator.html#ad879010ea7f782337c0f46c8425789ba">DebugAllocator</a>, <a class="el" href="classmemo_1_1_stat_allocator.html#ad879010ea7f782337c0f46c8425789ba">StatAllocator</a>, <a class="el" href="classmemo_1_1_corruption_detector_allocator.html#ad879010ea7f782337c0f46c8425789ba">CorruptionDetectorAllocator</a>, <a class="el" href="classmemo_1_1_default_allocator.html#ad879010ea7f782337c0f46c8425789ba">DefaultAllocator</a>, and <a class="el" href="classmemo_1_1_tlsf_allocator.html#ad879010ea7f782337c0f46c8425789ba">TlsfAllocator</a>.</p>
 
 </div>
 </div>
@@ -540,7 +540,7 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the new address of the first byte in the block, or nullptr if the reallocation fails </dd></dl>
 
-<p>Implemented in <a class="el" href="classmemo_1_1_debug_allocator.html#a1bb6ecb43bdc4d31af49a0761e396c6c">DebugAllocator</a>, <a class="el" href="classmemo_1_1_stat_allocator.html#a1bb6ecb43bdc4d31af49a0761e396c6c">StatAllocator</a>, <a class="el" href="classmemo_1_1_default_allocator.html#adfe2457daa746699a1468f26c9dd02ef">DefaultAllocator</a>, and <a class="el" href="classmemo_1_1_tlsf_allocator.html#a1bb6ecb43bdc4d31af49a0761e396c6c">TlsfAllocator</a>.</p>
+<p>Implemented in <a class="el" href="classmemo_1_1_debug_allocator.html#a1bb6ecb43bdc4d31af49a0761e396c6c">DebugAllocator</a>, <a class="el" href="classmemo_1_1_corruption_detector_allocator.html#a1bb6ecb43bdc4d31af49a0761e396c6c">CorruptionDetectorAllocator</a>, <a class="el" href="classmemo_1_1_stat_allocator.html#a1bb6ecb43bdc4d31af49a0761e396c6c">StatAllocator</a>, <a class="el" href="classmemo_1_1_default_allocator.html#adfe2457daa746699a1468f26c9dd02ef">DefaultAllocator</a>, and <a class="el" href="classmemo_1_1_tlsf_allocator.html#a1bb6ecb43bdc4d31af49a0761e396c6c">TlsfAllocator</a>.</p>
 
 </div>
 </div>
@@ -550,7 +550,7 @@ Static Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Nov 10 2013 14:25:58 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 6 2013 08:57:36 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

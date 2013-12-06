@@ -77,7 +77,7 @@
 #define MEMO_ONLY_DEFAULT_ALLOCATOR		(0)
 
 /** \def MEMO_ENABLE_TLSF
-	If this macro evaluates to non-zero, tlsf.c is include in the build, and TlsfAllocator is defined and implemented. */
+	If this macro evaluates to non-zero, tlsf.c is included in the build, and TlsfAllocator is defined and implemented. */
 #define MEMO_ENABLE_TLSF			(1)
 
 namespace memo_externals

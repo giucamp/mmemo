@@ -85,6 +85,9 @@
     <ClCompile Include="..\allocation_functions.cpp" />
     <ClCompile Include="..\memo.cpp" />
     <ClCompile Include="..\memo_test.cpp" />
+    <ClCompile Include="..\allocators\corruption_detector_allocator.cpp">
+      <Filter>allocators</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\allocators\allocator_tester.h">
@@ -159,6 +162,9 @@
     <ClInclude Include="..\memo_externals.h" />
     <ClInclude Include="..\std_allocator.h" />
     <ClInclude Include="..\std_containers.h" />
+    <ClInclude Include="..\allocators\corruption_detector_allocator.h">
+      <Filter>allocators</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\allocators\default_allocator.inl">

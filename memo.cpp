@@ -7,6 +7,13 @@
 
 #include "memo.h"
 
+#if defined( _MSC_VER ) && defined( MEMO_ENABLE_TLSF )
+	#define WIN32_LEAN_AND_MEAN
+	#include "windows.h" // needed for CorruptionDetectorAllocator
+	#undef min
+	#undef max
+#endif
+
 namespace memo
 {
 	#if MEMO_ENABLE_TEST

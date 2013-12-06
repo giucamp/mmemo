@@ -1,7 +1,7 @@
 var searchData=
 [
   ['get_5fallocator',['get_allocator',['../classmemo_1_1_memory_manager.html#a81b242688db20beb28c6e7656c82a023',1,'memo::MemoryManager']]],
-  ['get_5fallocator_5fand_5fconfig',['get_allocator_and_config',['../classmemo_1_1_memory_manager.html#a6bd7fdedcdc8c4e6295744581fcb269a',1,'memo::MemoryManager']]],
+  ['get_5fallocator_5fand_5fconfig',['get_allocator_and_config',['../classmemo_1_1_memory_manager.html#a56a6907b3e0eb9f963550e135c92335c',1,'memo::MemoryManager']]],
   ['get_5fblock_5fsize',['get_block_size',['../classmemo_1_1_debug_allocator.html#a11016bf28c4af85d6f83a2556b199569',1,'memo::DebugAllocator']]],
   ['get_5fbookmark',['get_bookmark',['../classmemo_1_1_object_stack.html#adb2cb8cf864e72a17661d9d1280e3b85',1,'memo::ObjectStack']]],
   ['get_5fbuffer_5fsize',['get_buffer_size',['../classmemo_1_1_data_stack.html#a6cd9e8ecab3988a3609f6c7e97e8d541',1,'memo::DataStack::get_buffer_size()'],['../classmemo_1_1_object_stack.html#a6cd9e8ecab3988a3609f6c7e97e8d541',1,'memo::ObjectStack::get_buffer_size()']]],

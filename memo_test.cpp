@@ -14,6 +14,17 @@ namespace memo
 
 		memo_externals::output_message( "testing allocators...\n" );
 		const size_t iterations = 470000;
+
+		// corruption detector allocator
+		{
+			memo_externals::output_message( "testing CorruptionDetectorAllocator...\n\t" );
+			CorruptionDetectorAllocator::Config corruption_detector_allocator_config;
+			IAllocator * corruption_detector_allocator = corruption_detector_allocator_config.create_allocator();
+			memo::AllocatorTester debug_allocator_tester( *corruption_detector_allocator );
+			debug_allocator_tester.do_test_session( iterations );
+			MEMO_DELETE( corruption_detector_allocator );
+		}
+
 		
 		// default allocator
 		{
