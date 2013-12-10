@@ -3,8 +3,6 @@
 
 namespace memo
 {
-	CorruptionDetectorAllocator * CorruptionDetectorAllocator::s_first_allocator = nullptr;
-
 	// CorruptionDetectorAllocator::Config::configure_allocator
 	IAllocator * CorruptionDetectorAllocator::Config::configure_allocator( IAllocator * i_new_allocator ) const
 	{
@@ -17,95 +15,10 @@ namespace memo
 		return allocator;
 	}
 
-	// exception handler
-	struct CorruptionDetectorAllocator::ExceptionHandler
-	{
-		static LONG CALLBACK Handler( EXCEPTION_POINTERS * ExceptionInfo )
-		{
-			if( ExceptionInfo->ExceptionRecord->ExceptionCode == EXCEPTION_SINGLE_STEP )
-			{
-				CorruptionDetectorAllocator * allocator = s_first_allocator;
-				allocator->protect();
-				//ExceptionInfo->ContextRecord->EFlags &= ~(1 << 8);
-				return EXCEPTION_CONTINUE_EXECUTION;
-			}
-			else if( ExceptionInfo->ExceptionRecord->ExceptionCode == EXCEPTION_GUARD_PAGE )
-			{
-				const bool write_access = ExceptionInfo->ExceptionRecord->ExceptionInformation[0] != 0;
-				void * address = (void*)ExceptionInfo->ExceptionRecord->ExceptionInformation[1];
-
-				if( write_access )
-				{
-					CorruptionDetectorAllocator * allocator = s_first_allocator;
-					if( address >= allocator->m_buffer && address < allocator->m_end_of_buffer )
-					{
-						allocator->unprotect();
-
-						const size_t index = address_diff( address, allocator->m_buffer );
-
-						if( write_access )
-						{
-							if( !allocator->m_can_write[ index ] )
-							{
-								// bad write
-								ExceptionInfo->ExceptionRecord->ExceptionCode = allocator->m_config.m_bad_write_access_exception;
-								return EXCEPTION_CONTINUE_SEARCH;
-							}
-
-							// now this address can be read
-							allocator->m_can_read[index] = true;
-							ExceptionInfo->ContextRecord->EFlags |= (1 << 8);
-							return EXCEPTION_CONTINUE_EXECUTION;
-						}
-						else
-						{
-							if( !allocator->m_can_read[ index ] )
-							{
-								// bad read
-								ExceptionInfo->ExceptionRecord->ExceptionCode = allocator->m_config.m_bad_read_access_exception;
-								return EXCEPTION_CONTINUE_SEARCH;
-							}
-							ExceptionInfo->ContextRecord->EFlags |= (1 << 8);
-							return EXCEPTION_CONTINUE_EXECUTION;
-						}						
-					}
-				}
-			}
-
-			return EXCEPTION_CONTINUE_SEARCH;
-		}
-	};
-
-	// CorruptionDetectorAllocator::can_read
-	bool CorruptionDetectorAllocator::can_read( void * i_address ) const
-	{
-		if( i_address >= m_buffer && i_address < m_end_of_buffer )
-		{
-			const size_t index = address_diff( i_address, m_buffer );
-			return m_can_read[ index ];
-		}
-		return true;
-	}
-
-	// CorruptionDetectorAllocator::can_write
-	bool CorruptionDetectorAllocator::can_write( void * i_address ) const
-	{
-		if( i_address >= m_buffer && i_address < m_end_of_buffer )
-		{
-			const size_t index = address_diff( i_address, m_buffer );
-			return m_can_write[ index ];
-		}
-		return true;
-	}
-
-
 	// CorruptionDetectorAllocator::constructor
 	CorruptionDetectorAllocator::CorruptionDetectorAllocator( const CorruptionDetectorAllocator::Config & i_config )
 		: m_config( i_config )
 	{
-		m_next_allocator = s_first_allocator;
-		s_first_allocator = this;
-
 		SYSTEM_INFO system_info;
 		::GetSystemInfo( &system_info );
 
@@ -118,28 +31,44 @@ namespace memo
 			memo_externals::output_message( "VirtualAlloc in CorruptionDetectorAllocator failed\n" );
 			memo_externals::debug_break();
 			m_tlsf = nullptr;
-			m_exception_handler = nullptr;
-			m_end_of_buffer = nullptr;
 			return;
 		}
 
-		m_end_of_buffer = address_add( m_buffer, m_size );
-
 		m_tlsf = tlsf_create( m_buffer, m_size );
 
-		m_can_read.resize( m_size, false );
-		m_can_write.resize( m_size, false );
+		int tries = 0;
+		while( IsDebuggerPresent() )
+		{
+			if( tries == 0 )
+				DebugBreak(); // please detach the debugger
+			Sleep( 200 );
+			tries++;
+		}
 
-		m_exception_handler = ::AddVectoredExceptionHandler( 0, ExceptionHandler::Handler );
+		char commnand_line[ 128 ];
+		char memo_debugger_name[ 4096 ];
+		PROCESS_INFORMATION process_information;
+		ZeroMemory( &process_information, sizeof( process_information ) );
+		STARTUPINFOA startup_info;
+		ZeroMemory( &startup_info, sizeof( startup_info ) );
+		startup_info.cb = sizeof( startup_info );
+		strcpy_s( memo_debugger_name, i_config.m_memo_debugger_name.c_str() );
+		sprintf_s( commnand_line, "%d", GetCurrentProcessId() );
+		BOOL result = CreateProcessA( memo_debugger_name, commnand_line, 
+			NULL, NULL, FALSE, CREATE_NEW_CONSOLE, NULL, NULL, &startup_info, &process_information );
 
-		protect();
+		while( !IsDebuggerPresent() )
+			Sleep( 200 );
+
+		ULONG_PTR parameters[] = { reinterpret_cast<ULONG_PTR>( m_buffer ), static_cast<ULONG_PTR>( m_size ) };
+		RaiseException( EXC_SET_BUFFER, 0, 2, parameters );
 	}
 
 	CorruptionDetectorAllocator::~CorruptionDetectorAllocator()
 	{
 		unprotect();
 
-		::RemoveVectoredExceptionHandler( m_exception_handler );
+		RaiseException( EXC_STOP_DEBUGGING, 0, 0, NULL);
 
 		::VirtualFree( m_buffer, m_size, MEM_RELEASE );
 	}
@@ -147,38 +76,29 @@ namespace memo
 	// CorruptionDetectorAllocator::notify_allocation
 	void CorruptionDetectorAllocator::notify_allocation( void * i_address, size_t i_size )
 	{
-		size_t start_index = address_diff( i_address, m_buffer );
-		size_t end_index = start_index + i_size;
-		for( size_t index = start_index; index < end_index; index++ )
-			m_can_write[index] = true;
+		ULONG_PTR parameters[] = { reinterpret_cast<ULONG_PTR>( i_address ), static_cast<ULONG_PTR>( i_size ) };
+		RaiseException( EXC_ALLOCATION, 0, 2, parameters );
 	}
 
 	// CorruptionDetectorAllocator::notify_deallocation
 	void CorruptionDetectorAllocator::notify_deallocation( void * i_address, size_t i_size )
 	{
-		size_t start_index = address_diff( i_address, m_buffer );
-		size_t end_index = start_index + i_size;
-		for( size_t index = start_index; index < end_index; index++ )
-		{
-			m_can_write[index] = false;
-			m_can_read[index] = false;
-		}
+		ULONG_PTR parameters[] = { reinterpret_cast<ULONG_PTR>( i_address ), static_cast<ULONG_PTR>( i_size ) };
+		RaiseException( EXC_DEALLOCATION, 0, 2, parameters );
 	}
-	
+
 	// CorruptionDetectorAllocator::protect
 	void CorruptionDetectorAllocator::protect()
 	{
-		DWORD old_protect;
-		::VirtualProtect( m_buffer, m_size, PAGE_READWRITE | PAGE_GUARD,  &old_protect );
+		RaiseException( EXC_PROTECT, 0, 0, NULL );
 	}
-	
+
 	// CorruptionDetectorAllocator::unprotect
 	void CorruptionDetectorAllocator::unprotect()
 	{
-		DWORD old_protect;
-		::VirtualProtect( m_buffer, m_size, PAGE_READWRITE,  &old_protect );
+		RaiseException( EXC_UNPROTECT, 0, 0, NULL );
 	}
-
+	
 	// CorruptionDetectorAllocator::alloc
 	void * CorruptionDetectorAllocator::alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset )
 	{
@@ -203,8 +123,8 @@ namespace memo
 
 			notify_allocation( user_block, i_size );
 		}
-
-		protect();
+		else
+			protect();
 		
 		m_mutex.unlock();
 
@@ -236,8 +156,8 @@ namespace memo
 			notify_deallocation( i_address, prev_size );
 			notify_allocation( new_user_block, i_new_size );
 		}
-
-		protect();
+		else
+			protect();
 
 		m_mutex.unlock();
 
@@ -248,6 +168,7 @@ namespace memo
 	void CorruptionDetectorAllocator::free( void * i_address )
 	{
 		m_mutex.lock();
+
 		unprotect();
 
 		Header * header = static_cast<Header *>( address_sub( i_address, m_config.m_heading_nomansland + sizeof( Header ) ) );
@@ -256,9 +177,7 @@ namespace memo
 		tlsf_aligned_free( m_tlsf, header );
 
 		notify_deallocation( i_address, prev_size );
-
-		protect();
-
+		
 		m_mutex.unlock();
 	}
 
@@ -292,8 +211,8 @@ namespace memo
 
 			notify_allocation( user_block, i_size );
 		}
-		
-		protect();
+		else
+			protect();
 
 		m_mutex.unlock();
 
@@ -323,8 +242,8 @@ namespace memo
 			notify_deallocation( i_address, prev_size );
 			notify_allocation( new_user_block, i_new_size );
 		}
-
-		protect();
+		else
+			protect();
 
 		m_mutex.unlock();
 
@@ -343,9 +262,7 @@ namespace memo
 		tlsf_free( m_tlsf, header );
 
 		notify_deallocation( i_address, prev_size );
-
-		protect();
-
+		
 		m_mutex.unlock();
 	}
 
@@ -359,6 +276,14 @@ namespace memo
 	// CorruptionDetectorAllocator::Config::try_recognize_property
 	bool CorruptionDetectorAllocator::Config::try_recognize_property( serialization::IConfigReader & i_config_reader )
 	{
+		if( i_config_reader.try_recognize_property( "size" ) )
+		{
+			if( !i_config_reader.curr_property_vakue_as_uint( &m_region_size ) )
+				i_config_reader.output_message( serialization::eWrongContent );
+
+			return true;
+		}
+
 		/*if( DecoratorAllocator::Config::try_recognize_property( i_config_reader ) )
 		{
 			return true;

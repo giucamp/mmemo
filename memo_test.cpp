@@ -20,6 +20,11 @@ namespace memo
 			memo_externals::output_message( "testing CorruptionDetectorAllocator...\n\t" );
 			CorruptionDetectorAllocator::Config corruption_detector_allocator_config;
 			IAllocator * corruption_detector_allocator = corruption_detector_allocator_config.create_allocator();
+			int * p = (int*)corruption_detector_allocator->unaligned_alloc( sizeof(int) );
+			//::Sleep( 1000 * 30 );
+			*p = 5;
+			int g = p[-1];
+			p[1] = 3;
 			memo::AllocatorTester debug_allocator_tester( *corruption_detector_allocator );
 			debug_allocator_tester.do_test_session( iterations );
 			MEMO_DELETE( corruption_detector_allocator );
@@ -211,11 +216,28 @@ namespace memo
 			std_string m_tabs;
 		};
 
+		void test_CorruptionDetectorAllocator()
+		{
+			static StaticName context_name( "corruption_test" );
+			memo::Context memory_context( context_name );
+
+			float * f = MEMO_NEW_ARRAY( float, 5 );
+			for( int i = 0; i < 5; i++ )
+				f[i] = 3.f;
+			MEMO_DELETE_ARRAY( f );
+
+			int * array = MEMO_NEW_ARRAY( int, 5 );
+			for( int i = 1; i <= 5; i++ )
+				array[i] = i;
+			MEMO_DELETE_ARRAY( array );
+		}
+
 		void test()
 		{
 			restroom();
 			kitchen();
 			livingroom();
+			test_CorruptionDetectorAllocator();
 
 			StateWriter writer;
 			NamePath path;
@@ -236,5 +258,7 @@ namespace memo
 
 		system( "PAUSE" );
 	}
+
+
 
 } // namespace memo

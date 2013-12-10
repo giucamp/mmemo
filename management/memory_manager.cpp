@@ -27,6 +27,9 @@ namespace memo
 		m_allocator_config_factory.register_allocator<StatAllocator>();
 		#if MEMO_ENABLE_TLSF
 			m_allocator_config_factory.register_allocator<TlsfAllocator>();
+			#if defined( _WIN32 )
+				m_allocator_config_factory.register_allocator<CorruptionDetectorAllocator>();
+			#endif
 		#endif
 
 		memo_externals::register_custom_allocators( m_allocator_config_factory );

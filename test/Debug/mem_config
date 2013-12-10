@@ -21,5 +21,8 @@ context: restroom
 	context: decor
 		allocator: tlsf_allocator
 			size:1M	
+context: corruption_test
+	allocator: corruption_detector_allocator
+		size:1M	
 
 					

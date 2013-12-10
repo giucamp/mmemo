@@ -61,46 +61,46 @@ namespace memo
 
 	/** _new_array<TYPE>( i_size ) - allocates and constructs an array of objects with the current allocator of the thread.
 		This function is an internal service, and is not supposed to be called directly. Use MEMO_NEW_ARRAY instead. */ 
-	template <typename TYPE> inline void * _new_array( size_t i_size )
+	template <typename TYPE> inline TYPE * _new_array( size_t i_size )
 	{
 		_ArrayHeader * header;
 
 		if( MEMO_ALIGNMENT_OF( TYPE ) <= MEMO_MIN_ALIGNMENT )
-			header = static_cast<_ArrayHeader>( unaligned_alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader) ) );
+			header = static_cast<_ArrayHeader*>( unaligned_alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader) ) );
 		else
-			header = static_cast<_ArrayHeader>( alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader), MEMO_ALIGNMENT_OF( TYPE ), sizeof(_ArrayHeader) ) );
+			header = static_cast<_ArrayHeader*>( alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader), MEMO_ALIGNMENT_OF( TYPE ), sizeof(_ArrayHeader) ) );
 		
-		if( header != nullptr )
-		{
-			header->m_size = i_size;
+		if( header == nullptr )
+			return nullptr;
 
-			TYPE * result = reinterpret_cast< TYPE * >( header + 1 );
-			for( size_t index = 0; index < i_size; index++ )
-				new ( result[index] ) TYPE;
-		}
+		header->m_size = i_size;
+
+		TYPE * result = reinterpret_cast< TYPE * >( header + 1 );
+		for( size_t index = 0; index < i_size; index++ )
+			new( result + index ) TYPE;
 
 		return result;
 	}
 
 	/** _new_array<TYPE>( i_allocator, i_size ) - allocates and constructs an array of objects with the specified allocator.
 		This function is an internal service, and is not supposed to be called directly. Use MEMO_NEW_ARRAY instead. */ 
-	template <typename TYPE> inline void * _new_array( IAllocator & i_allocator, size_t i_size )
+	template <typename TYPE> inline TYPE * _new_array( IAllocator & i_allocator, size_t i_size )
 	{
 		_ArrayHeader * header;
 
 		if( MEMO_ALIGNMENT_OF( TYPE ) <= MEMO_MIN_ALIGNMENT )
-			header = static_cast<_ArrayHeader>( i_allocator.unaligned_alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader) ) );
+			header = static_cast<_ArrayHeader*>( i_allocator.unaligned_alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader) ) );
 		else
-			header = static_cast<_ArrayHeader>( i_allocator.alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader), MEMO_ALIGNMENT_OF( TYPE ), sizeof(_ArrayHeader) ) );
+			header = static_cast<_ArrayHeader*>( i_allocator.alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader), MEMO_ALIGNMENT_OF( TYPE ), sizeof(_ArrayHeader) ) );
 		
-		if( header != nullptr )
-		{
-			header->m_size = i_size;
+		if( header == nullptr )
+			return nullptr;
 
-			TYPE * result = reinterpret_cast< TYPE * >( header + 1 );
-			for( size_t index = 0; index < i_size; index++ )
-				new ( result[index] ) TYPE;
-		}
+		header->m_size = i_size;
+
+		TYPE * result = reinterpret_cast< TYPE * >( header + 1 );
+		for( size_t index = 0; index < i_size; index++ )
+			new( result + index ) TYPE;
 
 		return result;
 	}
@@ -116,20 +116,20 @@ namespace memo
 		_ArrayHeader * header;
 
 		if( MEMO_ALIGNMENT_OF( TYPE ) <= MEMO_MIN_ALIGNMENT )
-			header = static_cast<_ArrayHeader>( unaligned_alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader) ) );
+			header = static_cast<_ArrayHeader*>( unaligned_alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader) ) );
 		else
-			header = static_cast<_ArrayHeader>( alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader), MEMO_ALIGNMENT_OF( TYPE ), sizeof(_ArrayHeader) ) );
+			header = static_cast<_ArrayHeader*>( alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader), MEMO_ALIGNMENT_OF( TYPE ), sizeof(_ArrayHeader) ) );
 		
-		if( header != nullptr )
-		{
-			header->m_size = i_size;
+		if( header == nullptr )
+			return nullptr;
 
-			TYPE * result = reinterpret_cast< TYPE * >( header + 1 );
-			for( size_t index = 0; index < i_size; index++ )
-				new ( result[index] ) TYPE( i_source );
-		}
+		header->m_size = i_size;
 
-		return static_cast<TYPE*>( result );
+		TYPE * result = reinterpret_cast< TYPE * >( header + 1 );
+		for( size_t index = 0; index < i_size; index++ )
+			new( result + index ) TYPE( i_source );
+
+		return result;
 	}
 
 	/** _new_array<TYPE>( i_allocator, i_size, i_source ) - allocates and constructs an array of objects with the specified allocator.
@@ -143,20 +143,20 @@ namespace memo
 		_ArrayHeader * header;
 
 		if( MEMO_ALIGNMENT_OF( TYPE ) <= MEMO_MIN_ALIGNMENT )
-			header = static_cast<_ArrayHeader>( i_allocator.unaligned_alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader) ) );
+			header = static_cast<_ArrayHeader*>( i_allocator.unaligned_alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader) ) );
 		else
-			header = static_cast<_ArrayHeader>( i_allocator.alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader), MEMO_ALIGNMENT_OF( TYPE ), sizeof(_ArrayHeader) ) );
+			header = static_cast<_ArrayHeader*>( i_allocator.alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader), MEMO_ALIGNMENT_OF( TYPE ), sizeof(_ArrayHeader) ) );
 		
-		if( header != nullptr )
-		{
-			header->m_size = i_size;
+		if( header == nullptr )
+			return nullptr;
 
-			TYPE * result = reinterpret_cast< TYPE * >( header + 1 );
-			for( size_t index = 0; index < i_size; index++ )
-				new ( result[index] ) TYPE( i_source );
-		}
+		header->m_size = i_size;
 
-		return static_cast<TYPE*>( result );
+		TYPE * result = reinterpret_cast< TYPE * >( header + 1 );
+		for( size_t index = 0; index < i_size; index++ )
+			new( result + index ) TYPE( i_source );
+
+		return result;
 	}
 
 	/** _delete( i_pointer ) - destroys and deallocates an array of a given type with the allocator used to allocate it.

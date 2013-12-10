@@ -38,7 +38,7 @@ namespace memo
 										  region of the allocator, but outside a block */
 			uint32_t m_bad_write_access_exception; /**< exception to throw when the program reads memory inside the 
 										  region of the allocator, but outside a block */
-
+			std_string m_memo_debugger_name;
 			Config()
 				{ set_defaults(); }
 
@@ -49,6 +49,7 @@ namespace memo
 				m_tailing_nomansland = sizeof(void*);
 				m_bad_read_access_exception = 0x0BADBAD0;
 				m_bad_write_access_exception = 0x0BADBAD1;
+				m_memo_debugger_name = "memo_debugger.exe";
 			}
 
 		protected:
@@ -61,16 +62,7 @@ namespace memo
 			  @return true if the property has been recognized, false otherwise */
 			bool try_recognize_property( serialization::IConfigReader & i_config_reader );
 		};
-
-
-		bool can_read( void * i_address ) const;
-
-		bool can_write( void * i_address ) const;
-
-		size_t count_writable_bytes() const;
-
-		size_t count_readable_bytes() const;
-
+		
 
 								///// aligned allocations /////
 
@@ -139,24 +131,27 @@ namespace memo
 			size_t m_size;
 		};
 
-		struct ExceptionHandler;
-
+		
 		void notify_allocation( void * i_address, size_t i_size );
 		void notify_deallocation( void * i_address, size_t i_size );
-
+		
 		void protect();
 		void unprotect();
 
+	private: // exception codes
+		static const uint32_t EXC_SET_BUFFER = 0xCC9B7983;
+		static const uint32_t EXC_ALLOCATION = 0xCC9B7984;
+		static const uint32_t EXC_DEALLOCATION = 0xCC9B7985;
+		static const uint32_t EXC_STOP_DEBUGGING = 0xCC9B7986;
+		static const uint32_t EXC_PROTECT = 0xCC9B7987;
+		static const uint32_t EXC_UNPROTECT = 0xCC9B7988;
+
 	private: // data members
-		void * m_buffer, * m_end_of_buffer;
+		void * m_buffer;
 		size_t m_size;
 		void * m_tlsf;
-		std::vector< bool > m_can_read, m_can_write;
 		Config m_config;
-		void * m_exception_handler;
 		memo_externals::Mutex m_mutex;
-		static CorruptionDetectorAllocator * s_first_allocator;
-		CorruptionDetectorAllocator * m_next_allocator;
 	};
 
 } // namespace memo
