@@ -2,6 +2,8 @@
 
 #include "memo_debugger.h"
 #include <vector>
+#include <iostream>
+#include <sstream>
 
 const DWORD EXC_SET_BUFFER = 0xCC9B7983;
 const DWORD EXC_ALLOCATION = 0xCC9B7984;
@@ -21,6 +23,21 @@ std::vector<bool> g_can_write;
 std::vector<DWORD> g_thread_ids;
 std::vector<HANDLE> g_thread_handles;
 DebugHelp g_debug_help;
+std::ostringstream g_output;
+
+void Print( const char * i_format, ... )
+{
+	const size_t buffer_size = 2048;
+	char buffer[ buffer_size ];
+
+	va_list args;
+	va_start( args, i_format );
+	vprintf( i_format, args );
+	vsprintf_s( buffer, i_format, args );
+	va_end( args );
+
+	g_output << buffer;
+}
 
 HANDLE OpenThread( DWORD thread_id )
 {
@@ -56,20 +73,20 @@ void main()
 
 	if( sscanf_s( command_line, "%d", &g_target_process_id ) != 1 )
 	{
-		printf_s( "ERROR: could not read the id of the target process from the commandline\n" );
+		Print( "ERROR: could not read the id of the target process from the commandline\n" );
 		return;
 	}
 
 	if( !DebugActiveProcess( g_target_process_id ) )
 	{
-		printf_s( "ERROR: could not attach the process %d for debug\n", g_target_process_id );
+		Print( "ERROR: could not attach the process %d for debug\n", g_target_process_id );
 		return;
 	}
 
 	g_target_process_handle = OpenProcess( PROCESS_ALL_ACCESS, FALSE, g_target_process_id );
 	if( g_target_process_handle == NULL )
 	{
-		printf_s( "ERROR: could not open the process %d\n", g_target_process_id );
+		Print( "ERROR: could not open the process %d\n", g_target_process_id );
 		return;
 	}
 
@@ -78,7 +95,7 @@ void main()
 
 	if( !g_debug_help.init(g_target_process_handle) )
 	{
-		printf_s( "ERROR: probably DbgHelp.dll is not available in your system, cannot access symbol database\n" );
+		Print( "ERROR: probably DbgHelp.dll is not available in your system, cannot access symbol database\n" );
 	}
 
 	Protect();
@@ -182,14 +199,14 @@ DWORD HandleException( DEBUG_EVENT & debug_info )
 						g_can_read[index] = true;
 					else
 					{
-						result = BadAccess( debug_info, write_access, address );
+						result = BadAccess( debug_info, true, address );
 					}
 				}
 				else
 				{
 					if( !g_can_read[index] )
 					{
-						result = BadAccess( debug_info, write_access, address );						
+						result = BadAccess( debug_info, false, address );						
 					}
 				}
 				if( !g_detach )
@@ -219,7 +236,7 @@ DWORD HandleException( DEBUG_EVENT & debug_info )
 			}
 			else
 			{
-				printf_s( "ERROR: exception %x expects 2 parameters\n", EXC_SET_BUFFER );
+				Print( "ERROR: exception %x expects 2 parameters\n", EXC_SET_BUFFER );
 				return DBG_EXCEPTION_NOT_HANDLED;
 			}
 
@@ -234,7 +251,7 @@ DWORD HandleException( DEBUG_EVENT & debug_info )
 			}
 			else
 			{
-				printf_s( "ERROR: exception %x expects 2 parameters\n", EXC_SET_BUFFER );
+				Print( "ERROR: exception %x expects 2 parameters\n", EXC_SET_BUFFER );
 				return DBG_EXCEPTION_NOT_HANDLED;
 			}			
 
@@ -249,7 +266,7 @@ DWORD HandleException( DEBUG_EVENT & debug_info )
 			}
 			else
 			{
-				printf_s( "ERROR: exception %x expects 2 parameters\n", EXC_SET_BUFFER );
+				Print( "ERROR: exception %x expects 2 parameters\n", EXC_SET_BUFFER );
 				return DBG_EXCEPTION_NOT_HANDLED;
 			}			
 
@@ -266,19 +283,71 @@ DWORD HandleException( DEBUG_EVENT & debug_info )
 			return DBG_CONTINUE;
 
 		default:
-			if( exception_debug_info.dwFirstChance )
-				printf_s( "first chance exception: %x\n", exception_debug_info.ExceptionRecord.ExceptionCode );
-			else
-				printf_s( "second chance exception: %x\n", exception_debug_info.ExceptionRecord.ExceptionCode );
-			PrintStackTrace( debug_info.dwThreadId );
-			return DBG_EXCEPTION_NOT_HANDLED;
+			return HandleGenericException( debug_info );
 	}
 }
 
+DWORD HandleGenericException( DEBUG_EVENT & debug_info )
+{
+	EXCEPTION_DEBUG_INFO & exception_debug_info = debug_info.u.Exception;
+	const bool continuable = (exception_debug_info.ExceptionRecord.ExceptionFlags & EXCEPTION_NONCONTINUABLE) == 0;
+	Print( "\n\n\n *********** %s %s chance exception: %x ***********\n\n",
+		continuable ? "continuable" : "noncontinuable",
+		exception_debug_info.dwFirstChance ? "first" : "second",
+		exception_debug_info.ExceptionRecord.ExceptionCode );
+
+	HANDLE thread_handle = GetThreadHandle( debug_info.dwThreadId );
+	CONTEXT context;
+	ZeroMemory( &context, sizeof(context) );
+	context.ContextFlags = CONTEXT_ALL;
+	GetThreadContext( thread_handle, &context );
+	void * code_address = GetCodeAddress( context );
+
+	DumpCodeAround( code_address );
+
+	PrintStackTrace( debug_info.dwThreadId );
+
+	if( !exception_debug_info.dwFirstChance && continuable )
+	{				
+		Print( "\nType a command:\n" );
+		Print( "  continue: ignore and continue execution\n" );
+		Print( "  quit: quit and let the system handle the exception\n" );
+
+		for(;;)
+		{
+			std::string command, parameters;
+			AskCommand( command, parameters );
+			if( command == "continue" )
+			{
+				if( parameters.length() > 0 )
+				{
+					Print( "no parameters expected\n" );
+					continue;
+				}
+				return DBG_CONTINUE;
+			}
+			else if( command == "quit" )
+			{
+				if( parameters.length() > 0 )
+				{
+					Print( "no parameters expected\n" );
+					continue;
+				}
+				g_detach = true;
+				return DBG_EXCEPTION_NOT_HANDLED;
+			}
+			else
+			{
+				Print( "unrecognized command: %s\n", command.c_str() );
+			}
+		}
+	}
+	return DBG_EXCEPTION_NOT_HANDLED;
+}
 
 void PrintStackTrace( DWORD thread_id )
 {
-	printf_s( "\n*** STACK TRACE ***\n" );
+	Print( "\n*** STACK TRACE ***\n" );
 
 	HANDLE thread_handle = GetThreadHandle( thread_id );
 	CONTEXT context;
@@ -294,7 +363,7 @@ void PrintStackTrace( DWORD thread_id )
 	{
 		DebugHelp::CodeAddressInfo address_info;
 		g_debug_help.get_code_address_info( stack_trace[index], address_info );
-		printf_s( "%s0x%p %s (%d)\n", index == 0 ? "->" : "  ",
+		Print( "%s0x%p %s (%d)\n", index == 0 ? "->" : "  ",
 			stack_trace[index], address_info.function_name.c_str(), address_info.line );
 	}
 }
@@ -303,11 +372,11 @@ void DumpMemoryContent( void * i_address, uintptr_t i_unit )
 {
 	if( i_unit != 1 && i_unit != 2 && i_unit != 4 && i_unit != 8 )
 	{
-		printf_s( "DumpMemoryContent called with wrong i_unit: %d\n", i_unit );
+		Print( "DumpMemoryContent called with wrong i_unit: %d\n", i_unit );
 		return;
 	}
 
-	printf_s( "\n*** MEMORY CONTENT AROUND 0x%p grouped by %d byte(s) ***\n", i_address, i_unit );
+	Print( "\n*** MEMORY CONTENT AROUND 0x%p grouped by %d byte(s) ***\n", i_address, i_unit );
 
 	uintptr_t range = 8 * i_unit;
 	uintptr_t from = (uintptr_t)i_address;
@@ -344,33 +413,33 @@ void DumpMemoryContent( void * i_address, uintptr_t i_unit )
 			else if( can_write )
 				access = "writable";
 			if( i_unit == 1 )
-				printf_s( "%s0x%p: 0x%02x - %s\n", indicator, curr_address, buffer[0], access );
+				Print( "%s0x%p: 0x%02x - %s\n", indicator, curr_address, buffer[0], access );
 			else if( i_unit == 2 )
-				printf_s( "%s0x%p: 0x%04x - %s\n", indicator, curr_address, *(__int16*)buffer, access );
+				Print( "%s0x%p: 0x%04x - %s\n", indicator, curr_address, *(__int16*)buffer, access );
 			else if( i_unit == 4 )
-				printf_s( "%s0x%p: 0x%08x - %s\n", indicator, curr_address, *(__int32*)buffer, access );
+				Print( "%s0x%p: 0x%08x - %s\n", indicator, curr_address, *(__int32*)buffer, access );
 			else if( i_unit == 8 )
 			{
 				char str_num[256];
 				_i64toa_s( *(__int64*)buffer, str_num, sizeof(str_num) / sizeof(char), 16 );
-				printf_s( "%s0x%p: 0x%s - %s\n", indicator, curr_address, str_num, access );
+				Print( "%s0x%p: 0x%s - %s\n", indicator, curr_address, str_num, access );
 			}
 		}
 		else
-			printf_s( "%s0x%p - invalid\n", indicator, curr_address );
+			Print( "%s0x%p - invalid\n", indicator, curr_address );
 	}
 }
 
 void DumpCodeAround( void * i_address )
 {
-	printf_s( "\n*** SOURCE CODE AROUND 0x%p ***\n", i_address );
+	Print( "\n*** SOURCE CODE AROUND 0x%p ***\n", i_address );
 
 
 	std::string module_name;
 	if( !g_debug_help.get_containing_module( (uintptr_t)i_address, module_name ) )
-		printf_s( "could not find a module containing the address 0x%p\n", i_address );
+		Print( "could not find a module containing the address 0x%p\n", i_address );
 	else
-		printf_s( "module: %s\n", module_name.c_str() );
+		Print( "module: %s\n", module_name.c_str() );
 
 	DebugHelp::CodeAddressInfo info;
 	g_debug_help.get_code_address_info( (uintptr_t)i_address, info );
@@ -379,11 +448,11 @@ void DumpCodeAround( void * i_address )
 	fopen_s( &source_code_file, info.source_file_name.c_str(), "r" );
 	if( source_code_file == NULL )
 	{
-		printf_s( "could not open the source file: %s\n", info.source_file_name.c_str() );
+		Print( "could not open the source file: %s\n", info.source_file_name.c_str() );
 	}
 	else
 	{
-		printf_s( "source file: %s\n", info.source_file_name.c_str() );
+		Print( "source file: %s\n", info.source_file_name.c_str() );
 
 		int line_index = 1;
 		const size_t max_line_length = 2048;
@@ -406,9 +475,9 @@ void DumpCodeAround( void * i_address )
 			if( abs(line_index - info.line) <= line_spread )
 			{
 				if( line_index == info.line )
-					printf_s( "->%4d: %s\n", line_index, line );
+					Print( "->%4d: %s\n", line_index, line );
 				else
-					printf_s( "  %4d: %s\n", line_index, line );
+					Print( "  %4d: %s\n", line_index, line );
 			}
 			
 			line_index++;
@@ -418,7 +487,7 @@ void DumpCodeAround( void * i_address )
 	}
 }
 
-void SaveDump( DEBUG_EVENT & debug_info, MINIDUMP_TYPE i_type )
+void SaveDump( DEBUG_EVENT & debug_info, MINIDUMP_TYPE i_type, const char * i_file_name )
 {
 	HANDLE thread_handle = GetThreadHandle( debug_info.dwThreadId );
 	CONTEXT context;
@@ -436,33 +505,41 @@ void SaveDump( DEBUG_EVENT & debug_info, MINIDUMP_TYPE i_type )
 	info.ExceptionPointers = &except_info;
 	info.ClientPointers = FALSE;
 	info.ThreadId = debug_info.dwThreadId;
-	bool result = g_debug_help.write_mini_dump( "memo_dump.dmp", MiniDumpWithFullMemory, info );
+	bool result = g_debug_help.write_mini_dump( i_file_name, MiniDumpWithFullMemory, info );
 	if( result )
-		printf_s( "dump saved\n" );
+		Print( "dump saved\n" );
 	else
-		printf_s( "failed to rite a dump\n" );
+		Print( "failed to rite a dump\n" );
 }
 
+void * GetCodeAddress( const CONTEXT & i_context )
+{
+	#if defined( _M_IX86 )
+		return (void*)i_context.Eip;
+	#elif defined( _M_X64 )
+		return (void*)i_context.Rip;
+	#else
+		#error assign instruction pointer
+	#endif
+}
 
 DWORD BadAccess( DEBUG_EVENT & debug_info, bool write, void * address )
 {
-	printf_s( "\n\n\n *********** ERROR: " );
-	if( write )
-		printf_s( "writing unwritable address: 0x%p", address );
-	else
-		printf_s( "reading unreadable address: 0x%p", address );
-	printf_s( " ***********\n" );
-
-	// stack trace
-	PrintStackTrace( debug_info.dwThreadId );
+	Print( "\n\n\n *********** ERROR: attempt to %s address 0x%p ***********\n", 
+		write ? "write unwritable" : "read unreadable", address );
 
 	// code
 	HANDLE thread_handle = GetThreadHandle( debug_info.dwThreadId );
 	CONTEXT context;
 	ZeroMemory( &context, sizeof(context) );
 	context.ContextFlags = CONTEXT_ALL;
-	GetThreadContext( thread_handle, &context );
-	DumpCodeAround( (void*)context.Eip );
+	GetThreadContext( thread_handle, &context );	
+	void * code_address = GetCodeAddress( context );
+
+	// stack trace
+	PrintStackTrace( debug_info.dwThreadId );
+
+	DumpCodeAround( code_address );
 
 	// memory content
 	DumpMemoryContent( address, 4 );
@@ -471,84 +548,299 @@ DWORD BadAccess( DEBUG_EVENT & debug_info, bool write, void * address )
 
 	while( !g_detach )
 	{
-		printf_s( "\nType a command:\n" );
-		printf_s( "  'd': detach the target process, to allow another debugger to attach to it\n" );
-		printf_s( "  'r': resume the target process, ignoring the error\n" );
-		printf_s( "  'q': resume the target process, and quit\n" );
-		printf_s( "  'm': save a minidump\n" );
-		printf_s( "  'c': save a complete dump\n" );
-		printf_s( "  '1', '2', '4', '8': dump memory content around 0x%p\n", address );
-		printf_s( ">> " );
-		char command[1024] = "";
-		gets_s( command );
-		switch( command[0] )
+		std::string mini_dump_file_name, dump_file_name, output_file_name;
+		if( !g_debug_help.get_containing_module( (uintptr_t)code_address, dump_file_name ) )
 		{
-		case 'd':
+			dump_file_name = "memo_dump.dmp";
+			mini_dump_file_name = "memo_mini_dump.dmp";
+			output_file_name = "memo_output.txt";
+		}
+		else
+		{
+			size_t char_pos;
+			char_pos = dump_file_name.rfind('.');
+			if( char_pos != std::string::npos )
+				dump_file_name = dump_file_name.substr( 0, char_pos );
+			char_pos = dump_file_name.find_last_of( "\\/" );
+			if( char_pos != std::string::npos && char_pos + 2 < dump_file_name.length() )
+				dump_file_name = dump_file_name.substr( char_pos + 1 );
+			mini_dump_file_name = dump_file_name + "_memo_mini.dmp";
+			output_file_name = dump_file_name + "_memo_output.txt";
+			dump_file_name += "_memo.dmp";
+		}
+
+		Print( "\nType a command:\n" );
+		Print( "  detach: detach the target process, to allow another debugger to attach to it\n" );
+		Print( "  ignore: resume the target process, ignoring the error\n" );
+		Print( "  quit: resume the target process, and quit\n" );
+		Print( "  minidump [file=%s]: save a minidump\n", mini_dump_file_name.c_str() );
+		Print( "  dump [file=%s]: save a complete dump\n", dump_file_name.c_str() );
+		Print( "  mem [1|2|4|8]: dump memory content around 0x%p\n", address );
+		Print( "  save [file=%s]: save all the output of this program\n", output_file_name.c_str() );
+		Print( "  copy: copy all the output of this program into the clipboard\n" );
+
+		std::string command, parameters;
+		AskCommand( command, parameters );
+		
+		if( command == "detach" )
+		{
+			// detach
+			if( parameters.length() > 0 )
+			{
+				Print( "no parameters expected\n" );
+				continue;
+			}
 			if( debugging )
 			{
-				printf_s( "detaching the process\n" );
+				Print( "detaching the process\n" );
 				DebugActiveProcessStop( g_target_process_id );
 				debugging = false;
 			}
 			else
-				printf_s( "process not attached\n" );
-			break;
-
-		case 'r':
+				Print( "process not attached\n" );
+		}
+		else if( command == "ignore" )
+		{
+			// ignore
+			if( parameters.length() > 0 )
+			{
+				Print( "no parameters expected\n" );
+				continue;
+			}
 			if( !debugging )
 			{
-				printf_s( "attaching the process\n" );
+				Print( "attaching the process\n" );
 				DebugActiveProcess( g_target_process_id );
 				debugging = true;
 			}
-			printf_s( "resuming execution\n" );
+			Print( "resuming execution\n" );
 			return DBG_CONTINUE;
-
-		case 'q':
-			printf_s( "resuming execution and quitting\n" );
-			g_detach = true;			
-			break;
-
-		case 'm':
+		}
+		else if( command == "quit" )
 		{
-			SaveDump( debug_info, MiniDumpNormal );
+			// quit
+			if( parameters.length() > 0 )
+			{
+				Print( "no parameters expected\n" );
+				continue;
+			}
+			if( parameters.length() > 0 )
+				Print( "no parameters expected\n" );
+			else 
+				Print( "resuming execution and quitting\n" );
+				g_detach = true;	
+		}
+		else if( command == "minidump" )
+		{
+			// minidump
+			if( parameters.length() > 0 )
+				mini_dump_file_name = parameters;
+			SaveDump( debug_info, MiniDumpNormal, mini_dump_file_name.c_str() );
 			continue;
 		}
-
-		case 'c':
+		else if( command == "dump" )
 		{
-			SaveDump( debug_info, MiniDumpWithFullMemory );
-			continue;
+			// dump
+			if( parameters.length() > 0 )
+				dump_file_name = parameters;
+			SaveDump( debug_info, MiniDumpWithFullMemory, dump_file_name.c_str() );
+			continue;			
 		}
-
-		case '1':
+		else if( command == "mem" )
 		{
-			DumpMemoryContent( address, 1 );
-			continue;
+			// mem
+			uintptr_t unit = 4;
+			if( parameters.length() > 0 )
+			{
+				if( parameters == "1" )
+					unit = 1;
+				else if( parameters == "2" )
+					unit = 2;
+				else if( parameters == "4" )
+					unit = 4;
+				else if( parameters == "8" )
+					unit = 8;
+				else
+				{
+					Print( "parameter not recognized, expected 1, 2, 4, or 8\n" );
+					continue;
+				}
+			}
+			DumpMemoryContent( address, unit );
 		}
-
-		case '2':
+		else if( command == "save" )
 		{
-			DumpMemoryContent( address, 2 );
-			continue;
+			// save
+			if( parameters.length() > 0 )
+				output_file_name = parameters;
+			SaveOuput( output_file_name.c_str() );
 		}
-
-		case '4':
+		else if( command == "copy" )
 		{
-			DumpMemoryContent( address, 4);
-			continue;
+			// save
+			if( parameters.length() > 0 )
+			{
+				Print( "no parameters expected\n" );
+				continue;
+			}
+			CopyOuput();
 		}
-
-		case '8':
+		else
 		{
-			DumpMemoryContent( address, 8 );
-			continue;
-		}
-		
-		default:
-			printf_s( "unrecognized command: %s\n", command );
+			Print( "unrecognized command: %s\n", command.c_str() );
 		}
 	}	
 
 	return DBG_CONTINUE;
+}
+
+void FixNewlines( std::string & io_string )
+{
+	size_t start_from = 0;
+	for(;;)
+	{
+		size_t pos = io_string.find( '\n', start_from );
+		if( pos == std::string::npos )
+			break;
+
+		io_string = io_string.substr( 0, pos ) + "\r\n" + io_string.substr( pos + 1 ); 
+		start_from = pos + 2;
+	}
+}
+
+bool SaveOuput( const char * i_file_name )
+{
+	std::string file_name( i_file_name );
+	HANDLE file;
+	int tries = 0;
+	for(;;)
+	{
+		file = CreateFile( file_name.c_str(), GENERIC_WRITE, 0, NULL, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL );
+		if( file != INVALID_HANDLE_VALUE )
+			break;
+
+		if( tries == 0 )
+			srand( GetTickCount() );
+		else if( tries > 100 )
+		{
+			printf("failed to pick a valid filename for the ouput: %s\n", i_file_name );
+			return false;
+		}
+
+		tries++;
+
+		char buffer[512];
+		int random = rand();
+		sprintf_s( buffer, "%x", random );
+
+		const char * dot = strrchr( i_file_name, '.' );
+		if( dot )
+		{
+			file_name = std::string( i_file_name, dot - i_file_name );
+			file_name += '_';
+			file_name += buffer;
+			file_name += dot;
+		}
+		else
+		{			
+			file_name = i_file_name;
+			file_name += '_';
+			file_name += buffer;
+		}
+	}
+
+	std::string string = g_output.str();
+	FixNewlines( string );
+	DWORD written = 0;
+	DWORD to_write = (DWORD)string.length();
+	BOOL result = WriteFile( file, string.c_str(), string.length(), &written, NULL );
+	result = result && written == to_write;
+	CloseHandle( file );
+
+	if( result != 0 )
+	{
+		printf("dump successfully saved: %s\n", file_name.c_str() );
+		return true;
+	}
+	else
+	{
+		printf("failed to write the file: %s\n", file_name.c_str() );
+		return false;
+	}
+}
+
+bool CopyOuput()
+{
+	std::string string = g_output.str();
+	FixNewlines( string );
+
+	bool result = false;
+
+	if( !OpenClipboard( NULL ) )
+	{
+		Print("failed to open the clipboard\n" );
+		return false;
+	}
+
+	HGLOBAL hMem = GlobalAlloc( GMEM_MOVEABLE, string.length() + 1 );
+	if( !hMem )
+	{
+		Print("failed to allocate memory to copy to the clipboard\n" );
+	}
+	else
+	{
+		char * str_dest = (char*)GlobalLock(hMem);
+
+		if( str_dest )
+			strcpy_s( str_dest, string.length() + 1, string.c_str() );
+
+		GlobalUnlock( hMem );
+
+		if( str_dest )
+		{
+			EmptyClipboard();
+			HANDLE hobj = SetClipboardData(CF_TEXT, hMem);
+			result = hobj != NULL;
+		}
+	}
+
+	CloseClipboard();
+	return result;
+}
+
+void AskCommand( std::string & io_command, std::string & io_parameters )
+{
+	Print( ">> " );
+
+	io_command.reserve( 16 );
+	io_parameters.reserve( 16 );
+	io_command.clear();
+	io_parameters.clear();
+
+	char line[1024*2] = "";
+	gets_s( line );
+
+	const char * curr_char = line;
+	while( isspace(*curr_char) )
+		curr_char++;
+	while( isalnum(*curr_char) )
+	{
+		io_command += *curr_char;
+		curr_char++;
+	}
+	while( isspace(*curr_char) )
+		curr_char++;
+	while( *curr_char )
+	{
+		io_parameters += *curr_char;
+		curr_char++;
+	}
+
+	while( io_parameters.length() > 0 && isspace( io_parameters.back() ) )
+		io_parameters.pop_back();
+
+	if( io_parameters.length() )
+		Print( "command: \"%s\" \"%s\"\n", io_command.c_str(), io_parameters.c_str() );
+	else
+		Print( "command: \"%s\"\n", io_command.c_str() );
 }
