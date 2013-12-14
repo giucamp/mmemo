@@ -230,7 +230,7 @@ DWORD HandleException( DEBUG_EVENT & debug_info )
 				g_buffer_address = (void*)exception_debug_info.ExceptionRecord.ExceptionInformation[0];
 				g_buffer_size = exception_debug_info.ExceptionRecord.ExceptionInformation[1];
 				g_buffer_end = (void*)(exception_debug_info.ExceptionRecord.ExceptionInformation[0] + exception_debug_info.ExceptionRecord.ExceptionInformation[1] );
-				g_granularity = exception_debug_info.ExceptionRecord.ExceptionInformation[2];
+				g_granularity = (DWORD)exception_debug_info.ExceptionRecord.ExceptionInformation[2];
 				g_can_read.resize( g_buffer_size >> g_granularity, false );
 				g_can_write.resize( g_buffer_size >> g_granularity, false );
 				OpenThread( debug_info.dwThreadId );
@@ -755,7 +755,7 @@ bool SaveOuput( const char * i_file_name )
 	FixNewlines( string );
 	DWORD written = 0;
 	DWORD to_write = (DWORD)string.length();
-	BOOL result = WriteFile( file, string.c_str(), string.length(), &written, NULL );
+	BOOL result = WriteFile( file, string.c_str(), (DWORD)string.length(), &written, NULL );
 	result = result && written == to_write;
 	CloseHandle( file );
 

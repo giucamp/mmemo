@@ -124,11 +124,20 @@ size_t DebugHelp::capture_call_stack_trace( HANDLE i_process_handle, HANDLE i_th
 	CONTEXT thread_context( i_thread_context );
 
 	MachineType                 = IMAGE_FILE_MACHINE_I386;
-	stack_frame.AddrPC.Offset    = thread_context.Eip;
-	stack_frame.AddrPC.Mode      = AddrModeFlat;
-	stack_frame.AddrFrame.Offset = thread_context.Ebp;
-	stack_frame.AddrFrame.Mode   = AddrModeFlat;
-	stack_frame.AddrStack.Offset = thread_context.Esp;
+	#if defined( _M_IX86 )
+		stack_frame.AddrPC.Offset    = thread_context.Eip;
+		stack_frame.AddrFrame.Offset = thread_context.Ebp;
+		stack_frame.AddrStack.Offset = thread_context.Esp;
+	#elif defined( _M_X64 )
+		stack_frame.AddrPC.Offset    = thread_context.Rip;
+		stack_frame.AddrFrame.Offset = thread_context.Rbp;
+		stack_frame.AddrStack.Offset = thread_context.Rsp;
+	#else
+		#error 
+	#endif
+	
+	stack_frame.AddrPC.Mode      = AddrModeFlat;	
+	stack_frame.AddrFrame.Mode   = AddrModeFlat;	
 	stack_frame.AddrStack.Mode   = AddrModeFlat;
 	void * context = (MachineType == IMAGE_FILE_MACHINE_I386) ? NULL : &thread_context;
 	

@@ -78,7 +78,7 @@ namespace memo
 						const char * const end = curr_pos + memo_externals::g_max_config_line_length;
 						while( curr_pos < end && *curr_pos == '\t' )
 							curr_pos++;
-						m_current_depth = curr_pos - line;
+						m_current_depth = static_cast<int>( curr_pos - line );
 
 						// white spaces
 						while( curr_pos < end && isspace( *curr_pos ) )

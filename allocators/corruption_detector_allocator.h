@@ -112,7 +112,21 @@ namespace memo
 				m_heading_nomansland = sizeof(void*);
 				m_tailing_nomansland = sizeof(void*);
 				m_check_granularity = 2;
-				m_memo_debugger_name = "memo_debugger.exe";
+				#if defined( _M_IX86 )
+					#ifdef _DEBUG
+						m_memo_debugger_name = "memo_debugger_Win32_Debug.exe";
+					#else
+						m_memo_debugger_name = "memo_debugger_Win32_Release.exe";
+					#endif
+				#elif defined( _M_X64 )
+					#ifdef _DEBUG
+						m_memo_debugger_name = "memo_debugger_x64_Debug.exe";
+					#else
+						m_memo_debugger_name = "memo_debugger_x64_Release.exe";
+					#endif
+				#else
+					#error assign instruction pointer
+				#endif				
 			}
 
 		protected:

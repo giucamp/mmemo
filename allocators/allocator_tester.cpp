@@ -44,7 +44,7 @@ namespace memo
 			alloc.m_size = generate_rand_32() % m_max_allocation_size;
 			if( aligned )
 			{
-				alloc.m_alignment = 1u << (generate_rand_32() & 5 );
+				alloc.m_alignment = static_cast<size_t>(1) << (generate_rand_32() & 5 );
 				alloc.m_size &= ~( alloc.m_alignment - 1 );
 				alloc.m_offset = alloc.m_size > 0 ? ( ( generate_rand_32() % alloc.m_size ) & ~( MEMO_MIN_ALIGNMENT - 1 ) ) : 0;
 				alloc.m_block = m_allocator.alloc( alloc.m_size, alloc.m_alignment, alloc.m_offset );
