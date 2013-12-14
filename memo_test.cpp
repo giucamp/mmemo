@@ -230,6 +230,11 @@ namespace memo
 			for( int i = 1; i <= 5; i++ )
 				array[i] = i;
 			MEMO_DELETE_ARRAY( array );
+
+			double * array_d = MEMO_NEW_ARRAY( double, 5 );
+			for( int i = 1; i < 5; i++ )
+				array_d[i] = i;
+			MEMO_DELETE_ARRAY( array_d );
 		}
 
 		void test()

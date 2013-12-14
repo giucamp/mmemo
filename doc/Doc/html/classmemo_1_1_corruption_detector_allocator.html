@@ -146,9 +146,70 @@ Static Public Member Functions</h2></td></tr>
 <div class="textblock"><p>This is a special allocator that is able to detect:</p>
 <ul>
 <li>read accesses to memory that was allocated but never written (i.e. uninitialized memory usage)</li>
-<li>read or write access to memory outside allocated blocks When the program tries to access a wrong memory access, a SEH exception is thrown (a crash), so that the program can be debugged (do not confuse SEH with C++ exception mechanism). <a class="el" href="classmemo_1_1_corruption_detector_allocator.html">CorruptionDetectorAllocator</a> exploits the virtual memory guard mechanism, and traps every single access to the memory blocks: every time the program read or writes memory inside a block, the system invokes a trapping routine that checks the validity of the access. For these reason, accessing the memory allocated by <a class="el" href="classmemo_1_1_corruption_detector_allocator.html">CorruptionDetectorAllocator</a> is extremely slow. Currently this allocator is defined only for windows, as it uses windows specific APIs. Internally <a class="el" href="classmemo_1_1_corruption_detector_allocator.html">CorruptionDetectorAllocator</a> uses the tlsf allocator implemented by Matthew Conte (<a href="http://tlsf.baisoku.org">http://tlsf.baisoku.org</a>). </li>
+<li>read or write access to memory outside allocated blocks</li>
 </ul>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+<p><a class="el" href="classmemo_1_1_corruption_detector_allocator.html">CorruptionDetectorAllocator</a> runs an external debugger, "memo_debugger.exe", and communicates with it. memo_debugger tracks every read or write access inside the memory managed by <a class="el" href="classmemo_1_1_corruption_detector_allocator.html">CorruptionDetectorAllocator</a>, so the access to this memory is extremely slow. Currently this allocator is defined only for windows, as it uses windows specific APIs. Internally <a class="el" href="classmemo_1_1_corruption_detector_allocator.html">CorruptionDetectorAllocator</a> uses the tlsf allocator implemented by Matthew Conte (<a href="http://tlsf.baisoku.org">http://tlsf.baisoku.org</a>).</p>
+<p>When memo_debugger detects an invalid memory read or write operation, it breaks the execution of the program, writes about the error on its console window, and allows the user to choose one if these actions:</p>
+<ul>
+<li>detaching the target process, to allow another debugger to attach to it</li>
+<li>resuming the target process, ignoring the error</li>
+<li>quitting, after resuming the target process</li>
+<li>saving a dump that can be opened in a compatible debugger, such visual studio or windbg.</li>
+<li>dumping the memory content around</li>
+<li>saving or copying all the output of the debugger</li>
+</ul>
+<p>Here is an example of the output of the debugger:</p>
+<pre class="fragment"> *********** ERROR: attempt to write unwritable address 0x00790C9C ***********
+
+*** STACK TRACE ***
+-&gt;0x0096047A memo::ContextTest::test_CorruptionDetectorAllocator (231)
+  0x0095FA95 memo::ContextTest::test (247)
+  0x0095F974 memo::test (262)
+  0x0094B5A6 main (82)
+  0x0098E7FF __tmainCRTStartup (555)
+  0x0098E62F mainCRTStartup (371)
+  0x75D5ED5C BaseThreadInitThunk (371)
+  0x778B37EB RtlInitializeExceptionChain (371)
+  0x778B37BE RtlInitializeExceptionChain (371)
+
+*** SOURCE CODE AROUND 0x0096047A ***
+module: D:\GitHub\mmemo\test\Debug\test.exe
+source file: d:\github\mmemo\memo_test.cpp
+   229:             int * array = MEMO_NEW_ARRAY( int, 5 );
+   230:             for( int i = 1; i &lt;= 5; i++ )
+-&gt; 231:                 array[i] = i;
+   232:             MEMO_DELETE_ARRAY( array );
+   233: 
+
+*** MEMORY CONTENT AROUND 0x00790C9C grouped by 4 byte(s) ***
+  0x00790C7C: 0x00790000 - not allocated
+  0x00790C80: 0x0045842c - readable/writable
+  0x00790C84: 0x00000005 - readable/writable
+  0x00790C88: 0x40400000 - writable
+  0x00790C8C: 0x00000001 - readable/writable
+  0x00790C90: 0x00000002 - readable/writable
+  0x00790C94: 0x00000003 - readable/writable
+  0x00790C98: 0x00000004 - readable/writable
+-&gt;0x00790C9C: 0x00790c70 - not allocated
+  0x00790CA0: 0x000ff359 - not allocated
+  0x00790CA4: 0x00790000 - not allocated
+  0x00790CA8: 0x00790000 - not allocated
+  0x00790CAC: 0x00000000 - not allocated
+  0x00790CB0: 0x00000000 - not allocated
+  0x00790CB4: 0x00000000 - not allocated
+  0x00790CB8: 0x00000000 - not allocated
+  0x00790CBC: 0x00000000 - not allocated
+
+Type a command:
+  detach: detach the target process, to allow another debugger to attach to it
+  ignore: resume the target process, ignoring the error
+  quit: resume the target process, and quit
+  minidump [file=test_memo_mini.dmp]: save a minidump
+  dump [file=test_memo.dmp]: save a complete dump
+  mem [1|2|4|8]: dump memory content around 0x00790C9C
+  save [file=test_memo_output.txt]: save all the output of this program
+  copy: copy all the output of this program into the clipboard
+&gt;&gt; </pre> </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a31adafa97455b9ed1afc71d76ecc5250"></a>
 <div class="memitem">
 <div class="memproto">
@@ -531,7 +592,7 @@ Static Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 6 2013 08:57:36 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 14 2013 12:03:15 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

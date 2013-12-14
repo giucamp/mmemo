@@ -76,11 +76,149 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="whats"></a>
 What's Memo</h1>
-<p>Memo is an open source C++ library that provides data-driven and object-oriented memory management. The classic scenario of dynamic memory allocation consists of a program requesting randomly dynamic storage to a black-box allocator (implementing a set of malloc functions) which doesn’t know and can’t predict anything about the requests of the program. Implementing a good black-box is a well known difficult problem. The main point of memo is not providing memory allocation algorithms, but rather adding a layer between the allocator and the program, to allow to select the best memory allocation strategy with the best tuning for every part of the program. Provided that the key functions in the source code are tagged with contexts, Memo allows to select and tune a different allocator for any context without altering the code, but just editing a memory configuration file. </p>
-</div></div><!-- contents -->
+<p>Memo is an open source C++ library that provides data-driven and object-oriented memory management. The classic scenario of dynamic memory allocation consists of a program requesting randomly dynamic storage to a black-box allocator that implements a set of malloc functions, and that doesn't know and can't predict anything about the requests of the program. Memo adds a layer between the allocator and the program, and allows the program to select the best memory allocation strategy with the best tuning for every part of the program. In Memo an allocation algorithm is wrapped by a class implementing the interface IAllocator.</p>
+<ul>
+<li>the default allocator, which wraps the system malloc</li>
+<li>the debug allocator, which decorates another allocator adding no man's land around memory blocks and initializing memory to help to catch uninitialized variables</li>
+<li>the statistics allocator, which decorates another allocator to keep tracks of: total memory allocated, total block count, and allocation peaks</li>
+<li>the tlsf allocator, which wraps the two level segregate allocator written by Matthew Conte (<a href="http://tlsf.baisoku.org">http://tlsf.baisoku.org</a>)</li>
+</ul>
+<div class="image">
+<img src="classmemo_1_1_i_allocator__inherit__graph.png"  alt="Allocator Hierarchy"/>
+</div>
+<p>Provided that the key functions in the source code are tagged with contexts, Memo allows to select and tune a different allocator for any context without altering the code, but just editing a memory configuration file.</p>
+<h1><a class="anchor" id="usage"></a>
+Usage</h1>
+<p>Just as one can expect, Memo provides a set of global functions to allocate memory, similar to the ones of the standard C library, and a set of macros to allocate C++ objects:</p>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> * buffer = memo::alloc( buffer_length, buffer_alignment, 0/ *offset* / );</div>
+<div class="line"><span class="comment">// ...</span></div>
+<div class="line">memo::free( buffer );</div>
+<div class="line"></div>
+<div class="line">Dog * bell = MEMO_NEW( Dog, <span class="stringliteral">&quot;Bell&quot;</span> );</div>
+<div class="line"><span class="comment">// ...</span></div>
+<div class="line">MEMO_DELETE( bell );</div>
+</div><!-- fragment --><p>The allocation requests are redirected to an object implementing the interface IAllocator. But which one is used? Every thread has its own current allocator, that is used to allocate new memory blocks. Anyway, when a realloc or free is requested, the operation is performed by the allocator that allocated the block, regardless or the current allocator of the thread. The memory configuration file can associate a startup allocator to every thread, otherwise the default allocator is assigned.</p>
+<p>Memo allows to change the thread's current allocator, but it's not recommended. The best practice is opening contexts on the callstack:</p>
+<div class="fragment"><div class="line"><span class="keyword">const</span> <a class="code" href="classmemo_1_1_static_name.html">memo::StaticName</a> g_graphics( <span class="stringliteral">&quot;graphics&quot;</span> );</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">void</span> load_archive( <span class="keyword">const</span> <span class="keywordtype">char</span> * i_file_name )</div>
+<div class="line">{</div>
+<div class="line">    memo::Context context( g_graphics );</div>
+<div class="line">    <span class="comment">// ...</span></div>
+<div class="line">    <span class="keywordtype">void</span> * buffer = memo::alloc( buffer_length, buffer_alignment, 0/ *offset* / );</div>
+<div class="line">    <span class="comment">// ...</span></div>
+<div class="line">}</div>
+</div><!-- fragment --><p>The context label is pushed on the calling thread when the object Context is constructed, and popped when it goes out of scope. Of course, contexts can be nested:</p>
+<div class="fragment"><div class="line"><span class="keyword">const</span> <a class="code" href="classmemo_1_1_static_name.html">memo::StaticName</a> g_zoo( <span class="stringliteral">&quot;zoo&quot;</span> );</div>
+<div class="line"><span class="keyword">const</span> <a class="code" href="classmemo_1_1_static_name.html">memo::StaticName</a> g_robots( <span class="stringliteral">&quot;robots&quot;</span> );</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">void</span> load_zoo( <span class="keyword">const</span> <span class="keywordtype">char</span> * i_file_name )</div>
+<div class="line">{</div>
+<div class="line">    memo::Context context( g_zoo );</div>
+<div class="line">    load_archive( i_file_name );</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">void</span> load_robots( <span class="keyword">const</span> <span class="keywordtype">char</span> * i_file_name )</div>
+<div class="line">{</div>
+<div class="line">    memo::Context context( g_robots );</div>
+<div class="line">    load_archive( i_file_name );</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>The Context objects pushed on the call stack form a context path. The function load_archive, called from load_animals, sets on the calling thread the context with the path "zoo/graphics". If the same function is called from load_robots, the path of the context is "robots/graphics".</p>
+<p>The memory configuration file can assign and tune an allocator for:</p>
+<ul>
+<li>the context "robots", and all its child context<ul>
+<li>the context "zoo/graphics"</li>
+<li>the context "robots/graphics"</li>
+</ul>
+</li>
+</ul>
+<h1><a class="anchor" id="datastack"></a>
+Data Stack</h1>
+<p>Memo allows to use a thread specific data stack, to perform lifo allocations:</p>
+<div class="fragment"><div class="line"><span class="keyword">const</span> <span class="keywordtype">size_t</span> required_size = strlen(str1) + strlen(str2);</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">char</span> * buffer = <span class="keyword">static_cast&lt;</span> <span class="keywordtype">char</span> * <span class="keyword">&gt;</span>( memo::lifo_alloc( <span class="keyword">sizeof</span>(<span class="keywordtype">char</span>) * required_size, <a class="code" href="memo__externals_8h.html#a924d8daa9e11da8f50fd634ebc58b0d1">MEMO_ALIGNMENT_OF</a>(<span class="keywordtype">char</span>), 0, <span class="keyword">nullptr</span> ) );</div>
+<div class="line"></div>
+<div class="line">strcpy( buffer, str1 );</div>
+<div class="line">strcat( buffer, str2 );</div>
+<div class="line"></div>
+<div class="line">memo::lifo_free( buffer );</div>
+</div><!-- fragment --><p>Lifo allocations are useful when the program needs a temporary storage with a size known only at runtime. The lifo order must be respected, otherwise the memory gets corrupted. In a debug build, a mismatch is reported with an assert.</p>
+<h1><a class="anchor" id="overhead"></a>
+Space and execution overhead</h1>
+<p>If you allocate memory using directly an IAllocator object, you don't have any space overhead. Anyway every allocation has a time overhead due to the virtual call. If you use the global function memo::alloc or the macro MEMO_NEW, then memo will add, at the beginning of the memory block, a pointer to the current allocator of the thread. This is the space overhead. Anyway, you may want to use memo just to analyze the memory usage of your program. In this case you can define, in the header <a class="el" href="memo__externals_8h.html">memo_externals.h</a>, the macro MEMO_ONLY_DEFAULT_ALLOCATOR as 1. In this way, the global function memo::alloc and the macro MEMO_NEW will resolve to a static call to the default allocator, to avoid both space and time overhead.</p>
+<h1><a class="anchor" id="corruptiondetector"></a>
+Detecting memory corruption</h1>
+<p>Memo includes a special allocator to help to find bugs in the code that causes wrong memory access and memory corruption. CorruptionDetectorAllocator can detect:</p>
+<ul>
+<li>read accesses to memory that was allocated but never written (i.e. uninitialized memory usage)</li>
+<li>read or write access to memory outside allocated blocks</li>
+</ul>
+<p>CorruptionDetectorAllocator runs an external debugger, "memo_debugger.exe", and communicates with it. memo_debugger tracks every read or write access inside the memory managed by CorruptionDetectorAllocator, so the access to this memory is extremely slow. Currently this allocator is defined only for windows, as it uses windows specific APIs. Internally CorruptionDetectorAllocator uses the tlsf allocator implemented by Matthew Conte (<a href="http://tlsf.baisoku.org">http://tlsf.baisoku.org</a>).</p>
+<p>When memo_debugger detects an invalid memory read or write operation, it breaks the execution of the program, writes about the error on its console window, and allows the user to choose one if these actions:</p>
+<ul>
+<li>detaching the target process, to allow another debugger to attach to it</li>
+<li>resuming the target process, ignoring the error</li>
+<li>quitting, after resuming the target process</li>
+<li>saving a dump that can be opened in a compatible debugger, such visual studio or windbg.</li>
+<li>dumping the memory content around</li>
+<li>saving or copying all the output of the debugger</li>
+</ul>
+<p>Here is an example of the output of the debugger:</p>
+<pre class="fragment">         *********** ERROR: attempt to write unwritable address 0x00790C9C ***********
+
+        *** STACK TRACE ***
+        -&gt;0x0096047A memo::ContextTest::test_CorruptionDetectorAllocator (231)
+          0x0095FA95 memo::ContextTest::test (247)
+          0x0095F974 memo::test (262)
+          0x0094B5A6 main (82)
+          0x0098E7FF __tmainCRTStartup (555)
+          0x0098E62F mainCRTStartup (371)
+          0x75D5ED5C BaseThreadInitThunk (371)
+          0x778B37EB RtlInitializeExceptionChain (371)
+          0x778B37BE RtlInitializeExceptionChain (371)
+
+        *** SOURCE CODE AROUND 0x0096047A ***
+        module: D:\GitHub\mmemo\test\Debug\test.exe
+        source file: d:\github\mmemo\memo_test.cpp
+           229:             int * array = MEMO_NEW_ARRAY( int, 5 );
+           230:             for( int i = 1; i &lt;= 5; i++ )
+        -&gt; 231:                 array[i] = i;
+           232:             MEMO_DELETE_ARRAY( array );
+           233: 
+
+        *** MEMORY CONTENT AROUND 0x00790C9C grouped by 4 byte(s) ***
+          0x00790C7C: 0x00790000 - not allocated
+          0x00790C80: 0x0045842c - readable/writable
+          0x00790C84: 0x00000005 - readable/writable
+          0x00790C88: 0x40400000 - writable
+          0x00790C8C: 0x00000001 - readable/writable
+          0x00790C90: 0x00000002 - readable/writable
+          0x00790C94: 0x00000003 - readable/writable
+          0x00790C98: 0x00000004 - readable/writable
+        -&gt;0x00790C9C: 0x00790c70 - not allocated
+          0x00790CA0: 0x000ff359 - not allocated
+          0x00790CA4: 0x00790000 - not allocated
+          0x00790CA8: 0x00790000 - not allocated
+          0x00790CAC: 0x00000000 - not allocated
+          0x00790CB0: 0x00000000 - not allocated
+          0x00790CB4: 0x00000000 - not allocated
+          0x00790CB8: 0x00000000 - not allocated
+          0x00790CBC: 0x00000000 - not allocated
+
+        Type a command:
+          detach: detach the target process, to allow another debugger to attach to it
+          ignore: resume the target process, ignoring the error
+          quit: resume the target process, and quit
+          minidump [file=test_memo_mini.dmp]: save a minidump
+          dump [file=test_memo.dmp]: save a complete dump
+          mem [1|2|4|8]: dump memory content around 0x00790C9C
+          save [file=test_memo_output.txt]: save all the output of this program
+          copy: copy all the output of this program into the clipboard
+        &gt;&gt; </pre> </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 6 2013 08:57:37 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 14 2013 12:03:15 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

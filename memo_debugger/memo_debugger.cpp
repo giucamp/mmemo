@@ -22,9 +22,10 @@ std::vector<bool> g_can_read;
 std::vector<bool> g_can_write;
 std::vector<DWORD> g_thread_ids;
 std::vector<HANDLE> g_thread_handles;
+DWORD g_granularity = 2;
 DebugHelp g_debug_help;
 std::ostringstream g_output;
-
+			
 void Print( const char * i_format, ... )
 {
 	const size_t buffer_size = 2048;
@@ -123,8 +124,8 @@ void Unprotect()
 
 void NotifyAllocation( void * address, size_t size )
 {
-	size_t start_index = reinterpret_cast<size_t>( address ) - reinterpret_cast<size_t>( g_buffer_address );
-	size_t end_index = start_index + size;
+	size_t start_index = (reinterpret_cast<size_t>( address ) - reinterpret_cast<size_t>( g_buffer_address )) >> g_granularity;
+	size_t end_index = start_index + (size >> g_granularity);
 	for( size_t index = start_index; index < end_index; index++ )
 	{
 		g_can_write[index] = true;
@@ -134,8 +135,8 @@ void NotifyAllocation( void * address, size_t size )
 
 void NotifyDeallocation( void * address, size_t size )
 {
-	size_t start_index = reinterpret_cast<size_t>( address ) - reinterpret_cast<size_t>( g_buffer_address );
-	size_t end_index = start_index + size;
+	size_t start_index = (reinterpret_cast<size_t>( address ) - reinterpret_cast<size_t>( g_buffer_address )) >> g_granularity;
+	size_t end_index = start_index + (size >> g_granularity);
 	for( size_t index = start_index; index < end_index; index++ )
 	{
 		g_can_write[index] = false;
@@ -191,7 +192,7 @@ DWORD HandleException( DEBUG_EVENT & debug_info )
 			void * address = (void*)exception_debug_info.ExceptionRecord.ExceptionInformation[1];
 			if( address >= g_buffer_address && address <= g_buffer_end )
 			{
-				size_t index = reinterpret_cast<size_t>(address) - reinterpret_cast<size_t>(g_buffer_address);
+				size_t index = (reinterpret_cast<size_t>(address) - reinterpret_cast<size_t>(g_buffer_address)) >> g_granularity;
 				const bool write_access = exception_debug_info.ExceptionRecord.ExceptionInformation[0] != 0;
 				if( write_access )
 				{
@@ -224,13 +225,14 @@ DWORD HandleException( DEBUG_EVENT & debug_info )
 		}
 
 		case EXC_SET_BUFFER:
-			if( exception_debug_info.ExceptionRecord.NumberParameters == 2 )
+			if( exception_debug_info.ExceptionRecord.NumberParameters == 3 )
 			{
 				g_buffer_address = (void*)exception_debug_info.ExceptionRecord.ExceptionInformation[0];
 				g_buffer_size = exception_debug_info.ExceptionRecord.ExceptionInformation[1];
 				g_buffer_end = (void*)(exception_debug_info.ExceptionRecord.ExceptionInformation[0] + exception_debug_info.ExceptionRecord.ExceptionInformation[1] );
-				g_can_read.resize( g_buffer_size, false );
-				g_can_write.resize( g_buffer_size, false );
+				g_granularity = exception_debug_info.ExceptionRecord.ExceptionInformation[2];
+				g_can_read.resize( g_buffer_size >> g_granularity, false );
+				g_can_write.resize( g_buffer_size >> g_granularity, false );
 				OpenThread( debug_info.dwThreadId );
 				return DBG_CONTINUE;
 			}
@@ -396,8 +398,8 @@ void DumpMemoryContent( void * i_address, uintptr_t i_unit )
 		valid = valid && ReadProcessMemory( g_target_process_handle, (LPCVOID)curr_address, buffer, i_unit, &bytes_read );
 		valid = valid && bytes_read >= i_unit;
 		
-		can_read = valid && g_can_read[ curr_address - (uintptr_t)g_buffer_address ];
-		can_write = valid && g_can_write[ curr_address - (uintptr_t)g_buffer_address ];
+		can_read = valid && g_can_read[ (curr_address - (uintptr_t)g_buffer_address) >> g_granularity ];
+		can_write = valid && g_can_write[ (curr_address - (uintptr_t)g_buffer_address) >> g_granularity ];
 
 		const char * indicator = "  ";
 		if( curr_address == (uintptr_t)i_address )

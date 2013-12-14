@@ -60,8 +60,8 @@ namespace memo
 		while( !IsDebuggerPresent() )
 			Sleep( 200 );
 
-		ULONG_PTR parameters[] = { reinterpret_cast<ULONG_PTR>( m_buffer ), static_cast<ULONG_PTR>( m_size ) };
-		RaiseException( EXC_SET_BUFFER, 0, 2, parameters );
+		ULONG_PTR parameters[] = { reinterpret_cast<ULONG_PTR>( m_buffer ), static_cast<ULONG_PTR>( m_size ), i_config.m_check_granularity };
+		RaiseException( EXC_SET_BUFFER, 0, 3, parameters );
 	}
 
 	CorruptionDetectorAllocator::~CorruptionDetectorAllocator()

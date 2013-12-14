@@ -1,8 +1,6 @@
 var searchData=
 [
   ['memo_3a_20overwiew_20and_20usage',['Memo: overwiew and usage',['../index.html',1,'']]],
-  ['m_5fbad_5fread_5faccess_5fexception',['m_bad_read_access_exception',['../structmemo_1_1_corruption_detector_allocator_1_1_config.html#a6d9e621d2774254300c1a3788ea2e10d',1,'memo::CorruptionDetectorAllocator::Config']]],
-  ['m_5fbad_5fwrite_5faccess_5fexception',['m_bad_write_access_exception',['../structmemo_1_1_corruption_detector_allocator_1_1_config.html#af54abce988579552e2f8781a2070c87e',1,'memo::CorruptionDetectorAllocator::Config']]],
   ['m_5fdeleted_5fmemory_5ffill_5fmode',['m_deleted_memory_fill_mode',['../structmemo_1_1_debug_allocator_1_1_config.html#a50d2e0e02d82ade76bbc1025ae6ae6e6',1,'memo::DebugAllocator::Config']]],
   ['m_5fexternal_5fallocator',['m_external_allocator',['../structmemo_1_1_lifo_allocator_1_1_config.html#a4828e6d5be1d64931e8bc8c44094c878',1,'memo::LifoAllocator::Config']]],
   ['m_5fheading_5fnomansland',['m_heading_nomansland',['../structmemo_1_1_corruption_detector_allocator_1_1_config.html#a21a7aee6a5f2e65d1658fc4f56090f82',1,'memo::CorruptionDetectorAllocator::Config']]],

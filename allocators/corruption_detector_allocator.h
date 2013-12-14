@@ -6,14 +6,81 @@ namespace memo
 	/**	This is a special allocator that is able to detect:
 			- read accesses to memory that was allocated but never written (i.e. uninitialized memory usage)
 			- read or write access to memory outside allocated blocks
-		When the program tries to access a wrong memory access, a SEH exception is thrown (a crash), so that 
-		the program can be debugged (do not confuse SEH with C++ exception mechanism).
-		CorruptionDetectorAllocator exploits the virtual memory guard mechanism, and traps every single access 
-		to the memory blocks: every time the program read or writes memory inside a block, the system invokes a 
-		trapping routine that checks the validity of the access. For these reason, accessing the memory allocated
-		by CorruptionDetectorAllocator is extremely slow.
+		
+		CorruptionDetectorAllocator runs an external debugger, "memo_debugger.exe", and communicates with it.
+		memo_debugger tracks every read or write access inside the memory managed by CorruptionDetectorAllocator,
+		so the access to this memory is extremely slow.
 		Currently this allocator is defined only for windows, as it uses windows specific APIs. Internally
 		CorruptionDetectorAllocator uses the tlsf allocator implemented by Matthew Conte (http://tlsf.baisoku.org).
+		
+		When memo_debugger detects an invalid memory read or write operation, it breaks the execution of the program,
+		writes about the error on its console window, and allows the user to choose one if these actions: 
+			- detaching the target process, to allow another debugger to attach to it
+			- resuming the target process, ignoring the error
+			- quitting, after resuming the target process
+			- saving a dump that can be opened in a compatible debugger, such visual studio or windbg.
+			- dumping the memory content around 
+			- saving or copying all the output of the debugger
+		
+		Here is an example of the output of the debugger:
+
+		\verbatim
+
+		 *********** ERROR: attempt to write unwritable address 0x00790C9C ***********
+
+		*** STACK TRACE ***
+		->0x0096047A memo::ContextTest::test_CorruptionDetectorAllocator (231)
+		  0x0095FA95 memo::ContextTest::test (247)
+		  0x0095F974 memo::test (262)
+		  0x0094B5A6 main (82)
+		  0x0098E7FF __tmainCRTStartup (555)
+		  0x0098E62F mainCRTStartup (371)
+		  0x75D5ED5C BaseThreadInitThunk (371)
+		  0x778B37EB RtlInitializeExceptionChain (371)
+		  0x778B37BE RtlInitializeExceptionChain (371)
+
+		*** SOURCE CODE AROUND 0x0096047A ***
+		module: D:\GitHub\mmemo\test\Debug\test.exe
+		source file: d:\github\mmemo\memo_test.cpp
+		   229: 			int * array = MEMO_NEW_ARRAY( int, 5 );
+		   230: 			for( int i = 1; i <= 5; i++ )
+		-> 231: 				array[i] = i;
+		   232: 			MEMO_DELETE_ARRAY( array );
+		   233: 
+
+		*** MEMORY CONTENT AROUND 0x00790C9C grouped by 4 byte(s) ***
+		  0x00790C7C: 0x00790000 - not allocated
+		  0x00790C80: 0x0045842c - readable/writable
+		  0x00790C84: 0x00000005 - readable/writable
+		  0x00790C88: 0x40400000 - writable
+		  0x00790C8C: 0x00000001 - readable/writable
+		  0x00790C90: 0x00000002 - readable/writable
+		  0x00790C94: 0x00000003 - readable/writable
+		  0x00790C98: 0x00000004 - readable/writable
+		->0x00790C9C: 0x00790c70 - not allocated
+		  0x00790CA0: 0x000ff359 - not allocated
+		  0x00790CA4: 0x00790000 - not allocated
+		  0x00790CA8: 0x00790000 - not allocated
+		  0x00790CAC: 0x00000000 - not allocated
+		  0x00790CB0: 0x00000000 - not allocated
+		  0x00790CB4: 0x00000000 - not allocated
+		  0x00790CB8: 0x00000000 - not allocated
+		  0x00790CBC: 0x00000000 - not allocated
+
+		Type a command:
+		  detach: detach the target process, to allow another debugger to attach to it
+		  ignore: resume the target process, ignoring the error
+		  quit: resume the target process, and quit
+		  minidump [file=test_memo_mini.dmp]: save a minidump
+		  dump [file=test_memo.dmp]: save a complete dump
+		  mem [1|2|4|8]: dump memory content around 0x00790C9C
+		  save [file=test_memo_output.txt]: save all the output of this program
+		  copy: copy all the output of this program into the clipboard
+		>> 
+
+
+		\endverbatim
+
 	*/
 	class CorruptionDetectorAllocator : public IAllocator
 	{
@@ -34,10 +101,7 @@ namespace memo
 			size_t m_region_size; /**< size (in bytes) of the memory that can be used by the allocator */
 			size_t m_heading_nomansland; /**< specifies the size of the heading no man's lands for every block */
 			size_t m_tailing_nomansland; /**< specifies the size of the tailing no man's lands for every block */
-			uint32_t m_bad_read_access_exception; /**< exception to throw when the program reads memory inside the 
-										  region of the allocator, but outside a block */
-			uint32_t m_bad_write_access_exception; /**< exception to throw when the program reads memory inside the 
-										  region of the allocator, but outside a block */
+			uint32_t m_check_granularity;
 			std_string m_memo_debugger_name;
 			Config()
 				{ set_defaults(); }
@@ -47,8 +111,7 @@ namespace memo
 				m_region_size = 1024 * 1024 * 1;
 				m_heading_nomansland = sizeof(void*);
 				m_tailing_nomansland = sizeof(void*);
-				m_bad_read_access_exception = 0x0BADBAD0;
-				m_bad_write_access_exception = 0x0BADBAD1;
+				m_check_granularity = 2;
 				m_memo_debugger_name = "memo_debugger.exe";
 			}
 
