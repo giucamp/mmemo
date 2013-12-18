@@ -19,7 +19,7 @@ namespace memo
 			- resuming the target process, ignoring the error
 			- quitting, after resuming the target process
 			- saving a dump that can be opened in a compatible debugger, such visual studio or windbg.
-			- dumping the memory content around 
+			- dumping the memory content around the address being wrongly accessed
 			- saving or copying all the output of the debugger
 		
 		Here is an example of the output of the debugger:

@@ -132,6 +132,7 @@ namespace memo
 Memo is an open source C++ library that provides data-driven and object-oriented memory management.
 The classic scenario of dynamic memory allocation consists of a program requesting randomly dynamic storage to a black-box allocator that implements a set of malloc\realloc\free functions, and that doesn't know and can't predict anything about the requests of the program.
 Memo adds a layer between the allocator and the program, and allows the program to select the best memory allocation strategy with the best tuning for every part of the program. In Memo an allocation algorithm is wrapped by a class implementing the interface IAllocator. 
+Here is some common allocators:
 -	the default allocator, which wraps the system malloc\free
 -	the debug allocator, which decorates another allocator adding no man's land around memory blocks and initializing memory to help to catch uninitialized variables
 -	the statistics allocator, which decorates another allocator to keep tracks of: total memory allocated, total block count, and allocation peaks
@@ -238,7 +239,7 @@ writes about the error on its console window, and allows the user to choose one 
 	- resuming the target process, ignoring the error
 	- quitting, after resuming the target process
 	- saving a dump that can be opened in a compatible debugger, such visual studio or windbg.
-	- dumping the memory content around 
+	- dumping the memory content around the address being wrongly accessed
 	- saving or copying all the output of the debugger
 		
 Here is an example of the output of the debugger:
