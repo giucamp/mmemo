@@ -170,6 +170,13 @@ namespace memo
 
 		return *current_allocator;
 	}
+
+	LifoAllocator & get_lifo_allocator()
+	{
+		ThreadRoot * thread_context = memo_externals::get_thread_root();
+		MEMO_ASSERT( thread_context != nullptr );
+		return thread_context->lifo_allocator();
+	}
 	
 	// lifo_alloc
 	void * lifo_alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset, DeallocationCallback i_deallocation_callback )

@@ -46,7 +46,7 @@ namespace memo
 
 			~ConfigReader()
 			{
-				MEMO_ASSERT( m_file.eof() && m_line_recognized );
+				MEMO_ASSERT( m_file.fail() || ( m_file.eof() && m_line_recognized ) );
 			}
 
 			bool read_next_property()
@@ -296,7 +296,6 @@ namespace memo
 				// the memory configuration file is missing
 				memo_externals::output_message( error_msg );
 				memo_externals::output_message( "\n" );
-				memo_externals::debug_break();
 				return serialization::eCantOpenStream;
 			}
 

@@ -39,7 +39,6 @@ namespace memo
 			memo_externals::output_message( "could not load the configuration file: " );
 			memo_externals::output_message( memo_externals::g_config_file_name );
 			memo_externals::output_message( "\n" );
-			memo_externals::debug_break();
 		}
 
 		NamePath empty_path;

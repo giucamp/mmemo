@@ -76,7 +76,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="whats"></a>
 What's Memo</h1>
-<p>Memo is an open source C++ library that provides data-driven and object-oriented memory management. The classic scenario of dynamic memory allocation consists of a program requesting randomly dynamic storage to a black-box allocator that implements a set of malloc functions, and that doesn't know and can't predict anything about the requests of the program. Memo adds a layer between the allocator and the program, and allows the program to select the best memory allocation strategy with the best tuning for every part of the program. In Memo an allocation algorithm is wrapped by a class implementing the interface IAllocator.</p>
+<p>Memo is an open source C++ library that provides data-driven and object-oriented memory management. The classic scenario of dynamic memory allocation consists of a program requesting randomly dynamic storage to a black-box allocator that implements a set of malloc functions, and that doesn't know and can't predict anything about the requests of the program. Memo adds a layer between the allocator and the program, and allows the program to select the best memory allocation strategy with the best tuning for every part of the program. In Memo an allocation algorithm is wrapped by a class implementing the interface IAllocator. Here is some common allocators:</p>
 <ul>
 <li>the default allocator, which wraps the system malloc</li>
 <li>the debug allocator, which decorates another allocator adding no man's land around memory blocks and initializing memory to help to catch uninitialized variables</li>
@@ -161,7 +161,7 @@ Detecting memory corruption</h1>
 <li>resuming the target process, ignoring the error</li>
 <li>quitting, after resuming the target process</li>
 <li>saving a dump that can be opened in a compatible debugger, such visual studio or windbg.</li>
-<li>dumping the memory content around</li>
+<li>dumping the memory content around the address being wrongly accessed</li>
 <li>saving or copying all the output of the debugger</li>
 </ul>
 <p>Here is an example of the output of the debugger:</p>
@@ -218,7 +218,7 @@ Detecting memory corruption</h1>
         &gt;&gt; </pre> </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 14 2013 16:16:38 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jan 18 2014 11:08:10 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>
