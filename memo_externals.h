@@ -64,7 +64,7 @@
 #define MEMO_ENABLE_INLINE			(!MEMO_ENABLE_ASSERT)
 
 /** \def MEMO_ENABLE_RVALUE_REFERENCE
-	If this macro evaluates to non-zero, memo uses r-value references, that are are available from C++11 on.ù
+	If this macro evaluates to non-zero, memo uses r-value references, that are are available from C++11 on.
 	Otherwise classic references are used in place of r-value references. 
 	Currently only the macro MEMO_NEW_ARRAY_SRC exploits r-value references. */
 #define MEMO_ENABLE_RVALUE_REFERENCES	1

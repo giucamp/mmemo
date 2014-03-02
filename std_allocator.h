@@ -43,31 +43,19 @@ namespace memo
 			else
 				new_block = memo::unaligned_alloc( i_count * sizeof(TYPE) );
 
-			// construct the objects
-			TYPE * curr = static_cast< TYPE * >( new_block );
-			TYPE * end = curr + i_count;
-			if( curr < end ) do {
-				new( curr ) TYPE;
-			} while( ++curr < end );
-
 			return static_cast< TYPE * >( new_block ); 
 		}
 
 		// deallocate
 		void deallocate( pointer i_pointer, size_type i_count )
 		{ 
-			// destroy the objects in reverse order
-			TYPE * curr = i_pointer + i_count;
-			TYPE * start = static_cast< TYPE * >( i_pointer );
-			if( curr != start ) do {
-				--curr;
-				curr->~TYPE();
-			} while( curr != start );
-
-			if( MEMO_ALIGNMENT_OF( TYPE ) > MEMO_MIN_ALIGNMENT ) 
-				memo::free( i_pointer );
-			else
-				memo::unaligned_free( i_pointer );
+			if( i_pointer != nullptr )
+			{
+				if( MEMO_ALIGNMENT_OF( TYPE ) > MEMO_MIN_ALIGNMENT ) 
+					memo::free( i_pointer );
+				else
+					memo::unaligned_free( i_pointer );
+			}			
 		}
 
 		// construction/destruction

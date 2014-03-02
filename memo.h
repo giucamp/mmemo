@@ -205,7 +205,7 @@ Memo allows to use a thread specific data stack, to perform lifo allocations:
 
 \code{.cpp}
 
-const size_t required_size = strlen(str1) + strlen(str2);
+const size_t required_size = strlen(str1) + strlen(str2) + 1;
 
 char * buffer = static_cast< char * >( memo::lifo_alloc( sizeof(char) * required_size, MEMO_ALIGNMENT_OF(char), 0, nullptr ) );
 
