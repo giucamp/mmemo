@@ -21,7 +21,7 @@ namespace memo
 		size_t page_size = i_first_page_size;
 		while( !new_page( page_size ) )
 		{
-			if( page_size < sizeof( PageHeader ) * 10 )
+			if( page_size < sizeof( PageHeader ) * 4 )
 			{
 				// failed, undo the changes
 				m_target_allocator = nullptr;
@@ -54,7 +54,7 @@ namespace memo
 	// LifoAllocator::new_page - internal service
 	bool LifoAllocator::new_page( size_t i_min_size )
 	{	
-		size_t size = std::max( i_min_size, sizeof(PageHeader) * 10 );
+		size_t size = std::max( i_min_size, sizeof(PageHeader) * 4 );
 
 		// allocate the page
 		PageHeader * header = static_cast< PageHeader * >( m_target_allocator->unaligned_alloc( size ) );

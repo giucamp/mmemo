@@ -2,7 +2,7 @@
 namespace memo
 {
 	/**	\class LifoAllocator
-		\brief Class impementing LIFO-ordered allocation services.
+		\brief Class implementing LIFO-ordered allocation services.
 		A LIFO allocator provides allocation\deallocation services with the constrain that only the memory block of top
 		(BOT) can be reallocated or freed. The BOT is the last allocated or resized memory block. After it is freed,
 		the previously allocated block is the new BOT.
@@ -19,7 +19,7 @@ namespace memo
 		public:
 			
 			Config(); /**< Set the default values. m_external_allocator is set to nullptr */
-			~Config(); /**< Deletes the config pointed by m_external_allocator, is not null */
+			~Config(); /**< Deletes the config pointed by m_external_allocator, if not null */
 
 			IAllocator::Config * m_external_allocator; /**< Pointer to the config of the target allocator. It has the ownership of the pointed object. */
 		};

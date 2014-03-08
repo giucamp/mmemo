@@ -6,7 +6,7 @@
 namespace memo
 {
 	/**	\class DataStack
-		\brief Class impementing LIFO-ordered allocation services.
+		\brief Class implementing LIFO-ordered allocation services.
 		A LIFO allocator provides allocation\deallocation services with the constrain that only the memory block of top
 		(BOT) can be reallocated or freed. The BOT is the last allocated or resized memory block. After it is freed,
 		the previously allocated block is the new BOT.
@@ -22,7 +22,7 @@ namespace memo
 
 							/// allocation services ///
 
-		/** default constructor. The memory buffer must be assigned before using the allocator (see set_buffer) */
+		/** default constructor. The memory buffer must be assigned before using the DataStack (see set_buffer) */
 		DataStack();
 
 		/** constructor that assigns soon the memory buffer */

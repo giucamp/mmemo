@@ -15,19 +15,29 @@ namespace memo
 		memo_externals::output_message( "testing allocators...\n" );
 		const size_t iterations = 470000;
 
+		// fifo allocator
+		{
+			memo_externals::output_message( "testing FifoAllocator..." );
+			memo::FifoAllocator::TestSession fifo_tester;
+			for( int i = 0; i < 13; i++ )
+			{
+				fifo_tester.fill_and_empty_test( iterations );
+			}
+			memo_externals::output_message( "done\n" );
+		}	
+
 		// corruption detector allocator
 		{
-			memo_externals::output_message( "testing CorruptionDetectorAllocator...\n\t" );
+			/*memo_externals::output_message( "testing CorruptionDetectorAllocator...\n\t" );
 			CorruptionDetectorAllocator::Config corruption_detector_allocator_config;
 			IAllocator * corruption_detector_allocator = corruption_detector_allocator_config.create_allocator();
 			int * p = (int*)corruption_detector_allocator->unaligned_alloc( sizeof(int) );
-			//::Sleep( 1000 * 30 );
 			*p = 5;
 			int g = p[-1];
 			p[1] = 3;
 			memo::AllocatorTester debug_allocator_tester( *corruption_detector_allocator );
 			debug_allocator_tester.do_test_session( iterations );
-			MEMO_DELETE( corruption_detector_allocator );
+			MEMO_DELETE( corruption_detector_allocator );*/
 		}
 
 		
@@ -101,7 +111,7 @@ namespace memo
 		}
 		#endif
 
-		// object stack
+		// data stack
 		{
 			memo_externals::output_message( "testing DataStack..." );
 			memo::DataStack::TestSession data_stack_tester( 5555 );
@@ -121,7 +131,9 @@ namespace memo
 				object_stack_tester.fill_and_empty_test();
 			}
 			memo_externals::output_message( "done\n" );
-		}		
+		}	
+
+
 	}
 
 	
@@ -242,7 +254,7 @@ namespace memo
 			restroom();
 			kitchen();
 			livingroom();
-			test_CorruptionDetectorAllocator();
+			//test_CorruptionDetectorAllocator();
 
 			StateWriter writer;
 			NamePath path;
@@ -256,11 +268,11 @@ namespace memo
 
 	void test()
 	{
-		ContextTest context_test;
-		context_test.test();
-
 		test_allocators();
 
+		/*ContextTest context_test;
+		context_test.test();*/
+		
 		system( "PAUSE" );
 	}
 

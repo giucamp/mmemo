@@ -49,7 +49,7 @@ namespace memo
 		MemoryManager::get_instance();
 
 		DefaultAllocator & default_allocator = safe_get_default_allocator();
-		m_lifo_allocator.init( default_allocator, 512, 512 );
+		m_lifo_allocator.init( default_allocator, 1024 * 4, 1024 * 4 );
 
 		#if MEMO_ENABLE_ASSERT
 			// every thread can have at most one thread context

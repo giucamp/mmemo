@@ -160,6 +160,7 @@ namespace memo
 #include "address_functions.cpp"
 #include "allocators\allocators.cpp"
 #include "lifo\lifo.cpp"
+#include "fifo\fifo.cpp"
 #include "management\management.cpp"
 #if MEMO_ENABLE_TEST
 	#include "memo_test.cpp"

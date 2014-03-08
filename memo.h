@@ -6,6 +6,8 @@
 #include <stdint.h>
 #include <vector>
 #include <unordered_map>
+#include <deque>
+#include <queue>
 
 namespace memo // classes' forward declarations 
 {
@@ -67,6 +69,7 @@ namespace memo // classes' forward declarations
 #include "std_containers.h"
 #include "allocators\allocators.h"
 #include "lifo\lifo.h"
+#include "fifo\fifo.h"
 #include "management\management.h"
 
 namespace memo

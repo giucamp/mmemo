@@ -19,7 +19,7 @@ namespace memo
 			/** Set the default values. m_target is set to nullptr */
 			Config();
 
-			/** Deletes the config pointed by m_target, is not null */
+			/** Deletes the config pointed by m_target, if not null */
 			~Config();
 
 			/** Pointer to the config of the target allocator. It has the ownership of the pointed object. */
