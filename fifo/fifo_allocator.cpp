@@ -142,18 +142,20 @@ namespace memo
 	{
 		MEMO_ASSERT( m_last_page != nullptr ); // the allocator must be initialized
 
-		PageHeader * const peek_page = m_peek_page;
+		m_peek_page->m_queue.free_first( i_address );
 
-		peek_page->m_queue.free_first( i_address );
-
-		if( peek_page->m_queue.is_empty() )
+		while( m_peek_page->m_queue.is_empty() && m_peek_page != m_put_page )
 		{
+			PageHeader * next_page = m_peek_page->m_next_page;
+						
 			// the peek page is empty, if it's not the first it can be freed
-			if( peek_page == m_first_page )
+			//if( m_peek_page != m_first_page )
 			{
-				remove_page( peek_page );
-				destroy_page( peek_page );
+				remove_page( m_peek_page );
+				destroy_page( m_peek_page );
 			}
+
+			m_peek_page = next_page;
 		}
 	}
 
@@ -162,7 +164,7 @@ namespace memo
 	{
 		MEMO_ASSERT( i_page != nullptr );
 		MEMO_ASSERT( m_first_page != nullptr );
-		MEMO_ASSERT( i_page != m_first_page );
+		//MEMO_ASSERT( i_page != m_first_page );
 
 		PageHeader * curr_page = m_first_page;
 		while( curr_page->m_next_page != i_page )
@@ -173,6 +175,8 @@ namespace memo
 		curr_page->m_next_page = i_page->m_next_page;
 		if( i_page == m_last_page )
 			m_last_page = curr_page;
+		if( i_page == m_first_page )
+			m_first_page = i_page->m_next_page;
 		if( i_page == m_put_page )
 			m_put_page = i_page->m_next_page;
 	}
@@ -194,13 +198,13 @@ namespace memo
 		void FifoAllocator::TestSession::allocate()
 		{	
 			const size_t size = generate_rand_32() & 31;
-			const size_t alignment = 1 << (generate_rand_32() & 7);
+			const size_t alignment = std::max<size_t>( 1 << (generate_rand_32() & 7), MEMO_ALIGNMENT_OF( int ) );
 			const size_t alignment_offset = std::min( size, (generate_rand_32() & 31) );
 			
 			memo::std_vector< int >::type vect;
 			vect.reserve( size );
 							
-			int * alloc = static_cast<int*>( m_fifo_allocator->alloc( size, alignment, alignment_offset ) );
+			int * alloc = static_cast<int*>( m_fifo_allocator->alloc( size * sizeof(int), alignment, alignment_offset ) );
 
 			for( size_t i = 0; i < size; i++ )
 			{
@@ -232,6 +236,8 @@ namespace memo
 			}
 
 			m_fifo_allocator->free_first( alloc );
+
+			return true;
 		}
 
 		void FifoAllocator::TestSession::fill_and_empty_test( size_t i_iterations )
@@ -240,6 +246,8 @@ namespace memo
 			size_t max_alloc_count = 0;
 			size_t fill_iterations = 0;
 			size_t empty_iterations = 0;
+
+			allocate();
 
 			allocate();
 

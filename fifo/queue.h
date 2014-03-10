@@ -48,6 +48,71 @@ namespace memo
 		*/
 		bool is_empty() const;
 
+		class Iterator
+		{
+		public:
+
+			Iterator();
+
+			Iterator( const Queue & i_queue )		{ start_iteration( i_queue ); }
+
+			void start_iteration( const Queue & i_queue );
+
+			bool is_over() const;
+
+			void operator ++ ( int );
+
+			Iterator operator ++ ()					{ (*this)++;  return *this; }
+
+			void * curr_block() const;
+
+		private:
+			const Queue * m_queue;
+			void * m_curr_header;
+		};
+
+
+							/// tester ///
+
+		#if MEMO_ENABLE_TEST
+			
+			/** encapsulates a test session to discover bugs in DataStack */
+			class TestSession
+			{
+			public:
+
+				/** construct a test session with a fifo allocator */
+				TestSession( size_t i_buffer_size );
+
+				void fill_and_empty_test();
+
+				~TestSession();
+
+			private: // internal services
+
+				bool allocate();
+
+				bool free();
+
+				static void check_val( const void * i_address, size_t i_size, uint8_t i_value );
+
+				void check_consistency();
+
+			private: // data members
+
+				struct Allocation
+				{
+					void * m_block;
+					size_t m_block_size;
+				};
+
+				std_deque< Allocation >::type m_allocations;
+				Queue * m_fifo_allocator;
+				void * m_buffer;
+			};
+
+		#endif // #if MEMO_ENABLE_TEST
+
 	private:
 
 		struct _Header
@@ -58,8 +123,8 @@ namespace memo
 
 	private: // data members
 		void * m_buffer_start, * m_buffer_end;
-		void * m_first_block; // oldest allocated block
-		void * m_next_block; // starting position for the next block to allocate
+		void * m_start; // oldest allocated block
+		void * m_end; // starting position for the next block to allocate
 	};
 
 } // namespace memo
