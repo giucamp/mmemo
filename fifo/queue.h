@@ -125,6 +125,7 @@ namespace memo
 		void * m_buffer_start, * m_buffer_end;
 		void * m_start; // oldest allocated block
 		void * m_end; // starting position for the next block to allocate
+		size_t m_allocation_count;
 	};
 
 } // namespace memo

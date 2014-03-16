@@ -177,4 +177,13 @@ namespace memo
 		
 		return address;
 	}
+
+	// are_overlapping
+	inline bool are_overlapping( const void * i_first, size_t i_first_size, const void * i_second, size_t i_second_size )
+	{
+		if( i_first < i_second )
+			return address_add( i_first, i_first_size ) > i_second;
+		else
+			return address_add( i_second, i_second_size ) > i_first;
+	}
 }
