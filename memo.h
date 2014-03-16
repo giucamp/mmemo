@@ -134,7 +134,7 @@ namespace memo
 \section whats What's Memo
 Memo is an open source C++ library that provides data-driven and object-oriented memory management.
 The classic scenario of dynamic memory allocation consists of a program requesting randomly dynamic storage to a black-box allocator that implements a set of malloc\realloc\free functions, and that doesn't know and can't predict anything about the requests of the program.
-Memo adds a layer between the allocator and the program, and allows the program to select the best memory allocation strategy with the best tuning for every part of the program. In Memo an allocation algorithm is wrapped by a class implementing the interface IAllocator. 
+Memo adds a layer between the allocator and the program, and allows the program to select the best memory allocation strategy with the best tuning for every part of the program. In Memo an allocation algorithm is wrapped by a class implementing the interface memo::IAllocator. 
 Here is some common allocators:
 -	the default allocator, which wraps the system malloc\free
 -	the debug allocator, which decorates another allocator adding no man's land around memory blocks and initializing memory to help to catch uninitialized variables
@@ -203,8 +203,10 @@ The memory configuration file can assign and tune an allocator for:
 	-	the context "robots/graphics"
 
 
-\section datastack Data Stack
-Memo allows to use a thread specific data stack, to perform lifo allocations:
+\section lifoallocator Data Stack and lifo allocations
+Memo allows to use a thread specific data stack, to perform lifo (last-in, first-out) allocations. The lifo constraint is suited to:
+- blocks allocated when the program starts, and released when the program exits
+- temporary dynamic storage needed to a function or scope, like in this example:
 
 \code{.cpp}
 
@@ -215,11 +217,22 @@ char * buffer = static_cast< char * >( memo::lifo_alloc( sizeof(char) * required
 strcpy( buffer, str1 );
 strcat( buffer, str2 );
 
+printf( buffer );
+
 memo::lifo_free( buffer );
 \endcode
 
-Lifo allocations are useful when the program needs a temporary storage with a size known only at runtime. 
-The lifo order must be respected, otherwise the memory gets corrupted. In a debug build, a mismatch is reported with an assert.
+Allocations in the data stack are very fast, do not fragment the memory, and don't waste any space, as the memory blocks are "packed"
+together one after the other in a single (or in a few) memory buffer. The lifo order must be respected, otherwise the memory gets corrupted. 
+In a debug build, a mismatch is reported with an assert.
+See memo::LifoAllocator, memo::DataStack and memo::ObjectStack for details.
+
+\section fifoallocator Queues and fifo allocations
+Memo provides support for fifo (first-in, first-out) ordered allocations too. This kind of ordering is suited for the producer-consumer problem, allowing dealing with items of variable 
+size and alignment allocated in-place in a single memory buffer.
+As example of this scenario consider a command queue of a thread, with every command being a struct or class with different data members, that are the parameters of the command. 
+A second and similar use case may be a command buffer for a graphic renderer.
+See memo::FifoAllocator and memo::Queue for details.
 
 \section overhead Space and execution overhead
 If you allocate memory using directly an IAllocator object, you don't have any space overhead. Anyway every allocation\deallocation has a time overhead due to the virtual call. If you use the global function memo::alloc or the macro MEMO_NEW, then memo will add, at the beginning of the memory block, a pointer to the current allocator of the thread. This is the space overhead.

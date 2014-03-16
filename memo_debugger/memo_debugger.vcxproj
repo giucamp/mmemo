@@ -19,17 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\vs10\memo.vcxproj">
-      <Project>{771a8e07-bfd6-4762-bc31-42a610fba819}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="debug_help.cpp" />
     <ClCompile Include="memo_debugger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debug_help.h" />
     <ClInclude Include="memo_debugger.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\vs10\memo.vcxproj">
+      <Project>{35750162-1519-4241-b129-2c7bd34e49e7}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7C8695FF-AFB2-4E0D-A78E-AEB75CF10E35}</ProjectGuid>

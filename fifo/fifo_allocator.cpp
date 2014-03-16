@@ -1,10 +1,10 @@
 
 namespace memo
 {
-	const size_t FifoAllocator::s_min_page_size = sizeof( FifoAllocator::PageHeader ) * 4 + MEMO_ALIGNMENT_OF( PageHeader );
+	const size_t Queue::s_min_page_size = sizeof( Queue::PageHeader ) * 4 + MEMO_ALIGNMENT_OF( PageHeader );
 
-	// FifoAllocator::constructor
-	FifoAllocator::FifoAllocator()
+	// Queue::constructor
+	Queue::Queue()
 		: m_first_page( nullptr ), m_last_page( nullptr ), 
 		  m_put_page( nullptr ), m_peek_page( nullptr ),
 		  m_target_allocator( nullptr ), m_page_size( 0 )
@@ -12,13 +12,13 @@ namespace memo
 
 	}
 
-	FifoAllocator::~FifoAllocator()
+	Queue::~Queue()
 	{
 		uninit();
 	}
 
-	// FifoAllocator::init
-	bool FifoAllocator::init( IAllocator & i_allocator, size_t i_first_page_size, size_t i_other_pages_size )
+	// Queue::init
+	bool Queue::init( IAllocator & i_allocator, size_t i_first_page_size, size_t i_other_pages_size )
 	{
 		// clear
 		uninit();
@@ -45,8 +45,8 @@ namespace memo
 		return true;
 	}
 
-	// FifoAllocator::uninit
-	void FifoAllocator::uninit()
+	// Queue::uninit
+	void Queue::uninit()
 	{
 		PageHeader * curr = m_first_page;
 		if( m_first_page != nullptr )
@@ -65,8 +65,8 @@ namespace memo
 		m_target_allocator = nullptr;
 	}
 
-	// FifoAllocator::create_page - internal service
-	FifoAllocator::PageHeader * FifoAllocator::create_page( size_t i_min_size )
+	// Queue::create_page - internal service
+	Queue::PageHeader * Queue::create_page( size_t i_min_size )
 	{	
 		size_t size = std::max( i_min_size, s_min_page_size );
 
@@ -91,15 +91,15 @@ namespace memo
 		return header;
 	}
 
-	// FifoAllocator::destroy_page
-	void FifoAllocator::destroy_page( PageHeader * i_page )
+	// Queue::destroy_page
+	void Queue::destroy_page( PageHeader * i_page )
 	{
 		i_page->~PageHeader();
 		m_target_allocator->unaligned_free( i_page );
 	}
 
-	// FifoAllocator::alloc
-	void * FifoAllocator::alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset )
+	// Queue::alloc
+	void * Queue::alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset )
 	{
 		MEMO_ASSERT( m_first_page != nullptr ); // the allocator must be initialized
 
@@ -132,16 +132,16 @@ namespace memo
 		return result;
 	}
 
-	// FifoAllocator::get_first_block
-	void * FifoAllocator::get_first_block()
+	// Queue::get_first_block
+	void * Queue::get_first_block()
 	{
 		MEMO_ASSERT( m_first_page != nullptr ); // the allocator must be initialized
 
 		return m_peek_page->m_queue.get_first_block();
 	}
 
-	// FifoAllocator::free_first
-	void FifoAllocator::free_first( void * i_address )
+	// Queue::free_first
+	void Queue::free_first( void * i_address )
 	{
 		MEMO_ASSERT( m_last_page != nullptr ); // the allocator must be initialized
 
@@ -162,8 +162,8 @@ namespace memo
 		}
 	}
 
-	// FifoAllocator::remove_page
-	void FifoAllocator::remove_page( PageHeader * i_page )
+	// Queue::remove_page
+	void Queue::remove_page( PageHeader * i_page )
 	{
 		MEMO_ASSERT( i_page != nullptr );
 		MEMO_ASSERT( m_first_page != nullptr );
@@ -187,18 +187,18 @@ namespace memo
 
 	#if MEMO_ENABLE_TEST
 
-		FifoAllocator::TestSession::TestSession()
+		Queue::TestSession::TestSession()
 		{
-			m_fifo_allocator = MEMO_NEW( FifoAllocator );
+			m_fifo_allocator = MEMO_NEW( Queue );
 			m_fifo_allocator->init( memo::get_default_allocator(), 1024, 512 );
 		}
 
-		FifoAllocator::TestSession::~TestSession()
+		Queue::TestSession::~TestSession()
 		{
 			MEMO_DELETE( m_fifo_allocator );
 		}
 
-		void FifoAllocator::TestSession::allocate()
+		void Queue::TestSession::allocate()
 		{	
 			const size_t size = generate_rand_32() & 31;
 			const size_t alignment = std::max<size_t>( 1 << (generate_rand_32() & 7), MEMO_ALIGNMENT_OF( int ) );
@@ -218,7 +218,7 @@ namespace memo
 			m_test_queue.push_back( vect );
 		}
 
-		bool FifoAllocator::TestSession::free()
+		bool Queue::TestSession::free()
 		{
 			if( m_test_queue.size() == 0 )
 				return false;
@@ -243,7 +243,7 @@ namespace memo
 			return true;
 		}
 
-		void FifoAllocator::TestSession::fill_and_empty_test( size_t i_iterations )
+		void Queue::TestSession::fill_and_empty_test( size_t i_iterations )
 		{
 			size_t alloc_count = 0;
 			size_t max_alloc_count = 0;

@@ -1,18 +1,25 @@
 
 namespace memo
 {
-	/**	\class Queue
-		\brief Class implementing LIFO-ordered allocation services.
+	/**	\class FifoAllocator
+		Class implementing LIFO-ordered allocation services. The user assign a memory buffer to FifoAllocator, and 
+		it manages it as a circular buffer, allowing allocation of variable size and alignment. The FIFO constraint
+		requires that only the oldest allocated block can be freed. FifoAllocator allows to get the address of the
+		oldest allocated block, so that it can be consumed before being freed.
+		If an allocation can be committed because there is not enough remaining space in the buffer, FifoAllocator
+		returns nullptr. If you need a FIFO memory manager that can grow, you can use memo::Queue.
+		FifoAllocator provide an iterator inner-class, that can enumerate all the living blocks in a FifoAllocator.
+		This class is not thread safe.
 	*/
-	class Queue
+	class FifoAllocator
 	{
 	public:
 
 		/** default constructor. The memory buffer must be assigned before using the queue (see set_buffer) */
-		Queue();
+		FifoAllocator();
 
 		/** constructor that assigns soon the memory buffer */
-		Queue( void * i_buffer_start_address, size_t i_buffer_length );
+		FifoAllocator( void * i_buffer_start_address, size_t i_buffer_length );
 
 		/** assigns the memory buffer.
 		  @param i_buffer_start_address pointer to the first byte in the buffer
@@ -36,7 +43,7 @@ namespace memo
 		void * get_first_block();
 
 		/** deallocates a memory block allocated by alloc or realloc.
-		  @param i_address address of the memory block to free. It must be the first block, returned by Queue::get_first_block. It cannot be nullptr.
+		  @param i_address address of the memory block to free. It must be the first block, returned by FifoAllocator::get_first_block. It cannot be nullptr.
 		  */
 		void free_first( void * i_first_block );
 
@@ -48,26 +55,43 @@ namespace memo
 		*/
 		bool is_empty() const;
 
+		/** This class enumerates, from the oldest to the newest, all the living allocation in a LifoAllocator. 
+			This is an example of how this class may be used:
+			\code{.cpp}
+			for( Iterator it( fifo_allocator ); !it.is_over(); it++ )
+			{
+				// ...
+			}
+			\endcode
+			*/
 		class Iterator
 		{
 		public:
 
+			/** Construct an uninitialized iterator. Call start_iteration before using it. */
 			Iterator();
 
-			Iterator( const Queue & i_queue )		{ start_iteration( i_queue ); }
+			/** Construct an iterator and assigns to it a LifoAllocator. */
+			Iterator( const FifoAllocator & i_lifo_allocator )		{ start_iteration( i_lifo_allocator ); }
 
-			void start_iteration( const Queue & i_queue );
+			/** Starts iterating a FifoAllocator, moving to its oldest allocation */
+			void start_iteration( const FifoAllocator & i_lifo_allocator );
 
+			/** Returns whether the iteration of the LifoALlocator is finished. When this method returns true,
+					the iteration cannot longer be used, unless start_iteration is called. */
 			bool is_over() const;
 
+			/** Moves to the next allocation. This method cannot be called if is_over() returns true. */
 			void operator ++ ( int );
 
-			Iterator operator ++ ()					{ (*this)++;  return *this; }
+			/** Moves to the next allocation. This method cannot be called if is_over() returns true. */
+			Iterator & operator ++ ()					{ (*this)++;  return *this; }
 
+			/** Returns the adders of the current memory block. This method cannot be called if is_over() returns true. */
 			void * curr_block() const;
 
 		private:
-			const Queue * m_queue;
+			const FifoAllocator * m_queue;
 			void * m_curr_header;
 		};
 
@@ -107,7 +131,7 @@ namespace memo
 				};
 
 				std_deque< Allocation >::type m_allocations;
-				Queue * m_fifo_allocator;
+				FifoAllocator * m_fifo_allocator;
 				void * m_buffer;
 			};
 

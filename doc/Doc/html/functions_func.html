@@ -85,6 +85,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="#index_l"><span>l</span></a></li>
       <li><a href="#index_n"><span>n</span></a></li>
       <li><a href="#index_o"><span>o</span></a></li>
+      <li><a href="#index_q"><span>q</span></a></li>
       <li><a href="#index_r"><span>r</span></a></li>
       <li><a href="#index_s"><span>s</span></a></li>
       <li><a href="#index_t"><span>t</span></a></li>
@@ -118,10 +119,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>alloc()
 : <a class="el" href="classmemo_1_1_corruption_detector_allocator.html#a31adafa97455b9ed1afc71d76ecc5250">CorruptionDetectorAllocator</a>
 , <a class="el" href="classmemo_1_1_default_allocator.html#aa0efeca40d5326beeff035039fe5cc36">DefaultAllocator</a>
-, <a class="el" href="classmemo_1_1_data_stack.html#a92a4e46041c37bb67644423a13c80ec5">DataStack</a>
+, <a class="el" href="classmemo_1_1_queue.html#a31adafa97455b9ed1afc71d76ecc5250">Queue</a>
+, <a class="el" href="classmemo_1_1_fifo_allocator.html#a31adafa97455b9ed1afc71d76ecc5250">FifoAllocator</a>
+, <a class="el" href="classmemo_1_1_object_stack.html#a50ffa20602e9b6ebac857aa1f4999c7c">ObjectStack</a>
 , <a class="el" href="classmemo_1_1_lifo_allocator.html#a50ffa20602e9b6ebac857aa1f4999c7c">LifoAllocator</a>
 , <a class="el" href="classmemo_1_1_i_allocator.html#a502e2c01bb5cb2b3b4cd6f57c626c9c1">IAllocator</a>
-, <a class="el" href="classmemo_1_1_object_stack.html#a50ffa20602e9b6ebac857aa1f4999c7c">ObjectStack</a>
+, <a class="el" href="classmemo_1_1_data_stack.html#a92a4e46041c37bb67644423a13c80ec5">DataStack</a>
 , <a class="el" href="classmemo_1_1_debug_allocator.html#a31adafa97455b9ed1afc71d76ecc5250">DebugAllocator</a>
 , <a class="el" href="classmemo_1_1_tlsf_allocator.html#a31adafa97455b9ed1afc71d76ecc5250">TlsfAllocator</a>
 , <a class="el" href="classmemo_1_1_stat_allocator.html#a31adafa97455b9ed1afc71d76ecc5250">StatAllocator</a>
@@ -152,24 +155,31 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
+<li>clear()
+: <a class="el" href="classmemo_1_1_queue.html#ac8bb3912a3ce86b15842e79d0b421204">Queue</a>
+, <a class="el" href="classmemo_1_1_fifo_allocator.html#ac8bb3912a3ce86b15842e79d0b421204">FifoAllocator</a>
+</li>
 <li>Config()
-: <a class="el" href="structmemo_1_1_decorator_allocator_1_1_config.html#a539a941e29cde8d13e413c515d9801cd">DecoratorAllocator::Config</a>
-, <a class="el" href="structmemo_1_1_lifo_allocator_1_1_config.html#a539a941e29cde8d13e413c515d9801cd">LifoAllocator::Config</a>
+: <a class="el" href="structmemo_1_1_lifo_allocator_1_1_config.html#a539a941e29cde8d13e413c515d9801cd">LifoAllocator::Config</a>
+, <a class="el" href="structmemo_1_1_decorator_allocator_1_1_config.html#a539a941e29cde8d13e413c515d9801cd">DecoratorAllocator::Config</a>
 </li>
 <li>configure_allocator()
-: <a class="el" href="structmemo_1_1_debug_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">DebugAllocator::Config</a>
+: <a class="el" href="structmemo_1_1_tlsf_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">TlsfAllocator::Config</a>
 , <a class="el" href="structmemo_1_1_region_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">RegionAllocator::Config</a>
-, <a class="el" href="structmemo_1_1_tlsf_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">TlsfAllocator::Config</a>
-, <a class="el" href="structmemo_1_1_i_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">IAllocator::Config</a>
 , <a class="el" href="structmemo_1_1_default_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">DefaultAllocator::Config</a>
+, <a class="el" href="structmemo_1_1_i_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">IAllocator::Config</a>
 , <a class="el" href="structmemo_1_1_decorator_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">DecoratorAllocator::Config</a>
 , <a class="el" href="structmemo_1_1_corruption_detector_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">CorruptionDetectorAllocator::Config</a>
+, <a class="el" href="structmemo_1_1_debug_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">DebugAllocator::Config</a>
 </li>
 <li>create_allocator()
 : <a class="el" href="structmemo_1_1_i_allocator_1_1_config.html#a32ff819f4667e4ee4b34aefbab84782b">IAllocator::Config</a>
 </li>
 <li>create_allocator_config()
 : <a class="el" href="classmemo_1_1_allocator_config_factory.html#a2cf8c8dabbc9ce300a77904564ddc486">AllocatorConfigFactory</a>
+</li>
+<li>curr_block()
+: <a class="el" href="classmemo_1_1_fifo_allocator_1_1_iterator.html#aee744ea92c50ac0c12ca52f716ef9f7b">FifoAllocator::Iterator</a>
 </li>
 </ul>
 
@@ -216,21 +226,28 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <h3><a class="anchor" id="index_f"></a>- f -</h3><ul>
+<li>FifoAllocator()
+: <a class="el" href="classmemo_1_1_fifo_allocator.html#ae0b367363d52356b7870b9669a44886a">FifoAllocator</a>
+</li>
 <li>free()
-: <a class="el" href="classmemo_1_1_corruption_detector_allocator.html#a5b9f79933455057df502c53e84758201">CorruptionDetectorAllocator</a>
-, <a class="el" href="classmemo_1_1_debug_allocator.html#a5b9f79933455057df502c53e84758201">DebugAllocator</a>
-, <a class="el" href="classmemo_1_1_i_allocator.html#a2074f5d80f1f3ca67b9fce58dec57912">IAllocator</a>
+: <a class="el" href="classmemo_1_1_debug_allocator.html#a5b9f79933455057df502c53e84758201">DebugAllocator</a>
+, <a class="el" href="classmemo_1_1_tlsf_allocator.html#a5b9f79933455057df502c53e84758201">TlsfAllocator</a>
+, <a class="el" href="classmemo_1_1_data_stack.html#a12f6b0759afefa3345f8806c0c61ab5e">DataStack</a>
+, <a class="el" href="classmemo_1_1_default_allocator.html#a5b9f79933455057df502c53e84758201">DefaultAllocator</a>
 , <a class="el" href="classmemo_1_1_lifo_allocator.html#a5b9f79933455057df502c53e84758201">LifoAllocator</a>
 , <a class="el" href="classmemo_1_1_object_stack.html#a12f6b0759afefa3345f8806c0c61ab5e">ObjectStack</a>
+, <a class="el" href="classmemo_1_1_corruption_detector_allocator.html#a5b9f79933455057df502c53e84758201">CorruptionDetectorAllocator</a>
+, <a class="el" href="classmemo_1_1_i_allocator.html#a2074f5d80f1f3ca67b9fce58dec57912">IAllocator</a>
 , <a class="el" href="classmemo_1_1_stat_allocator.html#a5b9f79933455057df502c53e84758201">StatAllocator</a>
-, <a class="el" href="classmemo_1_1_default_allocator.html#a5b9f79933455057df502c53e84758201">DefaultAllocator</a>
-, <a class="el" href="classmemo_1_1_data_stack.html#a12f6b0759afefa3345f8806c0c61ab5e">DataStack</a>
-, <a class="el" href="classmemo_1_1_tlsf_allocator.html#a5b9f79933455057df502c53e84758201">TlsfAllocator</a>
 </li>
 <li>free_all()
-: <a class="el" href="classmemo_1_1_data_stack.html#ad1edb4c75298ce34740d35b591f084ca">DataStack</a>
-, <a class="el" href="classmemo_1_1_lifo_allocator.html#af4de2f83436cd4ed6744ced00335545a">LifoAllocator</a>
+: <a class="el" href="classmemo_1_1_lifo_allocator.html#af4de2f83436cd4ed6744ced00335545a">LifoAllocator</a>
+, <a class="el" href="classmemo_1_1_data_stack.html#ad1edb4c75298ce34740d35b591f084ca">DataStack</a>
 , <a class="el" href="classmemo_1_1_object_stack.html#ad1edb4c75298ce34740d35b591f084ca">ObjectStack</a>
+</li>
+<li>free_first()
+: <a class="el" href="classmemo_1_1_queue.html#a24ae09b7d0734e64ee5da7d1055824fa">Queue</a>
+, <a class="el" href="classmemo_1_1_fifo_allocator.html#a24ae09b7d0734e64ee5da7d1055824fa">FifoAllocator</a>
 </li>
 <li>free_to_bookmark()
 : <a class="el" href="classmemo_1_1_object_stack.html#a29b60e54a80435c9557dc304710f839c">ObjectStack</a>
@@ -261,6 +278,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>get_configuration()
 : <a class="el" href="classmemo_1_1_memory_manager.html#a42601416c6c1f4e257e505e96ac7fa17">MemoryManager</a>
+</li>
+<li>get_first_block()
+: <a class="el" href="classmemo_1_1_fifo_allocator.html#abbc8a3c21c450f6a783eb94c407eab2e">FifoAllocator</a>
+, <a class="el" href="classmemo_1_1_queue.html#abbc8a3c21c450f6a783eb94c407eab2e">Queue</a>
 </li>
 <li>get_free_space()
 : <a class="el" href="classmemo_1_1_object_stack.html#aed215c8c6b91b61727cd14a30a45d5be">ObjectStack</a>
@@ -294,6 +315,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>inner_contexts()
 : <a class="el" href="classmemo_1_1_context_config.html#a496db6737ee774138b18fce583a49bee">ContextConfig</a>
 </li>
+<li>is_empty()
+: <a class="el" href="classmemo_1_1_fifo_allocator.html#acef8e33cfd36a5d7d2fad939efcf02e3">FifoAllocator</a>
+</li>
+<li>is_over()
+: <a class="el" href="classmemo_1_1_fifo_allocator_1_1_iterator.html#a33ecf26d12898c36bdccfa24e0c7b971">FifoAllocator::Iterator</a>
+</li>
+<li>Iterator()
+: <a class="el" href="classmemo_1_1_fifo_allocator_1_1_iterator.html#a1f703720e1f5d97a0386c2dfe803c763">FifoAllocator::Iterator</a>
+</li>
 </ul>
 
 
@@ -319,6 +349,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h3><a class="anchor" id="index_o"></a>- o -</h3><ul>
 <li>ObjectStack()
 : <a class="el" href="classmemo_1_1_object_stack.html#a80cdf718baa198aa57b75c880e434c46">ObjectStack</a>
+</li>
+<li>operator++()
+: <a class="el" href="classmemo_1_1_fifo_allocator_1_1_iterator.html#a2aefc5a84a51687145f8514f4029c26c">FifoAllocator::Iterator</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_q"></a>- q -</h3><ul>
+<li>Queue()
+: <a class="el" href="classmemo_1_1_queue.html#a9419268280646dc4ab7b01d6fa3741c8">Queue</a>
 </li>
 </ul>
 
@@ -347,17 +387,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classmemo_1_1_context_config.html#a79ba652d69ba36b57802a2bcb47f2074">ContextConfig</a>
 </li>
 <li>set_buffer()
-: <a class="el" href="classmemo_1_1_data_stack.html#a3533caf6010dac5737ec86226924caac">DataStack</a>
+: <a class="el" href="classmemo_1_1_fifo_allocator.html#acbc560d233bc9cb7fa96728c9bf3c398">FifoAllocator</a>
 , <a class="el" href="classmemo_1_1_object_stack.html#acbc560d233bc9cb7fa96728c9bf3c398">ObjectStack</a>
+, <a class="el" href="classmemo_1_1_data_stack.html#a3533caf6010dac5737ec86226924caac">DataStack</a>
 </li>
 <li>set_name()
 : <a class="el" href="classmemo_1_1_context_config.html#a7895db44719cdaed43d38c8ef9fe4c81">ContextConfig</a>
+</li>
+<li>start_iteration()
+: <a class="el" href="classmemo_1_1_fifo_allocator_1_1_iterator.html#a81c36637760c180116c0633a8833a874">FifoAllocator::Iterator</a>
 </li>
 <li>StatAllocator()
 : <a class="el" href="classmemo_1_1_stat_allocator.html#ac92fc572bd03b7a5fe2efd1df1bfec0b">StatAllocator</a>
 </li>
 <li>StaticName()
-: <a class="el" href="classmemo_1_1_static_name.html#ae1293daa68e6d707b9c99705ddfdd65f">StaticName</a>
+: <a class="el" href="classmemo_1_1_static_name.html#affdf41e43009eb43eb867a7c30a52844">StaticName</a>
 </li>
 <li>string_to_fill_mode()
 : <a class="el" href="classmemo_1_1_debug_allocator.html#a047b10630ab597e256cae18c2cddfe88">DebugAllocator</a>
@@ -367,29 +411,30 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
 <li>TestSession()
-: <a class="el" href="classmemo_1_1_data_stack_1_1_test_session.html#a38b088af8017c25c8f43a026cc0d6665">DataStack::TestSession</a>
+: <a class="el" href="classmemo_1_1_fifo_allocator_1_1_test_session.html#a38b088af8017c25c8f43a026cc0d6665">FifoAllocator::TestSession</a>
+, <a class="el" href="classmemo_1_1_data_stack_1_1_test_session.html#a38b088af8017c25c8f43a026cc0d6665">DataStack::TestSession</a>
 , <a class="el" href="classmemo_1_1_object_stack_1_1_test_session.html#a38b088af8017c25c8f43a026cc0d6665">ObjectStack::TestSession</a>
 </li>
 <li>TlsfAllocator()
 : <a class="el" href="classmemo_1_1_tlsf_allocator.html#a62de7e521017878c81ea09281759d5b7">TlsfAllocator</a>
 </li>
 <li>try_recognize_property()
-: <a class="el" href="structmemo_1_1_corruption_detector_allocator_1_1_config.html#aebc5154deb389a94e9bf397d420edb27">CorruptionDetectorAllocator::Config</a>
+: <a class="el" href="structmemo_1_1_default_allocator_1_1_config.html#a7316b87e11f31c6a33a55a6f0b20d8ca">DefaultAllocator::Config</a>
 , <a class="el" href="structmemo_1_1_i_allocator_1_1_config.html#af79569e13d6b26f478edd3b76911312e">IAllocator::Config</a>
+, <a class="el" href="structmemo_1_1_corruption_detector_allocator_1_1_config.html#aebc5154deb389a94e9bf397d420edb27">CorruptionDetectorAllocator::Config</a>
 , <a class="el" href="structmemo_1_1_region_allocator_1_1_config.html#aebc5154deb389a94e9bf397d420edb27">RegionAllocator::Config</a>
 , <a class="el" href="structmemo_1_1_debug_allocator_1_1_config.html#aebc5154deb389a94e9bf397d420edb27">DebugAllocator::Config</a>
 , <a class="el" href="structmemo_1_1_decorator_allocator_1_1_config.html#aebc5154deb389a94e9bf397d420edb27">DecoratorAllocator::Config</a>
-, <a class="el" href="structmemo_1_1_default_allocator_1_1_config.html#a7316b87e11f31c6a33a55a6f0b20d8ca">DefaultAllocator::Config</a>
 </li>
 <li>type_name()
 : <a class="el" href="classmemo_1_1_region_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">RegionAllocator</a>
 , <a class="el" href="classmemo_1_1_tlsf_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">TlsfAllocator</a>
-, <a class="el" href="classmemo_1_1_debug_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">DebugAllocator</a>
-, <a class="el" href="classmemo_1_1_stat_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">StatAllocator</a>
-, <a class="el" href="classmemo_1_1_default_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">DefaultAllocator</a>
-, <a class="el" href="classmemo_1_1_i_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">IAllocator</a>
 , <a class="el" href="classmemo_1_1_corruption_detector_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">CorruptionDetectorAllocator</a>
+, <a class="el" href="classmemo_1_1_stat_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">StatAllocator</a>
 , <a class="el" href="classmemo_1_1_decorator_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">DecoratorAllocator</a>
+, <a class="el" href="classmemo_1_1_i_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">IAllocator</a>
+, <a class="el" href="classmemo_1_1_default_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">DefaultAllocator</a>
+, <a class="el" href="classmemo_1_1_debug_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">DebugAllocator</a>
 </li>
 </ul>
 
@@ -470,7 +515,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 18 2014 11:08:10 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Mar 16 2014 16:32:56 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

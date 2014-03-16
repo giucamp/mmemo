@@ -27,7 +27,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\vs10\memo.vcxproj">
-      <Project>{771a8e07-bfd6-4762-bc31-42a610fba819}</Project>
+      <Project>{35750162-1519-4241-b129-2c7bd34e49e7}</Project>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">

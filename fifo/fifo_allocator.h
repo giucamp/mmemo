@@ -3,18 +3,18 @@
 
 namespace memo
 {
-	/**	\class FifoAllocator
+	/**	\class Queue
 		\brief Class implementing FIFO-ordered allocation services.
 		This class is not thread safe.
 	*/
-	class FifoAllocator
+	class Queue
 	{
 	public:
 
 		/** default constructor. The memory buffer must be assigned before using the queue (see set_buffer) */
-		FifoAllocator();
+		Queue();
 
-		~FifoAllocator();
+		~Queue();
 
 		bool init( IAllocator & i_target_allocator, size_t i_first_page_size, size_t i_other_page_size );
 		
@@ -71,21 +71,21 @@ namespace memo
 				static void check_val( const void * i_address, size_t i_size, uint8_t i_value );
 
 			private: // data members
-				FifoAllocator * m_fifo_allocator;
+				Queue * m_fifo_allocator;
 				std_deque< std_vector< int >::type >::type m_test_queue;
 			};
 
 		#endif // #if MEMO_ENABLE_TEST
 
 	private: // not implemented
-		FifoAllocator( const FifoAllocator & );
-		FifoAllocator & operator = ( const FifoAllocator & );
+		Queue( const Queue & );
+		Queue & operator = ( const Queue & );
 
 	private: // internal services
 
 		struct PageHeader
 		{
-			Queue m_queue;
+			FifoAllocator m_queue;
 			PageHeader * m_next_page;
 			size_t m_size;
 		};

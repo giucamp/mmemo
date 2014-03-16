@@ -1,3 +1,10 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structmemo_1_1_lifo_allocator_1_1_state_info.html" title="getters /// " alt="" coords="5,5,157,32"/>
+<area shape="rect" id="node1" href="$structmemo_1_1_i_allocator_1_1_config.html" title="IAllocator::Config" alt="" coords="5,136,125,163"/>
+<area shape="rect" id="node2" href="$structmemo_1_1_corruption_detector_allocator_1_1_config.html" title="CorruptionDetectorAllocator\l::Config" alt="" coords="173,5,355,46"/>
+<area shape="rect" id="node3" href="$structmemo_1_1_decorator_allocator_1_1_config.html" title="DecoratorAllocator\l::Config" alt="" coords="199,70,329,111"/>
+<area shape="rect" id="node5" href="$structmemo_1_1_default_allocator_1_1_config.html" title="DefaultAllocator::Config" alt="" coords="185,136,343,163"/>
+<area shape="rect" id="node6" href="$structmemo_1_1_lifo_allocator_1_1_config.html" title="LifoAllocator::Config" alt="" coords="195,187,333,213"/>
+<area shape="rect" id="node7" href="$structmemo_1_1_region_allocator_1_1_config.html" title="RegionAllocator::Config" alt="" coords="185,237,343,264"/>
+<area shape="rect" id="node4" href="$structmemo_1_1_debug_allocator_1_1_config.html" title="DebugAllocator::Config" alt="" coords="403,77,557,104"/>
+<area shape="rect" id="node8" href="$structmemo_1_1_tlsf_allocator_1_1_config.html" title="TlsfAllocator::Config" alt="" coords="411,237,549,264"/>
 </map>

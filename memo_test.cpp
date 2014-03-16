@@ -17,15 +17,15 @@ namespace memo
 
 		// queue
 		{
-			memo_externals::output_message( "testing Queue..." );
-			memo::Queue::TestSession queue_stack_tester( 256 );
+			memo_externals::output_message( "testing FifoAllocator..." );
+			memo::FifoAllocator::TestSession queue_stack_tester( 256 );
 			for( int i = 0; i < iterations; i++ )
 			{
 				queue_stack_tester.fill_and_empty_test();
 			}
 		}
 		{
-			memo::Queue::TestSession queue_stack_tester( 5557 );
+			memo::FifoAllocator::TestSession queue_stack_tester( 5557 );
 			for( int i = 0; i < iterations; i++ )
 			{
 				queue_stack_tester.fill_and_empty_test();
@@ -35,8 +35,8 @@ namespace memo
 
 		// fifo allocator
 		{
-			memo_externals::output_message( "testing FifoAllocator..." );
-			memo::FifoAllocator::TestSession fifo_tester;
+			memo_externals::output_message( "testing Queue..." );
+			memo::Queue::TestSession fifo_tester;
 			for( int i = 0; i < 13; i++ )
 			{
 				fifo_tester.fill_and_empty_test( iterations );

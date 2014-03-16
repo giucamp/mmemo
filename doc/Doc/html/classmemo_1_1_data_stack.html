@@ -91,7 +91,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>Class impementing LIFO-ordered allocation services. A LIFO allocator provides allocation services with the constrain that only the memory block of top (BOT) can be reallocated or freed. The BOT is the last allocated or resized memory block. After it is freed, the previously allocated block is the new BOT. <a class="el" href="classmemo_1_1_data_stack.html" title="Class impementing LIFO-ordered allocation services. A LIFO allocator provides allocation services wit...">DataStack</a> is initialized with a memory buffer, which is used to allocate the memory blocks fo the user. If the space remaining in the buffer is not enough to accomplish the alloc or realloc, this class just returns nullptr. <a class="el" href="classmemo_1_1_data_stack.html" title="Class impementing LIFO-ordered allocation services. A LIFO allocator provides allocation services wit...">DataStack</a> does not provide a deallocation callback, so you have to destroy manually any non-POD object. See also <a class="el" href="classmemo_1_1_object_stack.html" title="Class impementing LIFO-ordered allocation services. A LIFO allocator provides allocation services wit...">memo::ObjectStack</a>. This class is not thread safe.  
+<p>Class implementing LIFO-ordered allocation services. A LIFO allocator provides allocation services with the constrain that only the memory block of top (BOT) can be reallocated or freed. The BOT is the last allocated or resized memory block. After it is freed, the previously allocated block is the new BOT. <a class="el" href="classmemo_1_1_data_stack.html" title="Class implementing LIFO-ordered allocation services. A LIFO allocator provides allocation services wi...">DataStack</a> is initialized with a memory buffer, which is used to allocate the memory blocks fo the user. If the space remaining in the buffer is not enough to accomplish the alloc or realloc, this class just returns nullptr. <a class="el" href="classmemo_1_1_data_stack.html" title="Class implementing LIFO-ordered allocation services. A LIFO allocator provides allocation services wi...">DataStack</a> does not provide a deallocation callback, so you have to destroy manually any non-POD object. See also <a class="el" href="classmemo_1_1_object_stack.html" title="Class implementing LIFO-ordered allocation services. A LIFO allocator provides allocation services wi...">memo::ObjectStack</a>. This class is not thread safe.  
  <a href="classmemo_1_1_data_stack.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="data__stack_8h_source.html">data_stack.h</a>&gt;</code></p>
@@ -132,7 +132,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ade0b34101221dfeedb5d7f9725923b3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class impementing LIFO-ordered allocation services. A LIFO allocator provides allocation services with the constrain that only the memory block of top (BOT) can be reallocated or freed. The BOT is the last allocated or resized memory block. After it is freed, the previously allocated block is the new BOT. <a class="el" href="classmemo_1_1_data_stack.html" title="Class impementing LIFO-ordered allocation services. A LIFO allocator provides allocation services wit...">DataStack</a> is initialized with a memory buffer, which is used to allocate the memory blocks fo the user. If the space remaining in the buffer is not enough to accomplish the alloc or realloc, this class just returns nullptr. <a class="el" href="classmemo_1_1_data_stack.html" title="Class impementing LIFO-ordered allocation services. A LIFO allocator provides allocation services wit...">DataStack</a> does not provide a deallocation callback, so you have to destroy manually any non-POD object. See also <a class="el" href="classmemo_1_1_object_stack.html" title="Class impementing LIFO-ordered allocation services. A LIFO allocator provides allocation services wit...">memo::ObjectStack</a>. This class is not thread safe. </p>
+<div class="textblock"><p>Class implementing LIFO-ordered allocation services. A LIFO allocator provides allocation services with the constrain that only the memory block of top (BOT) can be reallocated or freed. The BOT is the last allocated or resized memory block. After it is freed, the previously allocated block is the new BOT. <a class="el" href="classmemo_1_1_data_stack.html" title="Class implementing LIFO-ordered allocation services. A LIFO allocator provides allocation services wi...">DataStack</a> is initialized with a memory buffer, which is used to allocate the memory blocks fo the user. If the space remaining in the buffer is not enough to accomplish the alloc or realloc, this class just returns nullptr. <a class="el" href="classmemo_1_1_data_stack.html" title="Class implementing LIFO-ordered allocation services. A LIFO allocator provides allocation services wi...">DataStack</a> does not provide a deallocation callback, so you have to destroy manually any non-POD object. See also <a class="el" href="classmemo_1_1_object_stack.html" title="Class implementing LIFO-ordered allocation services. A LIFO allocator provides allocation services wi...">memo::ObjectStack</a>. This class is not thread safe. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a77539065c72f0aaec70a7d83a68c6b02"></a>
 <div class="memitem">
@@ -148,7 +148,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>allocation services /// </p>
-<p>default constructor. The memory buffer must be assigned before using the allocator (see set_buffer) </p>
+<p>default constructor. The memory buffer must be assigned before using the <a class="el" href="classmemo_1_1_data_stack.html" title="Class implementing LIFO-ordered allocation services. A LIFO allocator provides allocation services wi...">DataStack</a> (see set_buffer) </p>
 
 </div>
 </div>
@@ -423,7 +423,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 18 2014 11:08:09 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Mar 16 2014 16:32:55 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>
