@@ -3,7 +3,7 @@
 namespace memo
 {
 	Queue::Queue()
-		: m_buffer_start( nullptr ), m_buffer_end( nullptr ), m_start( nullptr ), m_end( nullptr ), m_allocation_count( 0 )
+		: m_buffer_start( nullptr ), m_buffer_end( nullptr ), m_start( nullptr ), m_end( nullptr )
 	{
 
 	}
@@ -17,8 +17,6 @@ namespace memo
 	void Queue::set_buffer( void * i_buffer_start_address, size_t i_buffer_length )
 	{
 		MEMO_ASSERT( i_buffer_length > sizeof(_Header) * 2 ); // buffer too small?
-
-		m_allocation_count = 0;
 
 		// the buffer start must be aligned like an _Header
 		m_buffer_start = upper_align( i_buffer_start_address, MEMO_ALIGNMENT_OF( _Header ) );
@@ -61,7 +59,7 @@ namespace memo
 			if( static_cast< _Header * >( new_end ) + 1 <= m_buffer_end )
 			{
 				// done
-				printf( "successful allocation. size: %d alignment: %d, offset: %d\n", i_size, i_alignment, i_alignment_offset );
+				//printf( "successful allocation. size: %d alignment: %d, offset: %d\n", i_size, i_alignment, i_alignment_offset );
 				header->m_next_header_offset = address_diff( new_end, end );
 				header->m_user_block_offset = address_diff( new_user_block, header );
 				#if MEMO_ENABLE_ASSERT
@@ -70,24 +68,23 @@ namespace memo
 					MEMO_ASSERT( header->m_user_block_offset <= buffer_size );
 				#endif
 				m_end = new_end;
-				m_allocation_count++;
 				return new_user_block;
 			}
 			else
 			{
 				if( wrapped )
 				{
-					printf( "FAILED allocation (wrapped twice). size: %d alignment: %d, offset: %d\n", i_size, i_alignment, i_alignment_offset );
+					//printf( "FAILED allocation (wrapped twice). size: %d alignment: %d, offset: %d\n", i_size, i_alignment, i_alignment_offset );
 					return nullptr; // wrapping twice, allocation failed
 				}
 
 				if( m_start == m_buffer_start )
 				{
-					printf( "FAILED allocation. size: %d alignment: %d, offset: %d\n", i_size, i_alignment, i_alignment_offset );
+					//printf( "FAILED allocation. size: %d alignment: %d, offset: %d\n", i_size, i_alignment, i_alignment_offset );
 					return nullptr; // out of space, allocation failed
 				}
 
-				printf( "wrapping\n" );
+				//printf( "wrapping\n" );
 
 				// mark the current header as a wrap header
 				header->m_next_header_offset = std::numeric_limits<size_t>::max();
@@ -132,11 +129,11 @@ namespace memo
 		if( header->m_next_header_offset == std::numeric_limits<size_t>::max() )
 		{
 			header = static_cast< _Header * >( m_buffer_start );
-			printf( "freeing size:%d, wrapper header\n", header->m_next_header_offset );
+			//printf( "freeing size:%d, wrapper header\n", header->m_next_header_offset );
 		}
 		else
 		{
-			printf( "freeing size:%d\n", header->m_next_header_offset );
+			//printf( "freeing size:%d\n", header->m_next_header_offset );
 		}
 
 		MEMO_ASSERT( header != m_end ); // no block available?
@@ -150,16 +147,8 @@ namespace memo
 				MEMO_ASSERT( static_cast<_Header *>( m_start )->m_next_header_offset <= buffer_size );
 				MEMO_ASSERT( static_cast<_Header *>( m_start )->m_user_block_offset <= buffer_size );
 			}
-			if( new_first_block != m_end )
-			{
-				//MEMO_ASSERT( static_cast<_Header *>( new_first_block )->m_next_header_offset <= buffer_size );
-				//MEMO_ASSERT( static_cast<_Header *>( new_first_block )->m_user_block_offset <= buffer_size );
-			}
 		#endif
 
-		MEMO_ASSERT( m_allocation_count > 0 );
-		m_allocation_count--;
-		MEMO_ASSERT( (new_first_block == m_end) == (m_allocation_count == 0) );
 		m_start = new_first_block;
 	}
 
@@ -309,9 +298,9 @@ namespace memo
 
 		void Queue::TestSession::check_consistency()
 		{
-			printf( "size %d, start %d, end:%d\n", address_diff( m_fifo_allocator->m_buffer_end, m_fifo_allocator->m_buffer_start ),
+			/*printf( "size %d, start %d, end:%d\n", address_diff( m_fifo_allocator->m_buffer_end, m_fifo_allocator->m_buffer_start ),
 				address_diff( m_fifo_allocator->m_start, m_fifo_allocator->m_buffer_start ),
-				address_diff( m_fifo_allocator->m_end, m_fifo_allocator->m_buffer_start ) );
+				address_diff( m_fifo_allocator->m_end, m_fifo_allocator->m_buffer_start ) );*/
 
 			for( size_t i = 0; i < m_allocations.size(); i++ )
 			{

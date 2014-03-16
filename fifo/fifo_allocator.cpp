@@ -49,12 +49,15 @@ namespace memo
 	void FifoAllocator::uninit()
 	{
 		PageHeader * curr = m_first_page;
-		while( curr != nullptr )
+		if( m_first_page != nullptr )
 		{
-			PageHeader * next = curr->m_next_page;
-			destroy_page( curr );
-			curr = next;
+			do {
+				PageHeader * next = curr->m_next_page;
+				destroy_page( curr );
+				curr = next;
+			} while( curr != m_first_page );
 		}
+
 		m_first_page = nullptr;
 		m_last_page = nullptr;
 		m_put_page = nullptr;

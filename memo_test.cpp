@@ -5,8 +5,6 @@ namespace memo
 {
 	void test_allocators()
 	{
-		srand(432);
-
 		/*output_integer( 2425 ); memo_externals::output_message( "\n" );
 		output_mem_size( 5 );	memo_externals::output_message( "\n" );
 		output_mem_size( 1024 * 6 ); memo_externals::output_message( "\n" );
@@ -15,12 +13,19 @@ namespace memo
 		output_mem_size( 1024 * 1024 * (1024u * 2u + 500u) ); memo_externals::output_message( "\n" );*/
 
 		memo_externals::output_message( "testing allocators...\n" );
-		const size_t iterations = 470000;
+		const size_t iterations = 47000;
 
 		// queue
 		{
 			memo_externals::output_message( "testing Queue..." );
-			memo::Queue::TestSession queue_stack_tester( 5555 );
+			memo::Queue::TestSession queue_stack_tester( 256 );
+			for( int i = 0; i < iterations; i++ )
+			{
+				queue_stack_tester.fill_and_empty_test();
+			}
+		}
+		{
+			memo::Queue::TestSession queue_stack_tester( 5557 );
 			for( int i = 0; i < iterations; i++ )
 			{
 				queue_stack_tester.fill_and_empty_test();
