@@ -42,10 +42,10 @@ namespace memo
 	void * Queue::alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset )
 	{
 		bool wrapped = false;
-		
+		void * end = m_end;
 		for(;;)
 		{
-			_Header * header = static_cast< _Header * >( m_end );
+			_Header * header = static_cast< _Header * >( end );
 			MEMO_ASSERT( header + 1 <= m_buffer_end );
 
 			// get the block for the user aligning as requested
@@ -54,7 +54,7 @@ namespace memo
 			// offset by the size of the block, and align to get an header
 			void * new_end = upper_align( address_add( new_user_block, i_size ), MEMO_ALIGNMENT_OF( _Header ) );
 
-			if( (new_end >= m_start) != (m_end >= m_start) )
+			if( (new_end >= m_start) != (end >= m_start) )
 				return nullptr; // new_end crossed m_start, allocation failed
 
 			// new_end must have enough space to store the next header
@@ -62,7 +62,7 @@ namespace memo
 			{
 				// done
 				printf( "successful allocation. size: %d alignment: %d, offset: %d\n", i_size, i_alignment, i_alignment_offset );
-				header->m_next_header_offset = address_diff( new_end, m_end );
+				header->m_next_header_offset = address_diff( new_end, end );
 				header->m_user_block_offset = address_diff( new_user_block, header );
 				#if MEMO_ENABLE_ASSERT
 					const size_t buffer_size = address_diff( m_buffer_end, m_buffer_start );
@@ -81,13 +81,19 @@ namespace memo
 					return nullptr; // wrapping twice, allocation failed
 				}
 
+				if( m_start == m_buffer_start )
+				{
+					printf( "FAILED allocation. size: %d alignment: %d, offset: %d\n", i_size, i_alignment, i_alignment_offset );
+					return nullptr; // out of space, allocation failed
+				}
+
 				printf( "wrapping\n" );
 
 				// mark the current header as a wrap header
 				header->m_next_header_offset = std::numeric_limits<size_t>::max();
 
 				// restart from m_buffer_start
-				m_end = m_buffer_start;
+				end = m_buffer_start;
 				wrapped = true;
 			}
 		}
