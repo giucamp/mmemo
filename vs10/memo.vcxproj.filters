@@ -19,6 +19,9 @@
     <Filter Include="fifo">
       <UniqueIdentifier>{7fdba5ac-4bcd-49f6-99ef-d7f3de3d7a32}</UniqueIdentifier>
     </Filter>
+    <Filter Include="pool">
+      <UniqueIdentifier>{c0b86bef-8111-4baa-b9a5-b62de7cfce7f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\allocators\allocator_tester.cpp">
@@ -99,6 +102,12 @@
     </ClCompile>
     <ClCompile Include="..\fifo\fifo_allocator.cpp">
       <Filter>fifo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\pool\pool.cpp">
+      <Filter>pool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\pool\untyped_pool.cpp">
+      <Filter>pool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +195,12 @@
     <ClInclude Include="..\fifo\fifo_allocator.h">
       <Filter>fifo</Filter>
     </ClInclude>
+    <ClInclude Include="..\pool\pool.h">
+      <Filter>pool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\pool\untyped_pool.h">
+      <Filter>pool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\allocators\default_allocator.inl">
@@ -207,6 +222,12 @@
     <None Include="..\memo.inl" />
     <None Include="..\fifo\fifo.inl">
       <Filter>fifo</Filter>
+    </None>
+    <None Include="..\pool\pool.inl">
+      <Filter>pool</Filter>
+    </None>
+    <None Include="..\pool\untyped_pool.inl">
+      <Filter>pool</Filter>
     </None>
   </ItemGroup>
 </Project>

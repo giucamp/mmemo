@@ -188,6 +188,18 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\pool\pool.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\pool\untyped_pool.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\address_functions.h" />
@@ -220,6 +232,8 @@
     <ClInclude Include="..\management\thread_root.h" />
     <ClInclude Include="..\memo.h" />
     <ClInclude Include="..\memo_externals.h" />
+    <ClInclude Include="..\pool\pool.h" />
+    <ClInclude Include="..\pool\untyped_pool.h" />
     <ClInclude Include="..\std_allocator.h" />
     <ClInclude Include="..\std_containers.h" />
   </ItemGroup>
@@ -232,6 +246,8 @@
     <None Include="..\lifo\lifo_allocator.inl" />
     <None Include="..\lifo\object_stack.inl" />
     <None Include="..\memo.inl" />
+    <None Include="..\pool\pool.inl" />
+    <None Include="..\pool\untyped_pool.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{35750162-1519-4241-B129-2C7BD34E49E7}</ProjectGuid>
