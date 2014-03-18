@@ -171,7 +171,7 @@ namespace memo
 		return *current_allocator;
 	}
 
-	LifoAllocator & get_lifo_allocator()
+	ObjectStack & get_lifo_allocator()
 	{
 		ThreadRoot * thread_context = memo_externals::get_thread_root();
 		MEMO_ASSERT( thread_context != nullptr );

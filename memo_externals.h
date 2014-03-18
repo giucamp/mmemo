@@ -27,7 +27,7 @@
 #endif
 
 /** \def MEMO_LIFO_ALLOC_DEBUG
-	If this macro evaluates to non-zero, some extra debug check is enabled on memo::LifoAllocator and memo::DataStack */
+	If this macro evaluates to non-zero, some extra debug check is enabled on memo::ObjectStack and memo::LifoAllocator */
 #define MEMO_LIFO_ALLOC_DEBUG		MEMO_ENABLE_ASSERT
 
 /** \def MEMO_ALIGNMENT_OF( Type )

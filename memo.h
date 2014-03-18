@@ -24,12 +24,12 @@ namespace memo // classes' forward declarations
 														memo allocation functions. */
 
 	// lifo
-	class DataStack; /** manages a raw memory buffer providing LIFO ordered memory block allocation. 
+	class LifoAllocator; /** manages a raw memory buffer providing LIFO ordered memory block allocation. 
 			Any non-POD object allocated in it must be manually destroyed before being freed. */
-	class ObjectStack; /** manages a raw memory buffer providing LIFO ordered memory block allocation.
-			Unlike DataStack, ObjectStack keeps a deallocation callback for every memory block that 
+	class ObjectLifoAllocator; /** manages a raw memory buffer providing LIFO ordered memory block allocation.
+			Unlike LifoAllocator, ObjectLifoAllocator keeps a deallocation callback for every memory block that 
 			can be used to destroy non-POD objects. */
-	class LifoAllocator;
+	class ObjectStack;
 	class LifoObjectAllocator;
 
 	typedef void (*DeallocationCallback)( void * i_memory_block );
@@ -70,6 +70,7 @@ namespace memo // classes' forward declarations
 #include "allocators\allocators.h"
 #include "lifo\lifo.h"
 #include "fifo\fifo.h"
+#include "pool\pool.h"
 #include "management\management.h"
 
 namespace memo
@@ -225,7 +226,7 @@ memo::lifo_free( buffer );
 Allocations in the data stack are very fast, do not fragment the memory, and don't waste any space, as the memory blocks are "packed"
 together one after the other in a single (or in a few) memory buffer. The lifo order must be respected, otherwise the memory gets corrupted. 
 In a debug build, a mismatch is reported with an assert.
-See memo::LifoAllocator, memo::DataStack and memo::ObjectStack for details.
+See memo::ObjectStack, memo::LifoAllocator and memo::ObjectLifoAllocator for details.
 
 \section fifoallocator Queues and fifo allocations
 Memo provides support for fifo (first-in, first-out) ordered allocations too. This kind of ordering is suited for the producer-consumer problem, allowing dealing with items of variable 

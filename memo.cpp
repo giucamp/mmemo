@@ -161,6 +161,7 @@ namespace memo
 #include "allocators\allocators.cpp"
 #include "lifo\lifo.cpp"
 #include "fifo\fifo.cpp"
+#include "pool\pool.cpp"
 #include "management\management.cpp"
 #if MEMO_ENABLE_TEST
 	#include "memo_test.cpp"

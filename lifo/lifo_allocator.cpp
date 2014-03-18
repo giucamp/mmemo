@@ -1,15 +1,15 @@
 
 namespace memo
 {
-	// LifoAllocator::constructor
-	LifoAllocator::LifoAllocator()
+	// ObjectStack::constructor
+	ObjectStack::ObjectStack()
 		: m_last_page( nullptr ), m_target_allocator( nullptr ), m_page_size( 0 )
 	{
 
 	}
 
-	// LifoAllocator::init
-	bool LifoAllocator::init( IAllocator & i_allocator, size_t i_first_page_size, size_t i_other_pages_size )
+	// ObjectStack::init
+	bool ObjectStack::init( IAllocator & i_allocator, size_t i_first_page_size, size_t i_other_pages_size )
 	{
 		// clear
 		uninit();
@@ -37,8 +37,8 @@ namespace memo
 		return true;
 	}
 
-	// LifoAllocator::uninit
-	void LifoAllocator::uninit()
+	// ObjectStack::uninit
+	void ObjectStack::uninit()
 	{
 		PageHeader * curr = m_last_page;
 		while( curr != nullptr )
@@ -51,8 +51,8 @@ namespace memo
 		m_target_allocator = nullptr;
 	}
 
-	// LifoAllocator::new_page - internal service
-	bool LifoAllocator::new_page( size_t i_min_size )
+	// ObjectStack::new_page - internal service
+	bool ObjectStack::new_page( size_t i_min_size )
 	{	
 		size_t size = std::max( i_min_size, sizeof(PageHeader) * 4 );
 
@@ -72,15 +72,15 @@ namespace memo
 		return true;	
 	}
 
-	// LifoAllocator::destroy_page
-	void LifoAllocator::destroy_page( PageHeader * i_page )
+	// ObjectStack::destroy_page
+	void ObjectStack::destroy_page( PageHeader * i_page )
 	{
 		i_page->~PageHeader();
 		m_target_allocator->unaligned_free( i_page );
 	}
 
-	// LifoAllocator::alloc
-	void * LifoAllocator::alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset, DeallocationCallback i_deallocation_callback )
+	// ObjectStack::alloc
+	void * ObjectStack::alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset, DeallocationCallback i_deallocation_callback )
 	{
 		MEMO_ASSERT( m_last_page != nullptr ); // the allocator must be initialized
 
@@ -96,14 +96,14 @@ namespace memo
 			return nullptr;
 
 		/* allocate the block in the new page - the first allocation in the page cannot be zero-sized, otherwise 
-			LifoAllocator::free would destroy the page before freeing all the blocks. */
+			ObjectStack::free would destroy the page before freeing all the blocks. */
 		result = m_last_page->m_lifo_allocator.alloc( i_size > 0 ? i_size : 1, i_alignment, i_alignment_offset, i_deallocation_callback );
 		MEMO_ASSERT( result != nullptr ); // page_size should be enough to allocate the block
 		return result;
 	}
 
-	// LifoAllocator::free
-	void LifoAllocator::free( void * i_address )
+	// ObjectStack::free
+	void ObjectStack::free( void * i_address )
 	{
 		MEMO_ASSERT( m_last_page != nullptr ); // the allocator must be initialized
 
@@ -123,8 +123,8 @@ namespace memo
 		}
 	}
 
-	// LifoAllocator::free_all
-	void LifoAllocator::free_all()
+	// ObjectStack::free_all
+	void ObjectStack::free_all()
 	{
 		MEMO_ASSERT( m_last_page != nullptr ); // the datastack must be initialized
 
@@ -137,14 +137,14 @@ namespace memo
 		}
 	}
 
-	// LifoAllocator::StateInfo::constructor
-	LifoAllocator::StateInfo::StateInfo()
+	// ObjectStack::StateInfo::constructor
+	ObjectStack::StateInfo::StateInfo()
 	{
 		reset();
 	}
 
-	// LifoAllocator::StateInfo::reset
-	void LifoAllocator::StateInfo::reset()
+	// ObjectStack::StateInfo::reset
+	void ObjectStack::StateInfo::reset()
 	{
 		#if MEMO_LIFO_ALLOC_DEBUG
 			m_dbg_block_count = 0;
@@ -154,8 +154,8 @@ namespace memo
 		m_pages_total_space = 0;
 	}
 
-	// LifoAllocator::get_state_info
-	void LifoAllocator::get_state_info( LifoAllocator::StateInfo & o_info ) const
+	// ObjectStack::get_state_info
+	void ObjectStack::get_state_info( ObjectStack::StateInfo & o_info ) const
 	{
 		o_info.reset();
 

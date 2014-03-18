@@ -1,19 +1,19 @@
 
 namespace memo
 {
-	/**	\class LifoAllocator
+	/**	\class ObjectStack
 		\brief Class implementing LIFO-ordered allocation services.
 		A LIFO allocator provides allocation\deallocation services with the constrain that only the memory block of top
 		(BOT) can be reallocated or freed. The BOT is the last allocated or resized memory block. After it is freed,
 		the previously allocated block is the new BOT.
-		LifoAllocator is initialized with an allocator, which is used to allocate pages of memory.
+		ObjectStack is initialized with an allocator, which is used to allocate pages of memory.
 		This class is not thread safe.
 	*/
-	class LifoAllocator
+	class ObjectStack
 	{
 	public:
 
-		/** Config structure for LifoAllocator */
+		/** Config structure for ObjectStack */
 		struct Config : public IAllocator::Config
 		{
 		public:
@@ -24,7 +24,7 @@ namespace memo
 			IAllocator::Config * m_external_allocator; /**< Pointer to the config of the target allocator. It has the ownership of the pointed object. */
 		};
 
-		LifoAllocator();
+		ObjectStack();
 
 		bool init( IAllocator & i_target_allocator, size_t i_first_page_size, size_t i_other_page_size );
 		
@@ -33,7 +33,7 @@ namespace memo
 		void uninit();
 
 		/** destroys the allocator. All the allocations are freed. */
-		~LifoAllocator();
+		~ObjectStack();
 
 		/** allocates a new memory block, respecting the requested alignment with an offset from the beginning of the block.
 			If the allocation fails nullptr is returned. If the requested size is zero the return value is a non-null address.
@@ -111,20 +111,20 @@ namespace memo
 				};
 
 				std_vector< Allocation >::type m_allocations;
-				LifoAllocator * m_stack;
+				ObjectStack * m_stack;
 			};
 
 		#endif
 
 	private: // not implemented
-		LifoAllocator( const LifoAllocator & );
-		LifoAllocator & operator = ( const LifoAllocator & );
+		ObjectStack( const ObjectStack & );
+		ObjectStack & operator = ( const ObjectStack & );
 
 	private: // internal services
 
 		struct PageHeader
 		{
-			ObjectStack m_lifo_allocator;
+			ObjectLifoAllocator m_lifo_allocator;
 			PageHeader * m_prev_page;
 			size_t m_size;
 		};

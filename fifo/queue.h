@@ -55,7 +55,7 @@ namespace memo
 		*/
 		bool is_empty() const;
 
-		/** This class enumerates, from the oldest to the newest, all the living allocation in a LifoAllocator. 
+		/** This class enumerates, from the oldest to the newest, all the living allocation in a FifoAllocator. 
 			This is an example of how this class may be used:
 			\code{.cpp}
 			for( Iterator it( fifo_allocator ); !it.is_over(); it++ )
@@ -71,7 +71,7 @@ namespace memo
 			/** Construct an uninitialized iterator. Call start_iteration before using it. */
 			Iterator();
 
-			/** Construct an iterator and assigns to it a LifoAllocator. */
+			/** Construct an iterator and assigns to it a FifoAllocator. */
 			Iterator( const FifoAllocator & i_lifo_allocator )		{ start_iteration( i_lifo_allocator ); }
 
 			/** Starts iterating a FifoAllocator, moving to its oldest allocation */
@@ -100,7 +100,7 @@ namespace memo
 
 		#if MEMO_ENABLE_TEST
 			
-			/** encapsulates a test session to discover bugs in DataStack */
+			/** encapsulates a test session to discover bugs in FifofoAllocator */
 			class TestSession
 			{
 			public:

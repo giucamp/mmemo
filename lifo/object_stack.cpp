@@ -1,8 +1,8 @@
 
 namespace memo
 {
-	// ObjectStack::set_buffer
-	void ObjectStack::set_buffer( void * i_buffer_start_address, size_t i_buffer_length )
+	// ObjectLifoAllocator::set_buffer
+	void ObjectLifoAllocator::set_buffer( void * i_buffer_start_address, size_t i_buffer_length )
 	{
 		// any allocated block is freed
 		m_start_address = m_curr_address = i_buffer_start_address;
@@ -14,8 +14,8 @@ namespace memo
 		#endif
 	}
 
-	// ObjectStack::alloc
-	void * ObjectStack::alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset, DeallocationCallback i_deallocation_callback )
+	// ObjectLifoAllocator::alloc
+	void * ObjectLifoAllocator::alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset, DeallocationCallback i_deallocation_callback )
 	{
 		MEMO_ASSERT( m_start_address != nullptr ); // no buffer assigned?
 		MEMO_ASSERT( is_integer_power_of_2( i_alignment ) );
@@ -45,8 +45,8 @@ namespace memo
 		return block;
 	}
 
-	// ObjectStack::free_to_bookmark
-	void ObjectStack::free_to_bookmark( void * i_bookmark )
+	// ObjectLifoAllocator::free_to_bookmark
+	void ObjectLifoAllocator::free_to_bookmark( void * i_bookmark )
 	{
 		void * current_pos = m_curr_address;
 
@@ -76,14 +76,14 @@ namespace memo
 
 	#if MEMO_LIFO_ALLOC_DEBUG
 			
-		// ObjectStack::dbg_get_curr_block_count
-		size_t ObjectStack::dbg_get_curr_block_count() const
+		// ObjectLifoAllocator::dbg_get_curr_block_count
+		size_t ObjectLifoAllocator::dbg_get_curr_block_count() const
 		{
 			return m_dbg_allocations.size();
 		}
 
-		// ObjectStack::dbg_get_block_on_top
-		void * ObjectStack::dbg_get_block_on_top() const
+		// ObjectLifoAllocator::dbg_get_block_on_top
+		void * ObjectLifoAllocator::dbg_get_block_on_top() const
 		{
 			if( m_dbg_allocations.empty() )
 				return nullptr;
@@ -97,17 +97,17 @@ namespace memo
 
 	#if MEMO_ENABLE_TEST
 			
-		// ObjectStack::TestSession::constructor
-		ObjectStack::TestSession::TestSession( size_t i_buffer_size )
+		// ObjectLifoAllocator::TestSession::constructor
+		ObjectLifoAllocator::TestSession::TestSession( size_t i_buffer_size )
 		{
 			m_buffer = memo::unaligned_alloc( i_buffer_size ); 
 			
-			m_lifo_allocator = static_cast<ObjectStack*>( memo::alloc( sizeof(ObjectStack), MEMO_ALIGNMENT_OF(ObjectStack), 0 ) );
-			new( m_lifo_allocator ) ObjectStack( m_buffer, i_buffer_size );
+			m_lifo_allocator = static_cast<ObjectLifoAllocator*>( memo::alloc( sizeof(ObjectLifoAllocator), MEMO_ALIGNMENT_OF(ObjectLifoAllocator), 0 ) );
+			new( m_lifo_allocator ) ObjectLifoAllocator( m_buffer, i_buffer_size );
 		}
 
-		// ObjectStack::TestSession::check_val
-		void ObjectStack::TestSession::check_val( const void * i_address, size_t i_size, uint8_t i_value )
+		// ObjectLifoAllocator::TestSession::check_val
+		void ObjectLifoAllocator::TestSession::check_val( const void * i_address, size_t i_size, uint8_t i_value )
 		{
 			const uint8_t * first = static_cast<const uint8_t *>( i_address );
 			for( size_t index = 0; index < i_size; index++ )
@@ -116,8 +116,8 @@ namespace memo
 			}
 		}
 
-		// ObjectStack::TestSession::allocate
-		bool ObjectStack::TestSession::allocate()
+		// ObjectLifoAllocator::TestSession::allocate
+		bool ObjectLifoAllocator::TestSession::allocate()
 		{
 			// try to allocate
 			void * memory_block;
@@ -164,8 +164,8 @@ namespace memo
 			return true;
 		}
 				
-		// ObjectStack::TestSession::free
-		bool ObjectStack::TestSession::free()
+		// ObjectLifoAllocator::TestSession::free
+		bool ObjectLifoAllocator::TestSession::free()
 		{
 			if( m_allocations.size() == 0 )
 			{
@@ -184,8 +184,8 @@ namespace memo
 			return true;
 		}
 
-		// ObjectStack::TestSession::fill_and_empty_test
-		void ObjectStack::TestSession::fill_and_empty_test()
+		// ObjectLifoAllocator::TestSession::fill_and_empty_test
+		void ObjectLifoAllocator::TestSession::fill_and_empty_test()
 		{
 			size_t alloc_count = 0;
 			size_t max_alloc_count = 0;
@@ -245,10 +245,10 @@ namespace memo
 			MEMO_ASSERT( m_lifo_allocator->get_buffer_size() == m_lifo_allocator->get_free_space() );
 		}
 
-		// ObjectStack::TestSession::destructor
-		ObjectStack::TestSession::~TestSession()
+		// ObjectLifoAllocator::TestSession::destructor
+		ObjectLifoAllocator::TestSession::~TestSession()
 		{
-			m_lifo_allocator->~ObjectStack();
+			m_lifo_allocator->~ObjectLifoAllocator();
 			memo::free( m_lifo_allocator );
 
 			memo::unaligned_free( m_buffer );

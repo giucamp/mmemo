@@ -3,14 +3,14 @@ namespace memo
 {
 	#if MEMO_LIFO_ALLOC_DEBUG
 			
-		// DataStack::dbg_get_curr_block_count
-		size_t DataStack::dbg_get_curr_block_count() const
+		// LifoAllocator::dbg_get_curr_block_count
+		size_t LifoAllocator::dbg_get_curr_block_count() const
 		{
 			return m_dbg_allocations.size();
 		}
 
-		// DataStack::dbg_get_block_on_top
-		void * DataStack::dbg_get_block_on_top() const
+		// LifoAllocator::dbg_get_block_on_top
+		void * LifoAllocator::dbg_get_block_on_top() const
 		{
 			if( m_dbg_allocations.empty() )
 				return nullptr;
@@ -24,17 +24,17 @@ namespace memo
 
 	#if MEMO_ENABLE_TEST
 			
-		// DataStack::TestSession::constructor
-		DataStack::TestSession::TestSession( size_t i_buffer_size )
+		// LifoAllocator::TestSession::constructor
+		LifoAllocator::TestSession::TestSession( size_t i_buffer_size )
 		{
 			m_buffer = memo::unaligned_alloc( i_buffer_size ); 
 			
-			m_lifo_allocator = static_cast<DataStack*>( memo::alloc( sizeof(DataStack), MEMO_ALIGNMENT_OF(DataStack), 0 ) );
-			new( m_lifo_allocator ) DataStack( m_buffer, i_buffer_size );
+			m_lifo_allocator = static_cast<LifoAllocator*>( memo::alloc( sizeof(LifoAllocator), MEMO_ALIGNMENT_OF(LifoAllocator), 0 ) );
+			new( m_lifo_allocator ) LifoAllocator( m_buffer, i_buffer_size );
 		}
 
-		// DataStack::TestSession::check_val
-		void DataStack::TestSession::check_val( const void * i_address, size_t i_size, uint8_t i_value )
+		// LifoAllocator::TestSession::check_val
+		void LifoAllocator::TestSession::check_val( const void * i_address, size_t i_size, uint8_t i_value )
 		{
 			const uint8_t * first = static_cast<const uint8_t *>( i_address );
 			for( size_t index = 0; index < i_size; index++ )
@@ -43,8 +43,8 @@ namespace memo
 			}
 		}
 
-		// DataStack::TestSession::allocate
-		bool DataStack::TestSession::allocate()
+		// LifoAllocator::TestSession::allocate
+		bool LifoAllocator::TestSession::allocate()
 		{
 			// try to allocate
 			void * memory_block;
@@ -90,8 +90,8 @@ namespace memo
 			return true;
 		}
 
-		// DataStack::TestSession::reallocate
-		bool DataStack::TestSession::reallocate()
+		// LifoAllocator::TestSession::reallocate
+		bool LifoAllocator::TestSession::reallocate()
 		{
 			if( m_allocations.size() == 0 )
 			{
@@ -130,8 +130,8 @@ namespace memo
 			return true;
 		}
 		
-		// DataStack::TestSession::free
-		bool DataStack::TestSession::free()
+		// LifoAllocator::TestSession::free
+		bool LifoAllocator::TestSession::free()
 		{
 			if( m_allocations.size() == 0 )
 			{
@@ -151,8 +151,8 @@ namespace memo
 			return true;
 		}
 
-		// DataStack::TestSession::fill_and_empty_test
-		void DataStack::TestSession::fill_and_empty_test()
+		// LifoAllocator::TestSession::fill_and_empty_test
+		void LifoAllocator::TestSession::fill_and_empty_test()
 		{
 			size_t alloc_count = 0;
 			size_t max_alloc_count = 0;
@@ -220,10 +220,10 @@ namespace memo
 			// MEMO_ASSERT( m_lifo_allocator->get_buffer_size() == m_lifo_allocator->get_free_space() );
 		}
 
-		// DataStack::TestSession::destructor
-		DataStack::TestSession::~TestSession()
+		// LifoAllocator::TestSession::destructor
+		LifoAllocator::TestSession::~TestSession()
 		{
-			m_lifo_allocator->~DataStack();
+			m_lifo_allocator->~LifoAllocator();
 			memo::free( m_lifo_allocator );
 
 			memo::unaligned_free( m_buffer );

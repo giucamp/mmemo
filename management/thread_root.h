@@ -42,7 +42,7 @@ namespace memo
 
 		ContextStack & context_stack()				{ return m_context_stack; }
 
-		LifoAllocator & lifo_allocator()			{ return m_lifo_allocator; }
+		ObjectStack & lifo_allocator()			{ return m_lifo_allocator; }
 
 	private: // internal services
 		struct DefaultAllocSetter
@@ -51,7 +51,7 @@ namespace memo
 	private: // data members
 		DefaultAllocSetter m_default_alloc_setter;
 		ContextStack m_context_stack;
-		LifoAllocator m_lifo_allocator;
+		ObjectStack m_lifo_allocator;
 	};
 
 } // namespace memo

@@ -59,7 +59,7 @@ namespace memo
 
 			///// LIFO allocations /////
 
-	LifoAllocator & get_lifo_allocator();
+	ObjectStack & get_lifo_allocator();
 
 	void * lifo_alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset, DeallocationCallback i_deallocation_callback );
 

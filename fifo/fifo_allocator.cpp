@@ -84,8 +84,7 @@ namespace memo
 		// initialize the page
 		::new( header ) PageHeader();
 		header->m_next_page = nullptr;
-		header->m_size = size;
-		header->m_queue.set_buffer( header + 1, size - sizeof(PageHeader) );
+		header->m_fifo_allocator.set_buffer( header + 1, size - sizeof(PageHeader) );
 
 		// succeeded
 		return header;
@@ -104,7 +103,7 @@ namespace memo
 		MEMO_ASSERT( m_first_page != nullptr ); // the allocator must be initialized
 
 		// try to allocate in m_put_page
-		void * result = m_put_page->m_queue.alloc( i_size, i_alignment, i_alignment_offset );
+		void * result = m_put_page->m_fifo_allocator.alloc( i_size, i_alignment, i_alignment_offset );
 		if( result != nullptr )
 			return result;
 
@@ -127,7 +126,7 @@ namespace memo
 		m_put_page = next_page;
 		
 		// retry to allocate
-		result = m_put_page->m_queue.alloc( i_size, i_alignment, i_alignment_offset );
+		result = m_put_page->m_fifo_allocator.alloc( i_size, i_alignment, i_alignment_offset );
 		MEMO_ASSERT( result != nullptr ); // page_size should be enough to allocate the block
 		return result;
 	}
@@ -137,7 +136,7 @@ namespace memo
 	{
 		MEMO_ASSERT( m_first_page != nullptr ); // the allocator must be initialized
 
-		return m_peek_page->m_queue.get_first_block();
+		return m_peek_page->m_fifo_allocator.get_first_block();
 	}
 
 	// Queue::free_first
@@ -145,9 +144,9 @@ namespace memo
 	{
 		MEMO_ASSERT( m_last_page != nullptr ); // the allocator must be initialized
 
-		m_peek_page->m_queue.free_first( i_address );
+		m_peek_page->m_fifo_allocator.free_first( i_address );
 
-		while( m_peek_page->m_queue.is_empty() && m_peek_page != m_put_page )
+		while( m_peek_page->m_fifo_allocator.is_empty() && m_peek_page != m_put_page )
 		{
 			PageHeader * next_page = m_peek_page->m_next_page;
 						

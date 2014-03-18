@@ -4,7 +4,9 @@
 namespace memo
 {
 	/**	\class Queue
-		\brief Class implementing FIFO-ordered allocation services.
+		Class implementing FIFO-ordered allocation services. The FIFO constraint requires that only the oldest allocated block 
+		can be freed. Queue allows to get the address of the oldest allocated block, so that it can be consumed before 
+		being freed.
 		This class is not thread safe.
 	*/
 	class Queue
@@ -50,7 +52,7 @@ namespace memo
 
 		#if MEMO_ENABLE_TEST
 			
-			/** encapsulates a test session to discover bugs in ObjectStack */
+			/** encapsulates a test session to discover bugs in FifoAllocator */
 			class TestSession
 			{
 			public:
@@ -85,9 +87,8 @@ namespace memo
 
 		struct PageHeader
 		{
-			FifoAllocator m_queue;
+			FifoAllocator m_fifo_allocator;
 			PageHeader * m_next_page;
-			size_t m_size;
 		};
 
 		PageHeader * create_page( size_t i_min_size );

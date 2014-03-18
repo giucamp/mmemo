@@ -4,25 +4,25 @@ namespace memo
 
 							/// allocation services ///
 
-	// DataStack::default constructor
-	MEMO_INLINE DataStack::DataStack()
+	// LifoAllocator::default constructor
+	MEMO_INLINE LifoAllocator::LifoAllocator()
 		: m_curr_address( nullptr ), m_start_address( nullptr ), m_end_address( nullptr )
 	{
 	}
 
-	// DataStack::destructor
-	MEMO_INLINE DataStack::~DataStack()
+	// LifoAllocator::destructor
+	MEMO_INLINE LifoAllocator::~LifoAllocator()
 	{
 	}
 
-	// DataStack::constructor
-	MEMO_INLINE DataStack::DataStack( void * i_buffer_start_address, size_t i_buffer_length )
+	// LifoAllocator::constructor
+	MEMO_INLINE LifoAllocator::LifoAllocator( void * i_buffer_start_address, size_t i_buffer_length )
 	{
 		set_buffer( i_buffer_start_address, i_buffer_length );
 	}
 
-	// DataStack::set_buffer
-	MEMO_INLINE void DataStack::set_buffer( void * i_buffer_start_address, size_t i_buffer_length )
+	// LifoAllocator::set_buffer
+	MEMO_INLINE void LifoAllocator::set_buffer( void * i_buffer_start_address, size_t i_buffer_length )
 	{
 		// any allocated block is freed
 		m_start_address = m_curr_address = i_buffer_start_address;
@@ -34,8 +34,8 @@ namespace memo
 		#endif
 	}
 
-	// DataStack::alloc
-	MEMO_INLINE void * DataStack::alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset )
+	// LifoAllocator::alloc
+	MEMO_INLINE void * LifoAllocator::alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset )
 	{
 		MEMO_ASSERT( m_start_address != nullptr ); // no buffer assigned?
 
@@ -54,8 +54,8 @@ namespace memo
 		return result;
 	}
 
-	// DataStack::realloc
-	MEMO_INLINE bool DataStack::realloc( void * i_address, size_t i_new_size )
+	// LifoAllocator::realloc
+	MEMO_INLINE bool LifoAllocator::realloc( void * i_address, size_t i_new_size )
 	{
 		MEMO_ASSERT( m_start_address != nullptr ); // no buffer assigned?
 
@@ -74,8 +74,8 @@ namespace memo
 		return true;
 	}
 
-	// DataStack::free
-	MEMO_INLINE void DataStack::free( void * i_address )
+	// LifoAllocator::free
+	MEMO_INLINE void LifoAllocator::free( void * i_address )
 	{
 		MEMO_ASSERT( i_address >= m_start_address && i_address <= m_end_address );
 
@@ -89,8 +89,8 @@ namespace memo
 		m_curr_address = i_address;
 	}
 
-	// DataStack::free_all
-	MEMO_INLINE void DataStack::free_all()
+	// LifoAllocator::free_all
+	MEMO_INLINE void LifoAllocator::free_all()
 	{
 		#if MEMO_LIFO_ALLOC_DEBUG
 			m_dbg_allocations.clear();
@@ -104,26 +104,26 @@ namespace memo
 
 					/// getters ///
 
-	// DataStack::get_buffer_start
-	MEMO_INLINE const void * DataStack::get_buffer_start() const
+	// LifoAllocator::get_buffer_start
+	MEMO_INLINE const void * LifoAllocator::get_buffer_start() const
 	{
 		return m_start_address;
 	}
 
-	// DataStack::get_buffer_size
-	MEMO_INLINE size_t DataStack::get_buffer_size() const
+	// LifoAllocator::get_buffer_size
+	MEMO_INLINE size_t LifoAllocator::get_buffer_size() const
 	{
 		return address_diff( m_end_address, m_start_address );
 	}
 
-	// DataStack::get_free_space
-	MEMO_INLINE size_t DataStack::get_free_space() const
+	// LifoAllocator::get_free_space
+	MEMO_INLINE size_t LifoAllocator::get_free_space() const
 	{
 		return address_diff( m_end_address, m_curr_address );
 	}
 
-	// DataStack::get_used_space
-	MEMO_INLINE size_t DataStack::get_used_space() const
+	// LifoAllocator::get_used_space
+	MEMO_INLINE size_t LifoAllocator::get_used_space() const
 	{
 		return address_diff( m_curr_address, m_start_address );
 	}

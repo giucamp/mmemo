@@ -131,8 +131,8 @@ namespace memo
 
 		// data stack
 		{
-			memo_externals::output_message( "testing DataStack..." );
-			memo::DataStack::TestSession data_stack_tester( 5555 );
+			memo_externals::output_message( "testing LifoAllocator..." );
+			memo::LifoAllocator::TestSession data_stack_tester( 5555 );
 			for( int i = 0; i < 13; i++ )
 			{
 				data_stack_tester.fill_and_empty_test();
@@ -142,8 +142,8 @@ namespace memo
 
 		// object stack
 		{
-			memo_externals::output_message( "testing ObjectStack..." );
-			memo::ObjectStack::TestSession object_stack_tester( 5555 );
+			memo_externals::output_message( "testing ObjectLifoAllocator..." );
+			memo::ObjectLifoAllocator::TestSession object_stack_tester( 5555 );
 			for( int i = 0; i < 13; i++ )
 			{
 				object_stack_tester.fill_and_empty_test();

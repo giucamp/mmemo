@@ -5,31 +5,31 @@
 
 namespace memo
 {
-	/**	\class DataStack
+	/**	\class LifoAllocator
 		\brief Class implementing LIFO-ordered allocation services.
 		A LIFO allocator provides allocation\deallocation services with the constrain that only the memory block of top
 		(BOT) can be reallocated or freed. The BOT is the last allocated or resized memory block. After it is freed,
 		the previously allocated block is the new BOT.
-		DataStack is initialized with a memory buffer, which is used to allocate the memory blocks fo the user. If 
+		LifoAllocator is initialized with a memory buffer, which is used to allocate the memory blocks fo the user. If 
 		the space remaining in the buffer is not enough to accomplish the alloc or realloc, this class just returns nullptr.
-		DataStack does not provide a deallocation callback, so you have to destroy manually any non-POD object. See also memo::ObjectStack.
+		LifoAllocator does not provide a deallocation callback, so you have to destroy manually any non-POD object. See also memo::ObjectLifoAllocator.
 		This class is not thread safe.
 	*/
-	class DataStack
+	class LifoAllocator
 	{
 	public:
 
 
 							/// allocation services ///
 
-		/** default constructor. The memory buffer must be assigned before using the DataStack (see set_buffer) */
-		DataStack();
+		/** default constructor. The memory buffer must be assigned before using the LifoAllocator (see set_buffer) */
+		LifoAllocator();
 
 		/** constructor that assigns soon the memory buffer */
-		DataStack( void * i_buffer_start_address, size_t i_buffer_length );
+		LifoAllocator( void * i_buffer_start_address, size_t i_buffer_length );
 
 		/** destroys the allocator. All the allocations are freed. */
-		~DataStack();
+		~LifoAllocator();
 
 		/** assigns the memory buffer.
 		  @param i_buffer_start_address pointer to the first byte in the buffer
@@ -103,7 +103,7 @@ namespace memo
 
 		#if MEMO_ENABLE_TEST
 			
-			/** encapsulates a test session to discover bugs in DataStack */
+			/** encapsulates a test session to discover bugs in LifoAllocator */
 			class TestSession
 			{
 			public:
@@ -137,15 +137,15 @@ namespace memo
 				};
 
 				std_vector< Allocation >::type m_allocations;
-				DataStack * m_lifo_allocator;
+				LifoAllocator * m_lifo_allocator;
 				void * m_buffer;
 			};
 
 		#endif // #if MEMO_ENABLE_TEST
 
 	private: // not implemented
-		DataStack( const DataStack & );
-		DataStack & operator = ( const DataStack & );
+		LifoAllocator( const LifoAllocator & );
+		LifoAllocator & operator = ( const LifoAllocator & );
 
 	private: // data members
 		void * m_curr_address, * m_start_address, * m_end_address;
