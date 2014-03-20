@@ -1,5 +1,4 @@
 
-#include "data_stack.cpp"
-#include "object_stack.cpp"
 #include "lifo_allocator.cpp"
-
+#include "object_lifo_allocator.cpp"
+#include "object_stack.cpp"

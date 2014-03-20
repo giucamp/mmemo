@@ -1,175 +1,234 @@
 
 namespace memo
 {
-	// ObjectStack::constructor
-	ObjectStack::ObjectStack()
-		: m_last_page( nullptr ), m_target_allocator( nullptr ), m_page_size( 0 )
-	{
-
-	}
-
-	// ObjectStack::init
-	bool ObjectStack::init( IAllocator & i_allocator, size_t i_first_page_size, size_t i_other_pages_size )
-	{
-		// clear
-		uninit();
-		
-		m_target_allocator = &i_allocator;
-		m_page_size = i_other_pages_size;
-
-		// try to create the first page
-		size_t page_size = i_first_page_size;
-		while( !new_page( page_size ) )
+	#if MEMO_LIFO_ALLOC_DEBUG
+			
+		// LifoAllocator::dbg_get_curr_block_count
+		size_t LifoAllocator::dbg_get_curr_block_count() const
 		{
-			if( page_size < sizeof( PageHeader ) * 4 )
+			return m_dbg_allocations.size();
+		}
+
+		// LifoAllocator::dbg_get_block_on_top
+		void * LifoAllocator::dbg_get_block_on_top() const
+		{
+			if( m_dbg_allocations.empty() )
+				return nullptr;
+			else
+				return m_dbg_allocations.back();
+		}
+
+	#endif
+
+				/// test session ///
+
+	#if MEMO_ENABLE_TEST
+			
+		// LifoAllocator::TestSession::constructor
+		LifoAllocator::TestSession::TestSession( size_t i_buffer_size )
+		{
+			m_buffer = memo::unaligned_alloc( i_buffer_size ); 
+			
+			m_lifo_allocator = static_cast<LifoAllocator*>( memo::alloc( sizeof(LifoAllocator), MEMO_ALIGNMENT_OF(LifoAllocator), 0 ) );
+			new( m_lifo_allocator ) LifoAllocator( m_buffer, i_buffer_size );
+		}
+
+		// LifoAllocator::TestSession::check_val
+		void LifoAllocator::TestSession::check_val( const void * i_address, size_t i_size, uint8_t i_value )
+		{
+			const uint8_t * first = static_cast<const uint8_t *>( i_address );
+			for( size_t index = 0; index < i_size; index++ )
 			{
-				// failed, undo the changes
-				m_target_allocator = nullptr;
-				m_page_size = 0;
+				MEMO_ASSERT( first[ index ] == i_value );
+			}
+		}
+
+		// LifoAllocator::TestSession::allocate
+		bool LifoAllocator::TestSession::allocate()
+		{
+			// try to allocate
+			void * memory_block;
+			size_t alloc_size;
+			if( (generate_rand_32() & 15) == 13 )
+				alloc_size = 0;
+			else
+				alloc_size = static_cast<size_t>( generate_rand_32() & 0xFF );
+			for(;;)
+			{
+				const size_t alloc_alignment = static_cast<size_t>( 1 ) << ( generate_rand_32() & 5 );
+				alloc_size &= ~(alloc_alignment - 1);
+				const size_t alloc_alignment_offset = std::min( alloc_size, static_cast<size_t>( generate_rand_32() & 31 ) );
+
+				memory_block = m_lifo_allocator->alloc( alloc_size, alloc_alignment, alloc_alignment_offset );
+				if( memory_block == nullptr )
+				{
+					if( alloc_size > 0 )
+					{
+						alloc_size--; // decrement the requested size and retry
+						continue;
+					}
+					else
+						break; // the size is zero, the allocation failed
+				}
+				else
+				{
+					MEMO_ASSERT( is_aligned( address_add( memory_block, alloc_alignment_offset ), alloc_alignment ) );
+					break;
+				}
+			}
+
+			if( memory_block == nullptr )
+				return false;
+
+			Allocation alloc;
+			alloc.m_block = memory_block;
+			alloc.m_block_size = alloc_size;
+			m_allocations.push_back( alloc );
+
+			memset( memory_block, static_cast<int>( m_allocations.size() & 0xFF ), alloc_size );
+
+			return true;
+		}
+
+		// LifoAllocator::TestSession::reallocate
+		bool LifoAllocator::TestSession::reallocate()
+		{
+			if( m_allocations.size() == 0 )
+			{
+				// the allocator must be empty
+				//MEMO_ASSERT( m_lifo_allocator->get_buffer_size() == m_lifo_allocator->get_free_space() );
 				return false;
 			}
 
-			// halve the size and retry
-			page_size /= 2;
-		}
+			Allocation & alloc = m_allocations[ m_allocations.size() - 1 ]; 
+			check_val( alloc.m_block, alloc.m_block_size, static_cast<uint8_t>( m_allocations.size() & 0xFF ) );
 
-		// succeeded
-		return true;
-	}
-
-	// ObjectStack::uninit
-	void ObjectStack::uninit()
-	{
-		PageHeader * curr = m_last_page;
-		while( curr != nullptr )
-		{
-			PageHeader * prev = curr->m_prev_page;
-			destroy_page( curr );
-			curr = prev;
-		}
-		m_last_page = nullptr;
-		m_target_allocator = nullptr;
-	}
-
-	// ObjectStack::new_page - internal service
-	bool ObjectStack::new_page( size_t i_min_size )
-	{	
-		size_t size = std::max( i_min_size, sizeof(PageHeader) * 4 );
-
-		// allocate the page
-		PageHeader * header = static_cast< PageHeader * >( m_target_allocator->unaligned_alloc( size ) );
-		if( header == nullptr )
-			return false;
-
-		// initialize the page
-		::new( header ) PageHeader();
-		header->m_prev_page = m_last_page;
-		header->m_size = size;
-		header->m_lifo_allocator.set_buffer( header + 1, size - sizeof(PageHeader) );
-
-		// succeeded
-		m_last_page = header;				
-		return true;	
-	}
-
-	// ObjectStack::destroy_page
-	void ObjectStack::destroy_page( PageHeader * i_page )
-	{
-		i_page->~PageHeader();
-		m_target_allocator->unaligned_free( i_page );
-	}
-
-	// ObjectStack::alloc
-	void * ObjectStack::alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset, DeallocationCallback i_deallocation_callback )
-	{
-		MEMO_ASSERT( m_last_page != nullptr ); // the allocator must be initialized
-
-		// try to allocate in the last page
-		void * result = m_last_page->m_lifo_allocator.alloc( i_size, i_alignment, i_alignment_offset, i_deallocation_callback );
-		if( result != nullptr )
-			return result;
-
-		// try to allocate a new page
-		const size_t min_page_size = i_size + (i_alignment + ( sizeof( PageHeader ) * 2 + MEMO_ALIGNMENT_OF( PageHeader ) ));
-		const size_t page_size = std::max( min_page_size, m_page_size );
-		if( !new_page( page_size ) )
-			return nullptr;
-
-		/* allocate the block in the new page - the first allocation in the page cannot be zero-sized, otherwise 
-			ObjectStack::free would destroy the page before freeing all the blocks. */
-		result = m_last_page->m_lifo_allocator.alloc( i_size > 0 ? i_size : 1, i_alignment, i_alignment_offset, i_deallocation_callback );
-		MEMO_ASSERT( result != nullptr ); // page_size should be enough to allocate the block
-		return result;
-	}
-
-	// ObjectStack::free
-	void ObjectStack::free( void * i_address )
-	{
-		MEMO_ASSERT( m_last_page != nullptr ); // the allocator must be initialized
-
-		PageHeader * const last_page = m_last_page;
-
-		last_page->m_lifo_allocator.free( i_address );
-
-		if( last_page->m_lifo_allocator.get_used_space() == 0 )
-		{
-			// the last page is empty, if it's not the first it can be freed
-			PageHeader * const prev = last_page->m_prev_page;
-			if( prev != nullptr )
+			// try to reallocate
+			bool result;
+			size_t alloc_size = static_cast<size_t>( generate_rand_32() & 0xFF );
+			for(;;)
 			{
-				destroy_page( last_page );
-				m_last_page = prev;
+				result = m_lifo_allocator->realloc( alloc.m_block, alloc_size );
+				if( !result && alloc_size > 0 )
+				{
+					if( alloc_size > 0 )
+					{
+						alloc_size--; // decrement the requested size and retry
+						continue;
+					}
+				}
+				break;
 			}
+
+			if( !result )
+				return false;
+
+			memset( alloc.m_block, static_cast<int>( m_allocations.size() & 0xFF ), alloc_size );
+
+			alloc.m_block_size = alloc_size;
+			
+			return true;
 		}
-	}
-
-	// ObjectStack::free_all
-	void ObjectStack::free_all()
-	{
-		MEMO_ASSERT( m_last_page != nullptr ); // the datastack must be initialized
-
-		PageHeader * curr = m_last_page;
-		while( curr->m_prev_page != nullptr )
+		
+		// LifoAllocator::TestSession::free
+		bool LifoAllocator::TestSession::free()
 		{
-			PageHeader * prev = curr->m_prev_page;
-			destroy_page( curr );
-			curr = prev;
+			if( m_allocations.size() == 0 )
+			{
+				// the allocator must be empty
+				//MEMO_ASSERT( m_lifo_allocator->get_buffer_size() == m_lifo_allocator->get_free_space() );
+				return false;
+			}
+
+			Allocation alloc = m_allocations[ m_allocations.size() - 1 ]; 
+
+			check_val( alloc.m_block, alloc.m_block_size, static_cast<uint8_t>( m_allocations.size() & 0xFF ) );
+
+			m_allocations.erase( m_allocations.begin() + ( m_allocations.size() - 1 ) );
+
+			m_lifo_allocator->free( alloc.m_block );
+
+			return true;
 		}
-	}
 
-	// ObjectStack::StateInfo::constructor
-	ObjectStack::StateInfo::StateInfo()
-	{
-		reset();
-	}
-
-	// ObjectStack::StateInfo::reset
-	void ObjectStack::StateInfo::reset()
-	{
-		#if MEMO_LIFO_ALLOC_DEBUG
-			m_dbg_block_count = 0;
-		#endif
-		m_total_used_space = 0;
-		m_page_count = 0;
-		m_pages_total_space = 0;
-	}
-
-	// ObjectStack::get_state_info
-	void ObjectStack::get_state_info( ObjectStack::StateInfo & o_info ) const
-	{
-		o_info.reset();
-
-		PageHeader * curr = m_last_page;
-		while( curr != nullptr )
+		// LifoAllocator::TestSession::fill_and_empty_test
+		void LifoAllocator::TestSession::fill_and_empty_test()
 		{
-			#if MEMO_LIFO_ALLOC_DEBUG
-				o_info.m_dbg_block_count += curr->m_lifo_allocator.dbg_get_curr_block_count();
-			#endif
-			o_info.m_total_used_space += curr->m_lifo_allocator.get_used_space();
-			o_info.m_page_count++;
-			o_info.m_pages_total_space += curr->m_size;
-			curr = curr->m_prev_page;
+			size_t alloc_count = 0;
+			size_t max_alloc_count = 0;
+			size_t fill_iterations = 0;
+			size_t empty_iterations = 0;
+
+			// fill the buffer
+			for(;;)
+			{
+				fill_iterations++;
+				max_alloc_count = std::max( max_alloc_count, alloc_count );
+
+				const uint32_t rand = generate_rand_32();
+				if( (rand & 7) == 3 )
+				{
+					if( free() )
+					{
+						MEMO_ASSERT( alloc_count > 0 );
+						alloc_count--;
+					}
+				}
+				else if( (rand & 7) == 4 )
+				{
+					reallocate();
+				}
+				else
+				{
+					if( allocate() )
+						alloc_count++;
+					else
+						break;
+				}
+			}
+
+			// empty the buffer
+			for(;;)
+			{
+				empty_iterations++;
+				max_alloc_count = std::max( max_alloc_count, alloc_count );
+
+				const uint32_t rand = generate_rand_32();
+				if( (rand & 7) == 3 )
+				{
+					if( allocate() )
+					{
+						alloc_count++;
+					}
+				}
+				else if( (rand & 7) == 4 )
+				{
+					reallocate();
+				}
+				else
+				{
+					if( free() )
+					{
+						MEMO_ASSERT( alloc_count > 0 );
+						alloc_count--;
+					}
+					else
+						break;
+				}
+			}			
+
+			// MEMO_ASSERT( m_lifo_allocator->get_buffer_size() == m_lifo_allocator->get_free_space() );
 		}
-	}
+
+		// LifoAllocator::TestSession::destructor
+		LifoAllocator::TestSession::~TestSession()
+		{
+			m_lifo_allocator->~LifoAllocator();
+			memo::free( m_lifo_allocator );
+
+			memo::unaligned_free( m_buffer );
+		}
+
+	#endif
 
 } // namespace memo

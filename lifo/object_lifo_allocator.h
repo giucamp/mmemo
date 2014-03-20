@@ -5,31 +5,33 @@
 
 namespace memo
 {
-	/**	\class LifoAllocator
+	/**	\class ObjectLifoAllocator
 		\brief Class implementing LIFO-ordered allocation services.
 		A LIFO allocator provides allocation\deallocation services with the constrain that only the memory block of top
 		(BOT) can be reallocated or freed. The BOT is the last allocated or resized memory block. After it is freed,
 		the previously allocated block is the new BOT.
-		LifoAllocator is initialized with a memory buffer, which is used to allocate the memory blocks fo the user. If 
+		ObjectLifoAllocator is initialized with a memory buffer, which is used to allocate the memory blocks fo the user. If 
 		the space remaining in the buffer is not enough to accomplish the alloc or realloc, this class just returns nullptr.
-		LifoAllocator does not provide a deallocation callback, so you have to destroy manually any non-POD object. See also memo::ObjectLifoAllocator.
+		Unlike memo::LifoAllocator, ObjectLifoAllocator provide a deallocation callback taht may be used to destroy objects before
+		the memory is released.
 		This class is not thread safe.
+		Implementation note: Unlike memo::LifoAllocator, ObjectLifoAllocator adds an header to every memory block
 	*/
-	class LifoAllocator
+	class ObjectLifoAllocator
 	{
 	public:
 
 
 							/// allocation services ///
 
-		/** default constructor. The memory buffer must be assigned before using the LifoAllocator (see set_buffer) */
-		LifoAllocator();
+		/** default constructor. The memory buffer must be assigned before using the allocator (see set_buffer) */
+		ObjectLifoAllocator();
 
 		/** constructor that assigns soon the memory buffer */
-		LifoAllocator( void * i_buffer_start_address, size_t i_buffer_length );
+		ObjectLifoAllocator( void * i_buffer_start_address, size_t i_buffer_length );
 
 		/** destroys the allocator. All the allocations are freed. */
-		~LifoAllocator();
+		~ObjectLifoAllocator();
 
 		/** assigns the memory buffer.
 		  @param i_buffer_start_address pointer to the first byte in the buffer
@@ -43,32 +45,32 @@ namespace memo
 		  @param i_size size of the block in bytes
 		  @param i_alignment alignment requested for the block. It must be an integer power of 2
 		  @param i_alignment_offset offset from beginning of the block of the address that respects the alignment
+		  @param i_deallocation_callback function to call when the allocation is freed. It may be used to call the destructor of the object being allocated. It can be nullptr.
 		  @return the address of the first byte in the block, or nullptr if the allocation fails
 		*/
-		void * alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset );
+		void * alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset, DeallocationCallback i_deallocation_callback );
 
-		/** changes the size of the memory block on top of the stack.
-			The content of the memory block is preserved up to the lesser of the new size and the old size, while the content 
-			of the newly allocated portion is undefined. 
-			The alignment and the offset of the alignment of an existing memory block cannot be changed by realloc.
-			If the reallocation fails false is returned, and the memory block is left unchanged. 
-		  @param i_address address of the memory block to reallocate. This parameter cannot be nullptr.
-		  @param i_new_size new size of the block in bytes
-		  @return true if the reallocations succeeds, false otherwise 
-		*/
-		bool realloc( void * i_address, size_t i_new_size );
-
-		/** deallocates a memory block allocated by alloc or realloc.
+		/** deallocates a memory block allocated by alloc or realloc. Before releasing the memory, the deallocation callback (if non-null) is called
 		  @param i_address address of the memory block to free. It must be the block on top. It cannot be nullptr.
 		  */
 		void free( void * i_address );
 
-		/** resets the allocator, freeing all the allocated memory blocks. */
+		/** deallocates in reverse order all the blocks allocated after the bookmark was retrived with ObjectLifoAllocator::get_bookmark. Before releasing 
+			each block, the deallocation callback (if non-null) is called.
+		  @param i_bookmark bookmark
+		  */
+		void free_to_bookmark( void * i_bookmark );
+		
+		/** resets the allocator, freeing in reverse order all the allocated memory blocks. The deallocation callbacks are 
+			called before releasing the blocks */
 		void free_all();
 
 
-
 					/// getters ///
+
+		/** retrieves a bookmark that can be subsequently used to restore the state of the allocator (see ObjectLifoAllocator::free_to_bookmark)
+		  @return the bookmark */
+		void * get_bookmark() const;
 
 		/** retrieves the beginning of the buffer used to perform allocations. Writing this buffer causes memory corruption. 
 		  @return pointer to the beginning if the buffer */
@@ -103,7 +105,7 @@ namespace memo
 
 		#if MEMO_ENABLE_TEST
 			
-			/** encapsulates a test session to discover bugs in LifoAllocator */
+			/** encapsulates a test session to discover bugs in ObjectLifoAllocator */
 			class TestSession
 			{
 			public:
@@ -120,9 +122,6 @@ namespace memo
 				/** tries to make an allocation */
 				bool allocate();
 
-				/** tries to deallocate the BOT */
-				bool reallocate();
-
 				/** frees the BOT if it exists */
 				bool free();
 
@@ -137,15 +136,15 @@ namespace memo
 				};
 
 				std_vector< Allocation >::type m_allocations;
-				LifoAllocator * m_lifo_allocator;
+				ObjectLifoAllocator * m_lifo_allocator;
 				void * m_buffer;
 			};
 
 		#endif // #if MEMO_ENABLE_TEST
 
 	private: // not implemented
-		LifoAllocator( const LifoAllocator & );
-		LifoAllocator & operator = ( const LifoAllocator & );
+		ObjectLifoAllocator( const ObjectLifoAllocator & );
+		ObjectLifoAllocator & operator = ( const ObjectLifoAllocator & );
 
 	private: // data members
 		void * m_curr_address, * m_start_address, * m_end_address;
@@ -155,6 +154,13 @@ namespace memo
 			static const uint8_t s_dbg_allocated_mem = 0xAA;
 			static const uint8_t s_dbg_freed_mem = 0xFD;
 		#endif
+
+		struct Footer
+		{
+			void * m_prev_pos;
+			void * m_block;
+			DeallocationCallback m_deallocation_callback;
+		};
 	};
 
 } // namespace memo

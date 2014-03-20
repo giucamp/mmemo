@@ -1,43 +1,39 @@
 
-#ifndef MEMO_LIFO_ALLOC_DEBUG
-	#error MEMO_LIFO_ALLOC_DEBUG must be defined in memo_externals.h
-#endif
-
 namespace memo
 {
-	/**	\class ObjectLifoAllocator
+	/**	\class ObjectStack
 		\brief Class implementing LIFO-ordered allocation services.
 		A LIFO allocator provides allocation\deallocation services with the constrain that only the memory block of top
 		(BOT) can be reallocated or freed. The BOT is the last allocated or resized memory block. After it is freed,
 		the previously allocated block is the new BOT.
-		ObjectLifoAllocator is initialized with a memory buffer, which is used to allocate the memory blocks fo the user. If 
-		the space remaining in the buffer is not enough to accomplish the alloc or realloc, this class just returns nullptr.
-		Unlike memo::LifoAllocator, ObjectLifoAllocator provide a deallocation callback taht may be used to destroy objects before
-		the memory is released.
+		ObjectStack is initialized with an allocator, which is used to allocate pages of memory.
 		This class is not thread safe.
-		Implementation note: Unlike memo::LifoAllocator, ObjectLifoAllocator adds an header to every memory block
 	*/
-	class ObjectLifoAllocator
+	class ObjectStack
 	{
 	public:
 
+		/** Config structure for ObjectStack */
+		struct Config : public IAllocator::Config
+		{
+		public:
+			
+			Config(); /**< Set the default values. m_external_allocator is set to nullptr */
+			~Config(); /**< Deletes the config pointed by m_external_allocator, if not null */
 
-							/// allocation services ///
+			IAllocator::Config * m_external_allocator; /**< Pointer to the config of the target allocator. It has the ownership of the pointed object. */
+		};
 
-		/** default constructor. The memory buffer must be assigned before using the allocator (see set_buffer) */
-		ObjectLifoAllocator();
+		ObjectStack();
 
-		/** constructor that assigns soon the memory buffer */
-		ObjectLifoAllocator( void * i_buffer_start_address, size_t i_buffer_length );
+		bool init( IAllocator & i_target_allocator, size_t i_first_page_size, size_t i_other_page_size );
+		
+		bool is_initialized() const;
+
+		void uninit();
 
 		/** destroys the allocator. All the allocations are freed. */
-		~ObjectLifoAllocator();
-
-		/** assigns the memory buffer.
-		  @param i_buffer_start_address pointer to the first byte in the buffer
-		  @param i_buffer_length number of bytes in the buffer 
-		*/
-		void set_buffer( void * i_buffer_start_address, size_t i_buffer_length );
+		~ObjectStack();
 
 		/** allocates a new memory block, respecting the requested alignment with an offset from the beginning of the block.
 			If the allocation fails nullptr is returned. If the requested size is zero the return value is a non-null address.
@@ -49,63 +45,42 @@ namespace memo
 		  @return the address of the first byte in the block, or nullptr if the allocation fails
 		*/
 		void * alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset, DeallocationCallback i_deallocation_callback );
-
-		/** deallocates a memory block allocated by alloc or realloc. Before releasing the memory, the deallocation callback (if non-null) is called
+		
+		/** deallocates a memory block allocated by alloc
 		  @param i_address address of the memory block to free. It must be the block on top. It cannot be nullptr.
 		  */
-		void free( void * i_address );
+		void free( void * i_address ); 
 
-		/** deallocates in reverse order all the blocks allocated after the bookmark was retrived with ObjectLifoAllocator::get_bookmark. Before releasing 
-			each block, the deallocation callback (if non-null) is called.
-		  @param i_bookmark bookmark
-		  */
-		void free_to_bookmark( void * i_bookmark );
-		
-		/** resets the allocator, freeing in reverse order all the allocated memory blocks. The deallocation callbacks are 
-			called before releasing the blocks */
+		/** resets the allocator, freeing all the allocated memory blocks. */
 		void free_all();
+
 
 
 					/// getters ///
 
-		/** retrieves a bookmark that can be subsequently used to restore the state of the allocator (see ObjectLifoAllocator::free_to_bookmark)
-		  @return the bookmark */
-		void * get_bookmark() const;
+		struct StateInfo
+		{
+			#if MEMO_LIFO_ALLOC_DEBUG
+				size_t m_dbg_block_count;
+			#endif
+			size_t m_total_used_space;
+			size_t m_page_count;
+			size_t m_pages_total_space;
 
-		/** retrieves the beginning of the buffer used to perform allocations. Writing this buffer causes memory corruption. 
-		  @return pointer to the beginning if the buffer */
-		const void * get_buffer_start() const;
+			StateInfo();
 
-		/** retrieves the size of the buffer.
-		  @return size of the buffer in bytes  */
-		size_t get_buffer_size() const;
+			void reset();
+		};
 
-		/** retrieves the size of the free portion of the buffer, that is the remaining space.
-		  @return free space in bytes  */
-		size_t get_free_space() const;
+		void get_state_info( StateInfo & o_info ) const;
 
-		/** retrieves the size of the used portion of the buffer, that is the allocated space.
-		  @return used space in bytes */
-		size_t get_used_space() const;
-
-		#if MEMO_LIFO_ALLOC_DEBUG
-			
-			/** retrieves the numbler of blocks currently allocated.
-				@return number of blocks. */
-			size_t dbg_get_curr_block_count() const;
-
-			/** retrieves the last non-freed allocated block, that is the BOT.
-				@return address of the last allocated block. */
-			void * dbg_get_block_on_top() const;
-
-		#endif
 
 
 					/// tester ///
 
-		#if MEMO_ENABLE_TEST
+		#if 0 && MEMO_ENABLE_TEST
 			
-			/** encapsulates a test session to discover bugs in ObjectLifoAllocator */
+			/** encapsulates a test session to discover bugs in LifoAllocatorTemp */
 			class TestSession
 			{
 			public:
@@ -121,7 +96,7 @@ namespace memo
 
 				/** tries to make an allocation */
 				bool allocate();
-
+				
 				/** frees the BOT if it exists */
 				bool free();
 
@@ -136,31 +111,32 @@ namespace memo
 				};
 
 				std_vector< Allocation >::type m_allocations;
-				ObjectLifoAllocator * m_lifo_allocator;
-				void * m_buffer;
+				ObjectStack * m_stack;
 			};
 
-		#endif // #if MEMO_ENABLE_TEST
-
-	private: // not implemented
-		ObjectLifoAllocator( const ObjectLifoAllocator & );
-		ObjectLifoAllocator & operator = ( const ObjectLifoAllocator & );
-
-	private: // data members
-		void * m_curr_address, * m_start_address, * m_end_address;
-		#if MEMO_LIFO_ALLOC_DEBUG
-			std_vector< void* >::type m_dbg_allocations; /** debug address stack used to check the LIFO consistency */
-			static const uint8_t s_dbg_initialized_mem = 0x17;
-			static const uint8_t s_dbg_allocated_mem = 0xAA;
-			static const uint8_t s_dbg_freed_mem = 0xFD;
 		#endif
 
-		struct Footer
+	private: // not implemented
+		ObjectStack( const ObjectStack & );
+		ObjectStack & operator = ( const ObjectStack & );
+
+	private: // internal services
+
+		struct PageHeader
 		{
-			void * m_prev_pos;
-			void * m_block;
-			DeallocationCallback m_deallocation_callback;
+			ObjectLifoAllocator m_lifo_allocator;
+			PageHeader * m_prev_page;
+			size_t m_size;
 		};
+
+		bool new_page( size_t i_min_size );
+
+		void destroy_page( PageHeader * ); 
+
+	private: // data members		
+		PageHeader * m_last_page;
+		IAllocator * m_target_allocator;
+		size_t m_page_size;
 	};
 
 } // namespace memo

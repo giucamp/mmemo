@@ -72,18 +72,6 @@
     <ClCompile Include="..\management\thread_root.cpp">
       <Filter>management</Filter>
     </ClCompile>
-    <ClCompile Include="..\lifo\data_stack.cpp">
-      <Filter>lifo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lifo\lifo.cpp">
-      <Filter>lifo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lifo\lifo_allocator.cpp">
-      <Filter>lifo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\lifo\object_stack.cpp">
-      <Filter>lifo</Filter>
-    </ClCompile>
     <ClCompile Include="..\external_sources\tlsf\tlsf.c">
       <Filter>external_sources\tlsf</Filter>
     </ClCompile>
@@ -108,6 +96,18 @@
     </ClCompile>
     <ClCompile Include="..\pool\untyped_pool.cpp">
       <Filter>pool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lifo\lifo.cpp">
+      <Filter>lifo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lifo\lifo_allocator.cpp">
+      <Filter>lifo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lifo\object_lifo_allocator.cpp">
+      <Filter>lifo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lifo\object_stack.cpp">
+      <Filter>lifo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -159,18 +159,6 @@
     <ClInclude Include="..\management\thread_root.h">
       <Filter>management</Filter>
     </ClInclude>
-    <ClInclude Include="..\lifo\data_stack.h">
-      <Filter>lifo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lifo\lifo.h">
-      <Filter>lifo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lifo\lifo_allocator.h">
-      <Filter>lifo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\lifo\object_stack.h">
-      <Filter>lifo</Filter>
-    </ClInclude>
     <ClInclude Include="..\external_sources\tlsf\tlsfbits.h">
       <Filter>external_sources\tlsf</Filter>
     </ClInclude>
@@ -201,22 +189,22 @@
     <ClInclude Include="..\pool\untyped_pool.h">
       <Filter>pool</Filter>
     </ClInclude>
+    <ClInclude Include="..\lifo\lifo.h">
+      <Filter>lifo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lifo\lifo_allocator.h">
+      <Filter>lifo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lifo\object_lifo_allocator.h">
+      <Filter>lifo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lifo\object_stack.h">
+      <Filter>lifo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\allocators\default_allocator.inl">
       <Filter>allocators</Filter>
-    </None>
-    <None Include="..\lifo\data_stack.inl">
-      <Filter>lifo</Filter>
-    </None>
-    <None Include="..\lifo\lifo.inl">
-      <Filter>lifo</Filter>
-    </None>
-    <None Include="..\lifo\lifo_allocator.inl">
-      <Filter>lifo</Filter>
-    </None>
-    <None Include="..\lifo\object_stack.inl">
-      <Filter>lifo</Filter>
     </None>
     <None Include="..\allocation_functions.inl" />
     <None Include="..\memo.inl" />
@@ -228,6 +216,18 @@
     </None>
     <None Include="..\pool\untyped_pool.inl">
       <Filter>pool</Filter>
+    </None>
+    <None Include="..\lifo\lifo.inl">
+      <Filter>lifo</Filter>
+    </None>
+    <None Include="..\lifo\lifo_allocator.inl">
+      <Filter>lifo</Filter>
+    </None>
+    <None Include="..\lifo\object_lifo_allocator.inl">
+      <Filter>lifo</Filter>
+    </None>
+    <None Include="..\lifo\object_stack.inl">
+      <Filter>lifo</Filter>
     </None>
   </ItemGroup>
 </Project>
