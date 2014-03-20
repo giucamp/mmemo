@@ -201,6 +201,9 @@
     <ClInclude Include="..\lifo\object_stack.h">
       <Filter>lifo</Filter>
     </ClInclude>
+    <ClInclude Include="..\pool\typed_pool.h">
+      <Filter>pool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\allocators\default_allocator.inl">
@@ -228,6 +231,9 @@
     </None>
     <None Include="..\lifo\object_stack.inl">
       <Filter>lifo</Filter>
+    </None>
+    <None Include="..\pool\typed_pool.inl">
+      <Filter>pool</Filter>
     </None>
   </ItemGroup>
 </Project>

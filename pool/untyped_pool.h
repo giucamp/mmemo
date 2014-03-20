@@ -7,6 +7,11 @@ namespace memo
 
 		struct Config
 		{
+			Config() {}
+
+			Config( size_t i_element_size, size_t i_element_alignment, size_t i_element_count ) 
+				: m_element_size( i_element_size ), m_element_alignment( i_element_alignment ), m_element_count( i_element_count ) { }
+
 			size_t m_element_size;
 			size_t m_element_alignment;
 			size_t m_element_count;

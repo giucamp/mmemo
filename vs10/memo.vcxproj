@@ -233,6 +233,7 @@
     <ClInclude Include="..\memo.h" />
     <ClInclude Include="..\memo_externals.h" />
     <ClInclude Include="..\pool\pool.h" />
+    <ClInclude Include="..\pool\typed_pool.h" />
     <ClInclude Include="..\pool\untyped_pool.h" />
     <ClInclude Include="..\std_allocator.h" />
     <ClInclude Include="..\std_containers.h" />
@@ -247,6 +248,7 @@
     <None Include="..\lifo\object_stack.inl" />
     <None Include="..\memo.inl" />
     <None Include="..\pool\pool.inl" />
+    <None Include="..\pool\typed_pool.inl" />
     <None Include="..\pool\untyped_pool.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
