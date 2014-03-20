@@ -1,286 +1,428 @@
 
+
 namespace memo
 {
-	const size_t Queue::s_min_page_size = sizeof( Queue::PageHeader ) * 4 + MEMO_ALIGNMENT_OF( PageHeader );
-
-	// Queue::constructor
-	Queue::Queue()
-		: m_first_page( nullptr ), m_last_page( nullptr ), 
-		  m_put_page( nullptr ), m_peek_page( nullptr ),
-		  m_target_allocator( nullptr ), m_page_size( 0 )
+	FifoAllocator::FifoAllocator()
+		: m_buffer_start( nullptr ), m_buffer_end( nullptr ), m_start( nullptr ), m_end( nullptr )
 	{
 
 	}
 
-	Queue::~Queue()
+	FifoAllocator::FifoAllocator( void * i_buffer_start_address, size_t i_buffer_length )
+		: m_buffer_start( nullptr ), m_buffer_end( nullptr ), m_start( nullptr ), m_end( nullptr )
 	{
-		uninit();
+		set_buffer( i_buffer_start_address, i_buffer_length );
 	}
-
-	// Queue::init
-	bool Queue::init( IAllocator & i_allocator, size_t i_first_page_size, size_t i_other_pages_size )
+	
+	void FifoAllocator::set_buffer( void * i_buffer_start_address, size_t i_buffer_length )
 	{
-		// clear
-		uninit();
-		
-		m_target_allocator = &i_allocator;
-		m_page_size = i_other_pages_size;
+		MEMO_ASSERT( i_buffer_length > sizeof(_Header) * 2 ); // buffer too small?
 
-		// try to create the first page
-		PageHeader * new_page = create_page( i_first_page_size );
-		if( new_page == nullptr )
+		// the buffer start must be aligned like an _Header
+		m_buffer_start = upper_align( i_buffer_start_address, MEMO_ALIGNMENT_OF( _Header ) );
+		const size_t alignment_padding = address_diff( m_buffer_start, i_buffer_start_address );
+		if( alignment_padding < i_buffer_length )
 		{
-			// failed, undo the changes
-			m_target_allocator = nullptr;
-			m_page_size = 0;
-			return false;
+			m_buffer_end = address_add( i_buffer_start_address, i_buffer_length - alignment_padding );
+			m_start = m_buffer_start;
+			m_end = m_buffer_start;
+			// note: m_start == m_end is the empty condition
 		}
-
-		// succeeded
-		new_page->m_next_page = new_page;
-		m_first_page = new_page;
-		m_last_page = new_page;
-		m_put_page = new_page;
-		m_peek_page = new_page;
-		return true;
-	}
-
-	// Queue::uninit
-	void Queue::uninit()
-	{
-		PageHeader * curr = m_first_page;
-		if( m_first_page != nullptr )
+		else
 		{
-			do {
-				PageHeader * next = curr->m_next_page;
-				destroy_page( curr );
-				curr = next;
-			} while( curr != m_first_page );
+			// the buffer is too small
+			m_buffer_start = nullptr;
+			m_buffer_end = nullptr;
+			m_start = nullptr;
+			m_end = nullptr;
 		}
-
-		m_first_page = nullptr;
-		m_last_page = nullptr;
-		m_put_page = nullptr;
-		m_peek_page = nullptr;
-		m_target_allocator = nullptr;
 	}
 
-	// Queue::create_page - internal service
-	Queue::PageHeader * Queue::create_page( size_t i_min_size )
-	{	
-		size_t size = std::max( i_min_size, s_min_page_size );
-
-		// allocate the page
-		PageHeader * header;
-		while( header = static_cast< PageHeader * >( m_target_allocator->unaligned_alloc( size ) ), header == nullptr )
+	void * FifoAllocator::alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset )
+	{
+		bool wrapped = false;
+		void * end = m_end;
+		for(;;)
 		{
-			// halve the size and retry
-			size /= 2;
+			_Header * header = static_cast< _Header * >( end );
+			MEMO_ASSERT( header + 1 <= m_buffer_end );
 
-			if( size < i_min_size )
-				return nullptr; // failed
-		}
+			// get the block for the user aligning as requested
+			void * new_user_block = upper_align( header + 1, i_alignment, i_alignment_offset );
 
-		// initialize the page
-		::new( header ) PageHeader();
-		header->m_next_page = nullptr;
-		header->m_fifo_allocator.set_buffer( header + 1, size - sizeof(PageHeader) );
+			// offset by the size of the block, and align to get an header
+			void * new_end = upper_align( address_add( new_user_block, i_size ), MEMO_ALIGNMENT_OF( _Header ) );
 
-		// succeeded
-		return header;
-	}
+			if( (new_end >= m_start) != (end >= m_start) )
+				return nullptr; // new_end crossed m_start, allocation failed
 
-	// Queue::destroy_page
-	void Queue::destroy_page( PageHeader * i_page )
-	{
-		i_page->~PageHeader();
-		m_target_allocator->unaligned_free( i_page );
-	}
-
-	// Queue::alloc
-	void * Queue::alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset )
-	{
-		MEMO_ASSERT( m_first_page != nullptr ); // the allocator must be initialized
-
-		// try to allocate in m_put_page
-		void * result = m_put_page->m_fifo_allocator.alloc( i_size, i_alignment, i_alignment_offset );
-		if( result != nullptr )
-			return result;
-
-		// move m_put_page to the next page
-		PageHeader * next_page = m_put_page->m_next_page; 
-		if( next_page == m_peek_page )
-		{
-			// m_put_page is reaching reached m_peek_page, create a new page
-			const size_t requiredSize = ( i_size + i_alignment + s_min_page_size + 1 + sizeof(PageHeader) ) & ~(i_alignment + 1); 
-			next_page = create_page( std::max( m_page_size, requiredSize ) );
-			if( next_page == nullptr )
-				return nullptr; // failed
-
-			// insert the new page in the linked list
-			next_page->m_next_page = m_put_page->m_next_page;
-			m_put_page->m_next_page = next_page;
-			if( m_put_page == m_last_page )
-				m_last_page = next_page; 
-		}
-		m_put_page = next_page;
-		
-		// retry to allocate
-		result = m_put_page->m_fifo_allocator.alloc( i_size, i_alignment, i_alignment_offset );
-		MEMO_ASSERT( result != nullptr ); // page_size should be enough to allocate the block
-		return result;
-	}
-
-	// Queue::get_first_block
-	void * Queue::get_first_block()
-	{
-		MEMO_ASSERT( m_first_page != nullptr ); // the allocator must be initialized
-
-		return m_peek_page->m_fifo_allocator.get_first_block();
-	}
-
-	// Queue::free_first
-	void Queue::free_first( void * i_address )
-	{
-		MEMO_ASSERT( m_last_page != nullptr ); // the allocator must be initialized
-
-		m_peek_page->m_fifo_allocator.free_first( i_address );
-
-		while( m_peek_page->m_fifo_allocator.is_empty() && m_peek_page != m_put_page )
-		{
-			PageHeader * next_page = m_peek_page->m_next_page;
-						
-			// the peek page is empty, if it's not the first it can be freed
-			//if( m_peek_page != m_first_page )
+			// new_end must have enough space to store the next header
+			if( static_cast< _Header * >( new_end ) + 1 <= m_buffer_end )
 			{
-				remove_page( m_peek_page );
-				destroy_page( m_peek_page );
+				// done
+				//printf( "successful allocation. size: %d alignment: %d, offset: %d\n", i_size, i_alignment, i_alignment_offset );
+				header->m_next_header_offset = address_diff( new_end, end );
+				header->m_user_block_offset = address_diff( new_user_block, header );
+				#if MEMO_ENABLE_ASSERT
+					const size_t buffer_size = address_diff( m_buffer_end, m_buffer_start );
+					MEMO_ASSERT( header->m_next_header_offset <= buffer_size );
+					MEMO_ASSERT( header->m_user_block_offset <= buffer_size );
+				#endif
+				m_end = new_end;
+				return new_user_block;
+			}
+			else
+			{
+				if( wrapped )
+				{
+					//printf( "FAILED allocation (wrapped twice). size: %d alignment: %d, offset: %d\n", i_size, i_alignment, i_alignment_offset );
+					return nullptr; // wrapping twice, allocation failed
+				}
+
+				if( m_start == m_buffer_start )
+				{
+					//printf( "FAILED allocation. size: %d alignment: %d, offset: %d\n", i_size, i_alignment, i_alignment_offset );
+					return nullptr; // out of space, allocation failed
+				}
+
+				//printf( "wrapping\n" );
+
+				// mark the current header as a wrap header
+				header->m_next_header_offset = std::numeric_limits<size_t>::max();
+
+				// restart from m_buffer_start
+				end = m_buffer_start;
+				wrapped = true;
+			}
+		}
+	}
+
+	void * FifoAllocator::get_first_block()
+	{
+		_Header * header = static_cast< _Header * >( m_start );
+		if( header != m_end )
+		{		
+			// check for a wrap header
+			if( header->m_next_header_offset == std::numeric_limits<size_t>::max() )
+			{
+				header = static_cast< _Header * >( m_buffer_start );
+				if( header == m_end )
+					return nullptr;
 			}
 
-			m_peek_page = next_page;
+			return address_add( header, header->m_user_block_offset );
 		}
-	}
-
-	// Queue::remove_page
-	void Queue::remove_page( PageHeader * i_page )
-	{
-		MEMO_ASSERT( i_page != nullptr );
-		MEMO_ASSERT( m_first_page != nullptr );
-		//MEMO_ASSERT( i_page != m_first_page );
-
-		PageHeader * curr_page = m_first_page;
-		while( curr_page->m_next_page != i_page )
+		else
 		{
-			curr_page = curr_page->m_next_page;
+			return nullptr;
 		}
-
-		curr_page->m_next_page = i_page->m_next_page;
-		if( i_page == m_last_page )
-			m_last_page = curr_page;
-		if( i_page == m_first_page )
-			m_first_page = i_page->m_next_page;
-		if( i_page == m_put_page )
-			m_put_page = i_page->m_next_page;
 	}
 
+	void FifoAllocator::free_first( void * i_first_block )
+	{
+		MEMO_ASSERT( i_first_block == get_first_block() );
+
+		MEMO_UNUSED( i_first_block );
+
+		_Header * header = static_cast< _Header * >( m_start );
+		
+		MEMO_ASSERT( header != m_end ); // no block available?
+
+		if( header->m_next_header_offset == std::numeric_limits<size_t>::max() )
+		{
+			header = static_cast< _Header * >( m_buffer_start );
+			//printf( "freeing size:%d, wrapper header\n", header->m_next_header_offset );
+		}
+		else
+		{
+			//printf( "freeing size:%d\n", header->m_next_header_offset );
+		}
+
+		MEMO_ASSERT( header != m_end ); // no block available?
+
+		void * new_first_block = address_add( header, header->m_next_header_offset );
+
+		#if MEMO_ENABLE_ASSERT
+			const size_t buffer_size = address_diff( m_buffer_end, m_buffer_start );
+			if( static_cast<_Header *>( m_start )->m_next_header_offset != std::numeric_limits<size_t>::max() )
+			{
+				MEMO_ASSERT( static_cast<_Header *>( m_start )->m_next_header_offset <= buffer_size );
+				MEMO_ASSERT( static_cast<_Header *>( m_start )->m_user_block_offset <= buffer_size );
+			}
+		#endif
+
+		m_start = new_first_block;
+	}
+
+	void FifoAllocator::clear()
+	{
+		m_start = m_buffer_start;
+		m_end = m_buffer_start;
+	}
+
+	bool FifoAllocator::is_empty() const
+	{
+		return m_start == m_end;
+	}
+
+
+	FifoAllocator::Iterator::Iterator()
+		: m_queue( nullptr ), m_curr_header( nullptr )
+	{
+
+	}
+
+	void FifoAllocator::Iterator::start_iteration( const FifoAllocator & i_queue )
+	{
+		m_queue = &i_queue;
+		_Header * curr_header = static_cast< _Header * >( i_queue.m_start );
+		
+		// check for a wrap header
+		if( curr_header != m_queue->m_end && curr_header->m_next_header_offset == std::numeric_limits<size_t>::max() )
+		{
+			m_curr_header = static_cast< _Header * >( m_queue->m_buffer_start );
+		}
+		else
+		{
+			m_curr_header = curr_header;
+		}
+	}
+
+	bool FifoAllocator::Iterator::is_over() const
+	{
+		return m_curr_header == m_queue->m_end;
+	}
+
+	void FifoAllocator::Iterator::operator ++ ( int )
+	{
+		MEMO_ASSERT( !is_over() );
+
+		_Header * curr_header = static_cast< _Header * >( m_curr_header );
+		curr_header = static_cast< _Header * >( address_add( curr_header, curr_header->m_next_header_offset ) );
+		
+		// check for a wrap header
+		if( curr_header != m_queue->m_end && curr_header->m_next_header_offset == std::numeric_limits<size_t>::max() )
+		{
+			m_curr_header = static_cast< _Header * >( m_queue->m_buffer_start );
+		}
+		else
+		{
+			m_curr_header = curr_header;
+		}
+	}
+
+	void * FifoAllocator::Iterator::curr_block() const
+	{
+		MEMO_ASSERT( !is_over() );
+
+		return address_add( m_curr_header, static_cast< _Header * >( m_curr_header )->m_user_block_offset );
+	}
+
+
+				/// test session ///
 
 	#if MEMO_ENABLE_TEST
-
-		Queue::TestSession::TestSession()
-		{
-			m_fifo_allocator = MEMO_NEW( Queue );
-			m_fifo_allocator->init( memo::get_default_allocator(), 1024, 512 );
-		}
-
-		Queue::TestSession::~TestSession()
-		{
-			MEMO_DELETE( m_fifo_allocator );
-		}
-
-		void Queue::TestSession::allocate()
-		{	
-			const size_t size = generate_rand_32() & 31;
-			const size_t alignment = std::max<size_t>( 1 << (generate_rand_32() & 7), MEMO_ALIGNMENT_OF( int ) );
-			const size_t alignment_offset = std::min( size, (generate_rand_32() & 31) );
 			
-			memo::std_vector< int >::type vect;
-			vect.reserve( size );
-							
-			int * alloc = static_cast<int*>( m_fifo_allocator->alloc( size * sizeof(int), alignment, alignment_offset ) );
+		// FifoAllocator::TestSession::constructor
+		FifoAllocator::TestSession::TestSession( size_t i_buffer_size )
+		{
+			m_buffer = memo::unaligned_alloc( i_buffer_size ); 
+			
+			m_fifo_allocator = static_cast<FifoAllocator*>( memo::alloc( sizeof(FifoAllocator), MEMO_ALIGNMENT_OF(FifoAllocator), 0 ) );
+			new( m_fifo_allocator ) FifoAllocator( m_buffer, i_buffer_size );
+		}
 
-			for( size_t i = 0; i < size; i++ )
+		// FifoAllocator::TestSession::check_val
+		void FifoAllocator::TestSession::check_val( const void * i_address, size_t i_size, uint8_t i_value )
+		{
+			const uint8_t * first = static_cast<const uint8_t *>( i_address );
+			for( size_t index = 0; index < i_size; index++ )
 			{
-				vect.push_back( i );
-				alloc[i] = i;					
+				MEMO_ASSERT( first[ index ] == i_value );
+			}
+		}
+
+		// FifoAllocator::TestSession::allocate
+		bool FifoAllocator::TestSession::allocate()
+		{
+			// try to allocate
+			void * memory_block;
+			size_t alloc_size;
+			if( (generate_rand_32() & 15) == 13 )
+				alloc_size = 0;
+			else
+				alloc_size = static_cast<size_t>( generate_rand_32() & 0xFF );
+			for(;;)
+			{
+				const size_t alloc_alignment = static_cast<size_t>( 1 ) << ( generate_rand_32() & 5 );
+				alloc_size &= ~(alloc_alignment - 1);
+				const size_t alloc_alignment_offset = std::min( alloc_size, static_cast<size_t>( generate_rand_32() & 31 ) );
+
+				memory_block = m_fifo_allocator->alloc( alloc_size, alloc_alignment, alloc_alignment_offset );
+				if( memory_block == nullptr )
+				{
+					if( alloc_size > 0 )
+					{
+						alloc_size--; // decrement the requested size and retry
+						continue;
+					}
+					else
+						break; // the size is zero, the allocation failed
+				}
+				else
+				{
+					MEMO_ASSERT( is_aligned( address_add( memory_block, alloc_alignment_offset ), alloc_alignment ) );
+					break;
+				}
 			}
 
-			m_test_queue.push_back( vect );
-		}
-
-		bool Queue::TestSession::free()
-		{
-			if( m_test_queue.size() == 0 )
+			if( memory_block == nullptr )
 				return false;
 
-			memo::std_vector< int >::type vect = m_test_queue.front();
-			m_test_queue.pop_front();
+			Allocation alloc;
+			alloc.m_block = memory_block;
+			alloc.m_block_size = alloc_size;
+			m_allocations.push_back( alloc );
 
-			int * alloc = static_cast<int*>( m_fifo_allocator->get_first_block() );
-			
-			for( size_t i = 0; i < vect.size(); i++ )
+			memset( memory_block, static_cast<int>( alloc_size & 0xFF ), alloc_size );
+
+			return true;
+		}
+				
+		// FifoAllocator::TestSession::free
+		bool FifoAllocator::TestSession::free()
+		{
+			if( m_allocations.size() == 0 )
 			{
-				MEMO_ASSERT( vect[i] == alloc[i] );					
+				// the allocator must be empty
+				//MEMO_ASSERT( m_fifo_allocator->get_buffer_size() == m_fifo_allocator->get_free_space() );
+				return false;
 			}
 
-			for( size_t i = 0; i < vect.size(); i++ )
-			{
-				alloc[i] = ~i;					
-			}
+			Allocation alloc = m_allocations.front(); 
 
-			m_fifo_allocator->free_first( alloc );
+			check_val( alloc.m_block, alloc.m_block_size, static_cast<uint8_t>( alloc.m_block_size & 0xFF ) );
+
+			m_allocations.pop_front();
+
+			void * block = m_fifo_allocator->get_first_block();
+
+			MEMO_ASSERT( alloc.m_block == block );
+
+			m_fifo_allocator->free_first( block );
 
 			return true;
 		}
 
-		void Queue::TestSession::fill_and_empty_test( size_t i_iterations )
+		void FifoAllocator::TestSession::check_consistency()
+		{
+			/*printf( "size %d, start %d, end:%d\n", address_diff( m_fifo_allocator->m_buffer_end, m_fifo_allocator->m_buffer_start ),
+				address_diff( m_fifo_allocator->m_start, m_fifo_allocator->m_buffer_start ),
+				address_diff( m_fifo_allocator->m_end, m_fifo_allocator->m_buffer_start ) );*/
+
+			for( size_t i = 0; i < m_allocations.size(); i++ )
+			{
+				const Allocation & first_alloc = m_allocations[i];
+				for( size_t j = i + 1; j < m_allocations.size(); j++ )
+				{
+					const Allocation & second_alloc = m_allocations[j];
+					MEMO_ASSERT( !are_overlapping( first_alloc.m_block, first_alloc.m_block_size, second_alloc.m_block, second_alloc.m_block_size ) );
+				}
+			}
+
+			size_t count = 0;
+			for( Iterator it( *m_fifo_allocator ); !it.is_over(); it++ )
+			{
+				MEMO_ASSERT( count < m_allocations.size() );
+				const Allocation & alloc = m_allocations[count];
+
+				void * block = it.curr_block();
+
+				MEMO_ASSERT( alloc.m_block == block );
+
+				count++;
+			}
+
+			MEMO_ASSERT( m_allocations.size() == count );
+		}
+
+		// FifoAllocator::TestSession::fill_and_empty_test
+		void FifoAllocator::TestSession::fill_and_empty_test()
 		{
 			size_t alloc_count = 0;
 			size_t max_alloc_count = 0;
 			size_t fill_iterations = 0;
 			size_t empty_iterations = 0;
 
-			allocate();
-
-			allocate();
-
-			free();
-
-			// fill
-			for( size_t iteration = 0; iteration < i_iterations; iteration++ )
+			// fill the buffer
+			for(;;)
 			{
+				check_consistency();
+
 				fill_iterations++;
-				max_alloc_count = std::max( max_alloc_count, m_test_queue.size() );
+				max_alloc_count = std::max( max_alloc_count, alloc_count );
+
+				MEMO_ASSERT( m_allocations.empty() == m_fifo_allocator->is_empty() );
 
 				const uint32_t rand = generate_rand_32();
 				if( (rand & 7) == 3 )
-					free();
+				{
+					if( free() )
+					{
+						MEMO_ASSERT( alloc_count > 0 );
+						alloc_count--;
+					}
+				}
 				else
-					allocate();
+				{
+					if( allocate() )
+						alloc_count++;
+					else
+						break;
+				}
 			}
 
-			// empty
-			for( size_t iteration = 0; iteration < i_iterations; iteration++ )
+			// empty the buffer
+			for(;;)
 			{
+				check_consistency();
+				
 				empty_iterations++;
-				max_alloc_count = std::max( max_alloc_count, m_test_queue.size() );
+				max_alloc_count = std::max( max_alloc_count, alloc_count );
+
+				MEMO_ASSERT( m_allocations.empty() == m_fifo_allocator->is_empty() );
 
 				const uint32_t rand = generate_rand_32();
-				if( (rand & 7) != 3 )
-					free();
+				if( (rand & 7) == 3 )
+				{
+					if( allocate() )
+					{
+						alloc_count++;
+					}
+				}
 				else
-					allocate();
-			}
+				{
+					if( free() )
+					{
+						MEMO_ASSERT( alloc_count > 0 );
+						alloc_count--;
+					}
+					else
+						break;
+				}
+			}			
+
 		}
 
-	#endif // #if MEMO_ENABLE_TEST
+		// FifoAllocator::TestSession::destructor
+		FifoAllocator::TestSession::~TestSession()
+		{
+			m_fifo_allocator->~FifoAllocator();
+			memo::free( m_fifo_allocator );
+
+			memo::unaligned_free( m_buffer );
+		}
+
+	#endif
+
 }
