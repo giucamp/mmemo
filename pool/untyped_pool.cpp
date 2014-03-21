@@ -9,6 +9,10 @@ namespace memo
 
 	bool UntypedPool::init( const Config & i_config )
 	{
+		MEMO_ASSERT( i_config.m_element_size > 0 && i_config.m_element_alignment > 0 && i_config.m_element_count > 0 );
+
+		uninit();
+
 		m_config = i_config;
 		m_config.m_element_size = std::max( m_config.m_element_size, sizeof(FreeSlot) );
 		m_config.m_element_alignment = std::max( m_config.m_element_alignment, MEMO_ALIGNMENT_OF(FreeSlot) );
@@ -27,6 +31,17 @@ namespace memo
 			format_free_space();
 			return true;
 		}		
+	}
+
+	void UntypedPool::uninit()
+	{
+		if( m_buffer_start != nullptr )
+		{
+			get_default_allocator().free( m_buffer_start );
+			m_buffer_start = nullptr;
+			m_buffer_end = nullptr;
+			m_first_free = nullptr;
+		}
 	}
 
 	void UntypedPool::format_free_space()
