@@ -2,11 +2,12 @@
 namespace memo
 {
 	/**	\class UntypedPool
-		Class providing efficient fixed size allocation services. When initialized, the pool allocates a buffer with the default allocator.
+		Class providing efficient fixed-size allocation services. When initialized, the pool allocates a buffer with the default allocator.
 		This buffer is large enough to contain the number of elements specified in the configuration (see UntypedPool::init).
-		The pool handle its free slots as a linked list. So both allocations and deallocation are constant time and very fast.
+		The pool keeps a linked list of free slots. So both allocations and deallocation are constant time and very fast.
 		There is not space overhead, nor any fragmentation. The only drawback is that the pool must be initialized with a size.
 		When the pool is full, this class can allocate transparently using the default allocator.
+		If you want to use a pool for a specific type, you may use memo::TypedPool.
 		This class is not thread safe.
 	*/
 	class UntypedPool
@@ -57,7 +58,7 @@ namespace memo
 			@param i_element address of the block to free. */
 		void free( void * i_element );
 
-		/** Frees a block of memory, allocated with alloc_slot. Unlike UntypedPool::free, this method can free only blocks allocated in the pool.
+		/** Frees a block of memory allocated with alloc_slot. Unlike UntypedPool::free, this method can free only blocks allocated in the pool.
 			Use free_slot only if the block was allocated with alloc_slot.
 			@param i_element address of the block to free. */
 		void free_slot( void * i_element );
