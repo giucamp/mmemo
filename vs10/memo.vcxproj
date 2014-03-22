@@ -203,6 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\address_functions.h" />
+    <ClInclude Include="..\allocation_dispatcher.h" />
     <ClInclude Include="..\allocation_functions.h" />
     <ClInclude Include="..\allocators\allocators.h" />
     <ClInclude Include="..\allocators\allocator_tester.h" />

@@ -3,6 +3,25 @@
 
 namespace memo
 {
+	struct _TestClass
+	{
+		double m_a, m_b;
+		_TestClass() { m_a = get_hash(); m_b = get_hash() + 1.; }
+		_TestClass( double i_number )  { m_a = i_number; m_a = get_hash(); m_b = get_hash() + 1.; }
+		
+		double get_hash() const { return static_cast<double>( reinterpret_cast<uintptr_t>(this) ); }
+
+		~_TestClass()
+		{
+			double hash = get_hash();
+			MEMO_ASSERT( m_a == hash && m_b == hash + 1. );
+			m_a = hash * 44.f;
+			m_b = 41.f;
+		}
+	};
+
+	template <>	class AllocationDispatcher<_TestClass > : public memo::PoolDispatcher< _TestClass, 20 >	{ };
+
 	void test_allocators()
 	{
 		/*output_integer( 2425 ); memo_externals::output_message( "\n" );
@@ -13,7 +32,40 @@ namespace memo
 		output_mem_size( 1024 * 1024 * (1024u * 2u + 500u) ); memo_externals::output_message( "\n" );*/
 
 		memo_externals::output_message( "testing allocators...\n" );
-		const size_t iterations = 47000;
+		const size_t iterations = 4700;
+
+		// pool
+		{
+			memo_externals::output_message( "testing pool..." );
+			{ _TestClass test; }
+			for( size_t i = 0; i < iterations; i++ )
+			{
+				memo::std_vector<_TestClass*>::type objects;
+				for( size_t j = 0; j < 337; j++ ) 
+				{
+					const uint32_t rand = generate_rand_32();
+					if( (rand & 7) == 0 && objects.size() > 0 )
+					{
+						size_t index_to_remove = generate_rand_32() % objects.size();
+						MEMO_DELETE( objects[index_to_remove] );
+						objects.erase( objects.begin() + index_to_remove );
+					}
+					else if( rand & 1 )
+						objects.push_back( MEMO_NEW( _TestClass ) );
+					else
+						objects.push_back( MEMO_NEW( _TestClass, 1. ) );
+				}
+
+				while( objects.size() > 0 )
+				{
+					size_t index_to_remove = generate_rand_32() % objects.size();
+					MEMO_DELETE( objects[index_to_remove] );
+					objects.erase( objects.begin() + index_to_remove );
+				}
+			}
+			memo_externals::output_message( "done\n" );
+		}	
+		
 
 		// queue
 		{

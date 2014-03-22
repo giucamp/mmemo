@@ -63,7 +63,26 @@ namespace memo // classes' forward declarations
 
 #include "memo_externals.h"
 
+namespace memo
+{
+	class MutexLock
+	{
+	public:
+		MutexLock( memo_externals::Mutex & i_mutex ) : m_mutex( i_mutex ) { m_mutex.lock(); }
+		~MutexLock() { m_mutex.unlock(); }
+
+	private:
+		MutexLock( const MutexLock & ); // unimplemented
+		MutexLock & operator = ( const MutexLock & ); // unimplemented
+
+	private:
+		memo_externals::Mutex & m_mutex;
+	};
+
+} // namespace memo
+
 #include "allocation_functions.h"
+#include "allocation_dispatcher.h"
 #include "address_functions.h"
 #include "std_allocator.h"
 #include "std_containers.h"

@@ -204,6 +204,7 @@
     <ClInclude Include="..\pool\typed_pool.h">
       <Filter>pool</Filter>
     </ClInclude>
+    <ClInclude Include="..\allocation_dispatcher.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\allocators\default_allocator.inl">

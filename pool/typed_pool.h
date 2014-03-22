@@ -16,6 +16,13 @@ namespace memo
 	{
 	public:
 
+		TypedPool() { }
+
+		TypedPool( size_t i_object_count )
+		{ 
+			init( i_object_count );
+		}
+
 		/** Allocates a buffer with the default allocator, and formats it to be used for fixed size allocations.
 			@params i_object_count number of objects in the pool
 			@return true if the buffer was successfully allocated and formatted, false otherwise */

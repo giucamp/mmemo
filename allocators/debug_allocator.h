@@ -2,7 +2,7 @@
 namespace memo
 {
 	/**	\class DebugAllocator
-		This is a decorator allocator that can adds consistency check to another allocator.
+		This is a decorator allocator that adds some consistency check to another allocator.
 		DebugAllocator adds heading and tailing no man's land, that is some extra memory before and after the allocated memory block, filled with 
 		pseudo-random values. An access to this memory indicates a buffer overflow or an index out of bounds, as this memory is outside the allocated 
 		block. DebugAllocator is able to detect whether this memory has been written. Any function taking the address of a memory block as parameter 

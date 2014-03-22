@@ -2,52 +2,51 @@
 
 /** \def MEMO_NEW( TYPE, ... ) 
 		Creates a new instance of TYPE using the current allocator of the calling thread */
-#define MEMO_NEW( TYPE, ... )						new ( ::memo::_typed_alloc<TYPE>() ) TYPE( __VA_ARGS__ )
+#define MEMO_NEW( TYPE, ... )						new ( ::memo::AllocationDispatcher<TYPE>::typed_alloc() ) TYPE( __VA_ARGS__ )
 
 /** \def MEMO_DELETE( TYPE * pointer ) 
 		Destroys an object created with MEMO_NEW, using the allocator that allocated the object */
-#define MEMO_DELETE( pointer )						::memo::_delete( pointer )
+#define MEMO_DELETE( pointer )						::memo::_delete( pointer ) // this function redirects the call to the AllocationDispatcher
 
 /** \def MEMO_NEW_ARRAY( TYPE, size_t size ) 
 		Creates a dynamic array of TYPE objects using the current allocator of the calling thread */
-#define MEMO_NEW_ARRAY( TYPE, size )				::memo::_new_array<TYPE>( size )
+#define MEMO_NEW_ARRAY( TYPE, size )				::memo::AllocationDispatcher<TYPE>::new_array( size )
 
 /** \def MEMO_NEW_ARRAY_SRC( TYPE, size_t size, const TYPE & source ) 
 		Creates a dynamic array of TYPE objects, copy-constructing every element from the object source.
 		The current allocator of the calling thread is used. */
-#define MEMO_NEW_ARRAY_SRC( TYPE, size, source )	::memo::_new_array<TYPE>( size, source )
+#define MEMO_NEW_ARRAY_SRC( TYPE, size, source )	::memo::AllocationDispatcher<TYPE>::new_array( size, source )
 
 /** \def MEMO_DELETE_ARRAY( TYPE * pointer ) 
 		Destroys an array created with MEMO_NEW_ARRAY or MEMO_NEW_ARRAY_SRC, using the allocator that allocated the object. */
-#define MEMO_DELETE_ARRAY( pointer )				::memo::_delete_array( pointer )
-
+#define MEMO_DELETE_ARRAY( pointer )				::memo::_delete_array( pointer ) // this function redirects the call to the AllocationDispatcher
 
 
 /** \def MEMO_NEW_ALLOC( memo::IAllocator & allocator, TYPE, ... ) 
 		Creates a new instance of TYPE using the specified allocator. */
-#define MEMO_NEW_ALLOC( allocator, TYPE, ... )						new ( ::memo::_typed_alloc<TYPE>( allocator ) ) TYPE( __VA_ARGS__ )
+#define MEMO_NEW_ALLOC( allocator, TYPE, ... )						new ( ::memo::AllocationDispatcher<TYPE>::typed_alloc( allocator ) ) TYPE( __VA_ARGS__ )
 
 /** \def MEMO_DELETE_ALLOC( memo::IAllocator & allocator, TYPE * pointer ) 
 		Destroys an object created with MEMO_NEW_ALLOC, using the specified allocator. */
-#define MEMO_DELETE_ALLOC( allocator, pointer )						::memo::_delete( allocator, pointer )
+#define MEMO_DELETE_ALLOC( allocator, pointer )						::memo::_delete( allocator, pointer ) // this function redirects the call to the AllocationDispatcher
 
 /** \def MEMO_NEW_ARRAY_ALLOC( memo::IAllocator & allocator, TYPE, size_t size ) 
 		Creates a dynamic array of TYPE objects using the specified allocator. */
-#define MEMO_NEW_ARRAY_ALLOC( allocator, TYPE, size )				::memo::_new_array<TYPE>( allocator, size )
+#define MEMO_NEW_ARRAY_ALLOC( allocator, TYPE, size )				::memo::AllocationDispatcher<TYPE>::new_array( allocator, size )
 
 /** \def MEMO_NEW_ARRAY_SRC( memo::IAllocator & allocator, TYPE, size_t size, const TYPE & source ) 
 		Creates a dynamic array of TYPE objects using the specified allocator and copy-constructing every 
 		element from the object source. */
-#define MEMO_NEW_ARRAY_SRC_ALLOC( allocator, TYPE, size, source )	::memo::_new_array<TYPE>( allocator, size, source )
+#define MEMO_NEW_ARRAY_SRC_ALLOC( allocator, TYPE, size, source )	::memo::new_array<TYPE>( allocator, size, source )
 
 /** \def MEMO_DELETE_ARRAY_ALLOC( memo::IAllocator & allocator, TYPE * pointer ) 
 		Destroys an array created with MEMO_NEW_ARRAY_ALLOC or MEMO_NEW_ARRAY_SRC_ALLOC, using the specified allocator. */
-#define MEMO_DELETE_ARRAY_ALLOC( allocator, pointer )				::memo::_delete_array( allocator, pointer )
+#define MEMO_DELETE_ARRAY_ALLOC( allocator, pointer )				::memo::_delete_array( allocator, pointer ) // this function redirects the call to the AllocationDispatcher
 
 
 #define MEMO_LIFO_NEW( TYPE, ... )									new ( ::memo::lifo_alloc( sizeof(TYPE), MEMO_ALIGNMENT_OF( TYPE ), 0, &memo::default_destructor_callback<TYPE> ) ) TYPE( __VA_ARGS__ )
 
-#define MEMO_LIFO_DELETE( object )									::memo::_lifo_delete( object );
+#define MEMO_LIFO_DELETE( object )									::memo::_lifo_delete( object ); // this function redirects the call to the AllocationDispatcher
 
 namespace memo
 {

@@ -33,11 +33,8 @@ namespace memo
 	
 	void StatAllocator::get_stats( Statistics & o_dest )
 	{
-		m_mutex.lock();
-
+		MutexLock lock( m_mutex );
 		o_dest = m_stats;
-
-		m_mutex.unlock();
 	}
 
 	
@@ -62,14 +59,13 @@ namespace memo
 		void * result = header + 1;
 
 		// update stats
-		m_mutex.lock();
+		MutexLock lock( m_mutex );
 		m_stats.m_allocation_count++;
 		m_stats.m_total_allocated += i_size;
 		m_stats.m_allocation_count_peak = std::max( m_stats.m_allocation_count_peak, m_stats.m_allocation_count );
 		m_stats.m_total_allocated_peak = std::max( m_stats.m_total_allocated_peak, m_stats.m_total_allocated );
 		m_stats.m_min_address = std::min( m_stats.m_min_address, result );
 		m_stats.m_max_address = std::max( m_stats.m_max_address, address_add( result, i_size ) );
-		m_mutex.unlock();
 
 		// done
 		return result;
@@ -91,14 +87,13 @@ namespace memo
 		void * new_user_block = new_header + 1;
 
 		// update stats
-		m_mutex.lock();
+		MutexLock lock( m_mutex );
 		MEMO_ASSERT( m_stats.m_total_allocated >= prev_size );
 		m_stats.m_total_allocated -= prev_size;
 		m_stats.m_total_allocated += i_new_size;
 		m_stats.m_total_allocated_peak = std::max( m_stats.m_total_allocated_peak, m_stats.m_total_allocated );
 		m_stats.m_min_address = std::min( m_stats.m_min_address, new_user_block );
 		m_stats.m_max_address = std::max( m_stats.m_max_address, address_add( new_user_block, i_new_size ) );
-		m_mutex.unlock();
 
 		return new_user_block;	
 	}
@@ -115,12 +110,11 @@ namespace memo
 		dest_allocator.free( header );
 
 		// update stats
-		m_mutex.lock();
+		MutexLock lock( m_mutex );
 		MEMO_ASSERT( m_stats.m_allocation_count > 0 );
 		MEMO_ASSERT( m_stats.m_total_allocated >= size );
 		m_stats.m_total_allocated -= size;
 		m_stats.m_allocation_count--;
-		m_mutex.unlock();
 	}
 
 	void StatAllocator::dbg_check( void * i_address )
@@ -146,14 +140,13 @@ namespace memo
 		void * result = header + 1;
 
 		// update stats
-		m_mutex.lock();
+		MutexLock lock( m_mutex );
 		m_stats.m_allocation_count++;
 		m_stats.m_total_allocated += i_size;
 		m_stats.m_allocation_count_peak = std::max( m_stats.m_allocation_count_peak, m_stats.m_allocation_count );
 		m_stats.m_total_allocated_peak = std::max( m_stats.m_total_allocated_peak, m_stats.m_total_allocated );
 		m_stats.m_min_address = std::min( m_stats.m_min_address, result );
 		m_stats.m_max_address = std::max( m_stats.m_max_address, address_add( result, i_size ) );
-		m_mutex.unlock();
 
 		// done
 		return result;
@@ -174,14 +167,13 @@ namespace memo
 		void * new_user_block = new_header + 1;
 
 		// update stats
-		m_mutex.lock();
+		MutexLock lock( m_mutex );
 		MEMO_ASSERT( m_stats.m_total_allocated >= prev_size );
 		m_stats.m_total_allocated -= prev_size;
 		m_stats.m_total_allocated += i_new_size;
 		m_stats.m_total_allocated_peak = std::max( m_stats.m_total_allocated_peak, m_stats.m_total_allocated );
 		m_stats.m_min_address = std::min( m_stats.m_min_address, new_user_block );
 		m_stats.m_max_address = std::max( m_stats.m_max_address, address_add( new_user_block, i_new_size ) );
-		m_mutex.unlock();
 
 		return new_user_block;
 	}
@@ -195,12 +187,11 @@ namespace memo
 		dest_allocator.unaligned_free( header );
 
 		// update stats
-		m_mutex.lock();
+		MutexLock lock( m_mutex );
 		MEMO_ASSERT( m_stats.m_allocation_count > 0 );
 		MEMO_ASSERT( m_stats.m_total_allocated >= size );
 		m_stats.m_total_allocated -= size;
 		m_stats.m_allocation_count--;
-		m_mutex.unlock();
 	}
 
 	void StatAllocator::unaligned_dbg_check( void * i_address )
