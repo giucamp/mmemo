@@ -53,7 +53,7 @@ namespace memo
 				memo::output_integer( capacity );
 				memo_externals::output_message( ", size: " );
 				memo::output_mem_size( capacity * sizeof( TYPE ) );
-				memo_externals::output_message( "\N" );
+				memo_externals::output_message( "\n" );
 
 				m_pool.init( capacity );
 			}

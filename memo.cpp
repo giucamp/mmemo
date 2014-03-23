@@ -104,7 +104,7 @@ namespace memo
 	}
 
 	static const size_t g_suffix_array_len = 5;
-	static const char g_suffix_array[] = { 0, 'K', 'M', 'G', 'T' };
+	static const char g_suffix_array[] = { 'B', 'K', 'M', 'G', 'T' };
 
 	char * mem_size_to_string( char * i_dest_buffer, size_t i_dest_buffer_size, size_t i_mem_size )
 	{

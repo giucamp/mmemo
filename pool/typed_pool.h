@@ -65,7 +65,7 @@ namespace memo
 			@param i_element address of the block to free. Can't be nullptr. */
 		void free_slot( void * i_address )			{ m_pool.free_slot( i_address ); }
 
-		/** Allocates a block of memory, and default-construct on object on it.
+		/** Allocates a block of memory, and default-construct an object on it.
 			If there is not a free sot in the pool, this method allocates using the default allocator.
 			This method allocates a block constructing the object. Use alloc if you just want to allocate the memory.
 			@return pointer to the new object, or nullptr if both the pool and the default allocator could not allocate the block. */
