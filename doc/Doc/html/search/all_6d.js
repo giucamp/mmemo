@@ -2,7 +2,7 @@ var searchData=
 [
   ['memo_3a_20overwiew_20and_20usage',['Memo: overwiew and usage',['../index.html',1,'']]],
   ['m_5fdeleted_5fmemory_5ffill_5fmode',['m_deleted_memory_fill_mode',['../structmemo_1_1_debug_allocator_1_1_config.html#a50d2e0e02d82ade76bbc1025ae6ae6e6',1,'memo::DebugAllocator::Config']]],
-  ['m_5fexternal_5fallocator',['m_external_allocator',['../structmemo_1_1_lifo_allocator_1_1_config.html#a4828e6d5be1d64931e8bc8c44094c878',1,'memo::LifoAllocator::Config']]],
+  ['m_5fexternal_5fallocator',['m_external_allocator',['../structmemo_1_1_object_stack_1_1_config.html#a4828e6d5be1d64931e8bc8c44094c878',1,'memo::ObjectStack::Config']]],
   ['m_5fheading_5fnomansland',['m_heading_nomansland',['../structmemo_1_1_corruption_detector_allocator_1_1_config.html#a21a7aee6a5f2e65d1658fc4f56090f82',1,'memo::CorruptionDetectorAllocator::Config']]],
   ['m_5fnew_5fmemory_5ffill_5fmode',['m_new_memory_fill_mode',['../structmemo_1_1_debug_allocator_1_1_config.html#ab05e8d1d74fbbe6324a9f8bd8754d936',1,'memo::DebugAllocator::Config']]],
   ['m_5fnomansland_5fwords',['m_nomansland_words',['../structmemo_1_1_debug_allocator_1_1_config.html#a8301a1320be37470402a07102b09cc56',1,'memo::DebugAllocator::Config']]],
@@ -13,6 +13,7 @@ var searchData=
   ['memo_5falignment_5fof',['MEMO_ALIGNMENT_OF',['../memo__externals_8h.html#a924d8daa9e11da8f50fd634ebc58b0d1',1,'memo_externals.h']]],
   ['memo_5fenable_5fassert',['MEMO_ENABLE_ASSERT',['../memo__externals_8h.html#ac8aa5fe15fa11b723611c2268e87c5e9',1,'memo_externals.h']]],
   ['memo_5fenable_5finline',['MEMO_ENABLE_INLINE',['../memo__externals_8h.html#a3ce727f8d28f454733973a0abdbba31b',1,'memo_externals.h']]],
+  ['memo_5fenable_5fpool',['MEMO_ENABLE_POOL',['../memo__externals_8h.html#ab84b49d60821c60a699d22912de615d3',1,'memo_externals.h']]],
   ['memo_5fenable_5ftest',['MEMO_ENABLE_TEST',['../memo__externals_8h.html#a8574a09de1ee903490d295004a62638e',1,'memo_externals.h']]],
   ['memo_5fenable_5ftlsf',['MEMO_ENABLE_TLSF',['../memo__externals_8h.html#a77a4538889af30ad47f374de0ced9e9a',1,'memo_externals.h']]],
   ['memo_5fexternals_2eh',['memo_externals.h',['../memo__externals_8h.html',1,'']]],

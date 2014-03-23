@@ -1,7 +1,30 @@
 
+/*! \file pool.h
+*/
 
 #include "untyped_pool.h"
 #include "typed_pool.h"
+
+/** \def MEMO_ENABLE_POOL( TYPE, DEFAULT_CAPACITY )
+	 Enables a memory pool for the type TYPE, with capacity DEFAULT_CAPACITY, or with the capacity specified in the memory configuration file.
+	 MEMO_ENABLE_POOL specializes a AllocationDispatcher that uses a memo::TypedPool. Only the macro MEMO_NEW and MEMO_DELETE are dispatched to
+	 the pool: array allocations are performed with the default dispatcher (that is, the thread current allocator is used).
+	 TypedPool is not thread safe, but the AllocationDispatcher defined by this macro protects the pool with a mutex.
+	 The pool allocates a memory buffer the first time it is created, and places in it objects up to the capacity. When the capacity is over,
+	 TypedPool uses the default allocator.
+	This macro must be used in the global namespace, only once, and after TYPE has been defined. */
+#define MEMO_ENABLE_POOL( TYPE, DEFAULT_CAPACITY ) namespace memo {																		\
+	template <>	class AllocationDispatcher<_TestClass > : public memo::PoolDispatcher< _TestClass, AllocationDispatcher<_TestClass > >	\
+	{																																	\
+	public:																																\
+		static const char * type_name() { return #TYPE; }																				\
+		static size_t get_pool_capacity()																								\
+		{																																\
+			size_t capacity = DEFAULT_CAPACITY;																							\
+			MemoryManager::get_instance().get_pool_object_count( type_name(), &capacity );												\
+			return capacity;																											\
+		}																																\
+	}; }
 
 namespace memo
 {
@@ -9,8 +32,10 @@ namespace memo
 		and allocation of arrays to the DefaultAllocationDispatcher. 
 		You can define a specialization of AllocationDispatcher that derives from PoolDispatcher
 		to enable pooling of a specific type.
+		Allocation of the type TYPE made with MEMO_NEW will be performed with a memo::TypedPool sized
+		with DEFAULT_OBJECT_COUNT. If the pool is full, TypedPool allocates with the default allocator.
 		This class is thread-safe. */
-	template < typename TYPE, size_t DEFAULT_OBJECT_COUNT >
+	template < typename TYPE, typename COUNT_GETTER >
 		class PoolDispatcher : public DefaultAllocationDispatcher<TYPE>
 	{
 	private:
@@ -19,7 +44,19 @@ namespace memo
 		{
 			memo_externals::Mutex m_mutex;
 			TypedPool< TYPE> m_pool;
-			Data() : m_pool( DEFAULT_OBJECT_COUNT ) { }
+			Data()
+			{
+				const size_t capacity = COUNT_GETTER::get_pool_capacity();
+				
+				memo_externals::output_message( COUNT_GETTER::type_name() );
+				memo_externals::output_message( ": using a pool with capacity " );
+				memo::output_integer( capacity );
+				memo_externals::output_message( ", size: " );
+				memo::output_mem_size( capacity * sizeof( TYPE ) );
+				memo_externals::output_message( "\N" );
+
+				m_pool.init( capacity );
+			}
 		};
 
 		static Data & get_data()

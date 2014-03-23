@@ -1,0 +1,8 @@
+<map id="dump_state" name="dump_state">
+<area shape="rect" id="node2" href="$classmemo_1_1_stat_allocator.html#a33847d956f023719362db771506f7604" title="get_stats" alt="" coords="203,5,279,32"/>
+<area shape="rect" id="node3" href="$classmemo_1_1_i_allocator_1_1_state_writer.html#ae0a7b68f37c9219a7d8f4bc6f6775cc4" title="memo::IAllocator::StateWriter\l::write" alt="" coords="387,111,581,153"/>
+<area shape="rect" id="node4" href="$classmemo_1_1_i_allocator_1_1_state_writer.html#a7781a8003cc8bee0424c8b937fe7f978" title="memo::IAllocator::StateWriter\l::write_uint" alt="" coords="144,107,339,149"/>
+<area shape="rect" id="node5" href="$classmemo_1_1_i_allocator_1_1_state_writer.html#af79a38097846b165eb4b06436b727e2f" title="memo::IAllocator::StateWriter\l::write_mem_size" alt="" coords="144,173,339,214"/>
+<area shape="rect" id="node6" href="$classmemo_1_1_decorator_allocator.html#aa008fa6d6cfae377d69e12c146adb98c" title="memo::DecoratorAllocator\l::dump_state" alt="" coords="155,238,328,279"/>
+<area shape="rect" id="node7" href="$classmemo_1_1_i_allocator.html#a627cfb25a78006c09db973842404a06b" title="memo::IAllocator::dump\l_state" alt="" coords="404,238,564,279"/>
+</map>

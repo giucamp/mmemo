@@ -1,0 +1,5 @@
+<map id="unaligned_free" name="unaligned_free">
+<area shape="rect" id="node2" href="$classmemo_1_1_debug_allocator.html#ad879010ea7f782337c0f46c8425789ba" title="memo::DebugAllocator\l::unaligned_free" alt="" coords="161,5,316,46"/>
+<area shape="rect" id="node3" href="$classmemo_1_1_region_allocator.html#a1760ceda09f834ec5411bf8e28b85e5e" title="memo::RegionAllocator\l::~RegionAllocator" alt="" coords="160,70,317,111"/>
+<area shape="rect" id="node4" href="$classmemo_1_1_stat_allocator.html#ad879010ea7f782337c0f46c8425789ba" title="deallocates a memory block allocated by unaligned_alloc or unaligned_realloc. Implements IAllocator::..." alt="" coords="168,135,309,177"/>
+</map>

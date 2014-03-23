@@ -1,0 +1,540 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML><HEAD></HEAD><BODY>
+<OBJECT type="text/site properties">
+<param name="FrameName" value="right">
+</OBJECT>
+<UL>
+  <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="What's Memo"><param name="Local" value="index.html#whats"><param name="ImageNumber" value="1"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Usage"><param name="Local" value="index.html#usage"><param name="ImageNumber" value="1"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Space and execution overhead"><param name="Local" value="index.html#overhead"><param name="ImageNumber" value="1"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Pools"><param name="Local" value="index.html#pool"><param name="ImageNumber" value="1"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Data Stack and lifo allocations"><param name="Local" value="index.html#lifoallocator"><param name="ImageNumber" value="1"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Queues and fifo allocations"><param name="Local" value="index.html#fifoallocator"><param name="ImageNumber" value="1"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Detecting memory corruption"><param name="Local" value="index.html#corruptiondetector"><param name="ImageNumber" value="1"></OBJECT>
+  </UL>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Classes"><param name="ImageNumber" value="1"></OBJECT>
+  <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Class List"><param name="Local" value="annotated.html"><param name="ImageNumber" value="1"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="memo"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="AllocatorTester"><param name="Local" value="classmemo_1_1_allocator_tester.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="CorruptionDetectorAllocator"><param name="Local" value="classmemo_1_1_corruption_detector_allocator.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="Config"><param name="Local" value="structmemo_1_1_corruption_detector_allocator_1_1_config.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="configure_allocator"><param name="Local" value="structmemo_1_1_corruption_detector_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="try_recognize_property"><param name="Local" value="structmemo_1_1_corruption_detector_allocator_1_1_config.html#aebc5154deb389a94e9bf397d420edb27"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="m_heading_nomansland"><param name="Local" value="structmemo_1_1_corruption_detector_allocator_1_1_config.html#a21a7aee6a5f2e65d1658fc4f56090f82"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="m_region_size"><param name="Local" value="structmemo_1_1_corruption_detector_allocator_1_1_config.html#a28c7820f82c6c25af86cf18684c0afc7"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="m_tailing_nomansland"><param name="Local" value="structmemo_1_1_corruption_detector_allocator_1_1_config.html#ad7acb4fe24b5290049da675252921232"><param name="ImageNumber" value="11"></OBJECT>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="alloc"><param name="Local" value="classmemo_1_1_corruption_detector_allocator.html#a31adafa97455b9ed1afc71d76ecc5250"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="dbg_check"><param name="Local" value="classmemo_1_1_corruption_detector_allocator.html#ae4612305ce0bee1f7cdaf8622772e079"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="dump_state"><param name="Local" value="classmemo_1_1_corruption_detector_allocator.html#aa008fa6d6cfae377d69e12c146adb98c"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="free"><param name="Local" value="classmemo_1_1_corruption_detector_allocator.html#a5b9f79933455057df502c53e84758201"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="realloc"><param name="Local" value="classmemo_1_1_corruption_detector_allocator.html#ae9b506f9f08866cd612df09df5729e15"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_alloc"><param name="Local" value="classmemo_1_1_corruption_detector_allocator.html#a503133ce3a0f9797d869d418cd6c44e3"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_dbg_check"><param name="Local" value="classmemo_1_1_corruption_detector_allocator.html#aade440d3b38b571e4c3c4a1d654ae78a"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_free"><param name="Local" value="classmemo_1_1_corruption_detector_allocator.html#ad879010ea7f782337c0f46c8425789ba"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_realloc"><param name="Local" value="classmemo_1_1_corruption_detector_allocator.html#a1bb6ecb43bdc4d31af49a0761e396c6c"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="DebugAllocator"><param name="Local" value="classmemo_1_1_debug_allocator.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="Config"><param name="Local" value="structmemo_1_1_debug_allocator_1_1_config.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="configure_allocator"><param name="Local" value="structmemo_1_1_debug_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="try_recognize_property"><param name="Local" value="structmemo_1_1_debug_allocator_1_1_config.html#aebc5154deb389a94e9bf397d420edb27"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="m_deleted_memory_fill_mode"><param name="Local" value="structmemo_1_1_debug_allocator_1_1_config.html#a50d2e0e02d82ade76bbc1025ae6ae6e6"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="m_new_memory_fill_mode"><param name="Local" value="structmemo_1_1_debug_allocator_1_1_config.html#ab05e8d1d74fbbe6324a9f8bd8754d936"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="m_nomansland_words"><param name="Local" value="structmemo_1_1_debug_allocator_1_1_config.html#a8301a1320be37470402a07102b09cc56"><param name="ImageNumber" value="11"></OBJECT>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="FillMode"><param name="Local" value="classmemo_1_1_debug_allocator.html#a75a9acd74effffae38daed55136b0980"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="eNone"><param name="Local" value="classmemo_1_1_debug_allocator.html#a75a9acd74effffae38daed55136b0980a6505acf15690a324459e652a94fc339a"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="eNaNs"><param name="Local" value="classmemo_1_1_debug_allocator.html#a75a9acd74effffae38daed55136b0980a9225d5a010399f7c612b8747ca171214"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="ePseudoRandom"><param name="Local" value="classmemo_1_1_debug_allocator.html#a75a9acd74effffae38daed55136b0980a7842d5efe374fab0e530674df4027988"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="eBadF00d"><param name="Local" value="classmemo_1_1_debug_allocator.html#a75a9acd74effffae38daed55136b0980ad9b43d44715815294a228c4812d54dc8"><param name="ImageNumber" value="11"></OBJECT>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="alloc"><param name="Local" value="classmemo_1_1_debug_allocator.html#a31adafa97455b9ed1afc71d76ecc5250"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="dbg_check"><param name="Local" value="classmemo_1_1_debug_allocator.html#ae4612305ce0bee1f7cdaf8622772e079"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="dump_state"><param name="Local" value="classmemo_1_1_debug_allocator.html#aa008fa6d6cfae377d69e12c146adb98c"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="free"><param name="Local" value="classmemo_1_1_debug_allocator.html#a5b9f79933455057df502c53e84758201"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="get_block_size"><param name="Local" value="classmemo_1_1_debug_allocator.html#a11016bf28c4af85d6f83a2556b199569"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="realloc"><param name="Local" value="classmemo_1_1_debug_allocator.html#ae9b506f9f08866cd612df09df5729e15"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_alloc"><param name="Local" value="classmemo_1_1_debug_allocator.html#a503133ce3a0f9797d869d418cd6c44e3"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_dbg_check"><param name="Local" value="classmemo_1_1_debug_allocator.html#aade440d3b38b571e4c3c4a1d654ae78a"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_free"><param name="Local" value="classmemo_1_1_debug_allocator.html#ad879010ea7f782337c0f46c8425789ba"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_realloc"><param name="Local" value="classmemo_1_1_debug_allocator.html#a1bb6ecb43bdc4d31af49a0761e396c6c"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="DecoratorAllocator"><param name="Local" value="classmemo_1_1_decorator_allocator.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="Config"><param name="Local" value="structmemo_1_1_decorator_allocator_1_1_config.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="Config"><param name="Local" value="structmemo_1_1_decorator_allocator_1_1_config.html#a539a941e29cde8d13e413c515d9801cd"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="~Config"><param name="Local" value="structmemo_1_1_decorator_allocator_1_1_config.html#a54dfba499c9d9e1003d4c9bcbe6ad1c5"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="configure_allocator"><param name="Local" value="structmemo_1_1_decorator_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="try_recognize_property"><param name="Local" value="structmemo_1_1_decorator_allocator_1_1_config.html#aebc5154deb389a94e9bf397d420edb27"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="m_target"><param name="Local" value="structmemo_1_1_decorator_allocator_1_1_config.html#ac1344ad8534f6acbe53333a8bec27d65"><param name="ImageNumber" value="11"></OBJECT>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="DecoratorAllocator"><param name="Local" value="classmemo_1_1_decorator_allocator.html#acc7ba691ee7b8236706eca98d65fef37"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="dest_allocator"><param name="Local" value="classmemo_1_1_decorator_allocator.html#ae840f62b3c15fad4fc994d9e047e96ee"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="dest_allocator"><param name="Local" value="classmemo_1_1_decorator_allocator.html#a9831340bb148bd9ed59b4d54f3ab17ce"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="dump_state"><param name="Local" value="classmemo_1_1_decorator_allocator.html#aa008fa6d6cfae377d69e12c146adb98c"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="DefaultAllocator"><param name="Local" value="classmemo_1_1_default_allocator.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="Config"><param name="Local" value="structmemo_1_1_default_allocator_1_1_config.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="configure_allocator"><param name="Local" value="structmemo_1_1_default_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="try_recognize_property"><param name="Local" value="structmemo_1_1_default_allocator_1_1_config.html#a7316b87e11f31c6a33a55a6f0b20d8ca"><param name="ImageNumber" value="11"></OBJECT>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="alloc"><param name="Local" value="classmemo_1_1_default_allocator.html#aa0efeca40d5326beeff035039fe5cc36"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="dbg_check"><param name="Local" value="classmemo_1_1_default_allocator.html#ae4612305ce0bee1f7cdaf8622772e079"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="dump_state"><param name="Local" value="classmemo_1_1_default_allocator.html#aa008fa6d6cfae377d69e12c146adb98c"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="free"><param name="Local" value="classmemo_1_1_default_allocator.html#a5b9f79933455057df502c53e84758201"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="realloc"><param name="Local" value="classmemo_1_1_default_allocator.html#a395439b510ef188e61817cae0f28b255"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_alloc"><param name="Local" value="classmemo_1_1_default_allocator.html#aa56dbfb1b844d2f82bb6b5582564559e"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_dbg_check"><param name="Local" value="classmemo_1_1_default_allocator.html#aade440d3b38b571e4c3c4a1d654ae78a"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_free"><param name="Local" value="classmemo_1_1_default_allocator.html#ad879010ea7f782337c0f46c8425789ba"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_realloc"><param name="Local" value="classmemo_1_1_default_allocator.html#adfe2457daa746699a1468f26c9dd02ef"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="IAllocator"><param name="Local" value="classmemo_1_1_i_allocator.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="Config"><param name="Local" value="structmemo_1_1_i_allocator_1_1_config.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="configure_allocator"><param name="Local" value="structmemo_1_1_i_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="create_allocator"><param name="Local" value="structmemo_1_1_i_allocator_1_1_config.html#a32ff819f4667e4ee4b34aefbab84782b"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="load"><param name="Local" value="structmemo_1_1_i_allocator_1_1_config.html#a72b4f2bdbe1ffb195f40e52569375ca9"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="try_recognize_property"><param name="Local" value="structmemo_1_1_i_allocator_1_1_config.html#af79569e13d6b26f478edd3b76911312e"><param name="ImageNumber" value="11"></OBJECT>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="StateWriter"><param name="Local" value="classmemo_1_1_i_allocator_1_1_state_writer.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="write"><param name="Local" value="classmemo_1_1_i_allocator_1_1_state_writer.html#ae0a7b68f37c9219a7d8f4bc6f6775cc4"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="write_mem_size"><param name="Local" value="classmemo_1_1_i_allocator_1_1_state_writer.html#af79a38097846b165eb4b06436b727e2f"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="write_uint"><param name="Local" value="classmemo_1_1_i_allocator_1_1_state_writer.html#a7781a8003cc8bee0424c8b937fe7f978"><param name="ImageNumber" value="11"></OBJECT>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="~IAllocator"><param name="Local" value="classmemo_1_1_i_allocator.html#ac67faf58bc98b2a837b75827b155000e"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="alloc"><param name="Local" value="classmemo_1_1_i_allocator.html#a502e2c01bb5cb2b3b4cd6f57c626c9c1"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="dbg_check"><param name="Local" value="classmemo_1_1_i_allocator.html#ac5b0f56c8c147c673b88ac51f107df2b"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="dump_state"><param name="Local" value="classmemo_1_1_i_allocator.html#a627cfb25a78006c09db973842404a06b"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="free"><param name="Local" value="classmemo_1_1_i_allocator.html#a2074f5d80f1f3ca67b9fce58dec57912"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="realloc"><param name="Local" value="classmemo_1_1_i_allocator.html#ace08f45e1451933243a499f77fb8d61c"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_alloc"><param name="Local" value="classmemo_1_1_i_allocator.html#a56b7c7e3e00e70d59344247f2d460c7c"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_dbg_check"><param name="Local" value="classmemo_1_1_i_allocator.html#a438a0ba99be29dd5334efec6d001b40d"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_free"><param name="Local" value="classmemo_1_1_i_allocator.html#a419e6240602d01284e67b38ef6f95911"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_realloc"><param name="Local" value="classmemo_1_1_i_allocator.html#a202b96480cec2c2b9df48e81159b62fc"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="RegionAllocator"><param name="Local" value="classmemo_1_1_region_allocator.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="Config"><param name="Local" value="structmemo_1_1_region_allocator_1_1_config.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="configure_allocator"><param name="Local" value="structmemo_1_1_region_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="try_recognize_property"><param name="Local" value="structmemo_1_1_region_allocator_1_1_config.html#aebc5154deb389a94e9bf397d420edb27"><param name="ImageNumber" value="11"></OBJECT>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="~RegionAllocator"><param name="Local" value="classmemo_1_1_region_allocator.html#a1760ceda09f834ec5411bf8e28b85e5e"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="RegionAllocator"><param name="Local" value="classmemo_1_1_region_allocator.html#a1704b88387d1451cecf41537cbb20726"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="buffer"><param name="Local" value="classmemo_1_1_region_allocator.html#a14ba5875a50d856c8804b89591f6dcfc"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="buffer_size"><param name="Local" value="classmemo_1_1_region_allocator.html#a000b7714b4c054e68aa706b62a66f939"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="dump_state"><param name="Local" value="classmemo_1_1_region_allocator.html#aa008fa6d6cfae377d69e12c146adb98c"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="extern_allocator"><param name="Local" value="classmemo_1_1_region_allocator.html#a8047f3157ac7f877a323ce03c9d29724"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="StatAllocator"><param name="Local" value="classmemo_1_1_stat_allocator.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="StatAllocator"><param name="Local" value="classmemo_1_1_stat_allocator.html#ac92fc572bd03b7a5fe2efd1df1bfec0b"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="alloc"><param name="Local" value="classmemo_1_1_stat_allocator.html#a31adafa97455b9ed1afc71d76ecc5250"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="dbg_check"><param name="Local" value="classmemo_1_1_stat_allocator.html#ae4612305ce0bee1f7cdaf8622772e079"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="dump_state"><param name="Local" value="classmemo_1_1_stat_allocator.html#aa008fa6d6cfae377d69e12c146adb98c"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="free"><param name="Local" value="classmemo_1_1_stat_allocator.html#a5b9f79933455057df502c53e84758201"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="get_size"><param name="Local" value="classmemo_1_1_stat_allocator.html#ad7a2bdb7bdc56286345af93bcd5a6bed"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="get_stats"><param name="Local" value="classmemo_1_1_stat_allocator.html#a33847d956f023719362db771506f7604"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="realloc"><param name="Local" value="classmemo_1_1_stat_allocator.html#ae9b506f9f08866cd612df09df5729e15"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_alloc"><param name="Local" value="classmemo_1_1_stat_allocator.html#a503133ce3a0f9797d869d418cd6c44e3"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_dbg_check"><param name="Local" value="classmemo_1_1_stat_allocator.html#aade440d3b38b571e4c3c4a1d654ae78a"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_free"><param name="Local" value="classmemo_1_1_stat_allocator.html#ad879010ea7f782337c0f46c8425789ba"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_realloc"><param name="Local" value="classmemo_1_1_stat_allocator.html#a1bb6ecb43bdc4d31af49a0761e396c6c"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="TlsfAllocator"><param name="Local" value="classmemo_1_1_tlsf_allocator.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="Config"><param name="Local" value="structmemo_1_1_tlsf_allocator_1_1_config.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="configure_allocator"><param name="Local" value="structmemo_1_1_tlsf_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f"><param name="ImageNumber" value="11"></OBJECT>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="TlsfAllocator"><param name="Local" value="classmemo_1_1_tlsf_allocator.html#a62de7e521017878c81ea09281759d5b7"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="~TlsfAllocator"><param name="Local" value="classmemo_1_1_tlsf_allocator.html#aff19f6b6f0396cd540397715a31b9a61"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="alloc"><param name="Local" value="classmemo_1_1_tlsf_allocator.html#a31adafa97455b9ed1afc71d76ecc5250"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="dbg_check"><param name="Local" value="classmemo_1_1_tlsf_allocator.html#ae4612305ce0bee1f7cdaf8622772e079"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="dump_state"><param name="Local" value="classmemo_1_1_tlsf_allocator.html#aa008fa6d6cfae377d69e12c146adb98c"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="free"><param name="Local" value="classmemo_1_1_tlsf_allocator.html#a5b9f79933455057df502c53e84758201"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="realloc"><param name="Local" value="classmemo_1_1_tlsf_allocator.html#ae9b506f9f08866cd612df09df5729e15"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_alloc"><param name="Local" value="classmemo_1_1_tlsf_allocator.html#a503133ce3a0f9797d869d418cd6c44e3"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_dbg_check"><param name="Local" value="classmemo_1_1_tlsf_allocator.html#aade440d3b38b571e4c3c4a1d654ae78a"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_free"><param name="Local" value="classmemo_1_1_tlsf_allocator.html#ad879010ea7f782337c0f46c8425789ba"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="unaligned_realloc"><param name="Local" value="classmemo_1_1_tlsf_allocator.html#a1bb6ecb43bdc4d31af49a0761e396c6c"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="FifoAllocator"><param name="Local" value="classmemo_1_1_fifo_allocator.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="Iterator"><param name="Local" value="classmemo_1_1_fifo_allocator_1_1_iterator.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="Iterator"><param name="Local" value="classmemo_1_1_fifo_allocator_1_1_iterator.html#a1f703720e1f5d97a0386c2dfe803c763"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="Iterator"><param name="Local" value="classmemo_1_1_fifo_allocator_1_1_iterator.html#a41f561a51e87e9c9d3ede0f3b4307046"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="curr_block"><param name="Local" value="classmemo_1_1_fifo_allocator_1_1_iterator.html#aee744ea92c50ac0c12ca52f716ef9f7b"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="is_over"><param name="Local" value="classmemo_1_1_fifo_allocator_1_1_iterator.html#a33ecf26d12898c36bdccfa24e0c7b971"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="operator++"><param name="Local" value="classmemo_1_1_fifo_allocator_1_1_iterator.html#a2aefc5a84a51687145f8514f4029c26c"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="operator++"><param name="Local" value="classmemo_1_1_fifo_allocator_1_1_iterator.html#aef12ef33726bc591f569f822c7b5ac41"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="start_iteration"><param name="Local" value="classmemo_1_1_fifo_allocator_1_1_iterator.html#a81c36637760c180116c0633a8833a874"><param name="ImageNumber" value="11"></OBJECT>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="TestSession"><param name="Local" value="classmemo_1_1_fifo_allocator_1_1_test_session.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="TestSession"><param name="Local" value="classmemo_1_1_fifo_allocator_1_1_test_session.html#a38b088af8017c25c8f43a026cc0d6665"><param name="ImageNumber" value="11"></OBJECT>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="FifoAllocator"><param name="Local" value="classmemo_1_1_fifo_allocator.html#ae0b367363d52356b7870b9669a44886a"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="FifoAllocator"><param name="Local" value="classmemo_1_1_fifo_allocator.html#a09bf519f258ab8f95ad9cf0a064da3c4"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="alloc"><param name="Local" value="classmemo_1_1_fifo_allocator.html#a31adafa97455b9ed1afc71d76ecc5250"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="clear"><param name="Local" value="classmemo_1_1_fifo_allocator.html#ac8bb3912a3ce86b15842e79d0b421204"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="free_first"><param name="Local" value="classmemo_1_1_fifo_allocator.html#a24ae09b7d0734e64ee5da7d1055824fa"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="get_first_block"><param name="Local" value="classmemo_1_1_fifo_allocator.html#abbc8a3c21c450f6a783eb94c407eab2e"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="is_empty"><param name="Local" value="classmemo_1_1_fifo_allocator.html#acef8e33cfd36a5d7d2fad939efcf02e3"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="set_buffer"><param name="Local" value="classmemo_1_1_fifo_allocator.html#acbc560d233bc9cb7fa96728c9bf3c398"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="Queue"><param name="Local" value="classmemo_1_1_queue.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="TestSession"><param name="Local" value="classmemo_1_1_queue_1_1_test_session.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="Queue"><param name="Local" value="classmemo_1_1_queue.html#a9419268280646dc4ab7b01d6fa3741c8"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="alloc"><param name="Local" value="classmemo_1_1_queue.html#a31adafa97455b9ed1afc71d76ecc5250"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="clear"><param name="Local" value="classmemo_1_1_queue.html#ac8bb3912a3ce86b15842e79d0b421204"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="free_first"><param name="Local" value="classmemo_1_1_queue.html#a24ae09b7d0734e64ee5da7d1055824fa"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="get_first_block"><param name="Local" value="classmemo_1_1_queue.html#abbc8a3c21c450f6a783eb94c407eab2e"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="LifoAllocator"><param name="Local" value="classmemo_1_1_lifo_allocator.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="TestSession"><param name="Local" value="classmemo_1_1_lifo_allocator_1_1_test_session.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="TestSession"><param name="Local" value="classmemo_1_1_lifo_allocator_1_1_test_session.html#a38b088af8017c25c8f43a026cc0d6665"><param name="ImageNumber" value="11"></OBJECT>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="LifoAllocator"><param name="Local" value="classmemo_1_1_lifo_allocator.html#ac7690239ec6e54f2943dfcb84b4638ef"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="LifoAllocator"><param name="Local" value="classmemo_1_1_lifo_allocator.html#ab85696ac6a97f34acf0909013222ecac"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="~LifoAllocator"><param name="Local" value="classmemo_1_1_lifo_allocator.html#a5d4924620b7668d0f7650b7a3402b0e9"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="alloc"><param name="Local" value="classmemo_1_1_lifo_allocator.html#a92a4e46041c37bb67644423a13c80ec5"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="free"><param name="Local" value="classmemo_1_1_lifo_allocator.html#a12f6b0759afefa3345f8806c0c61ab5e"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="free_all"><param name="Local" value="classmemo_1_1_lifo_allocator.html#ad1edb4c75298ce34740d35b591f084ca"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="get_buffer_size"><param name="Local" value="classmemo_1_1_lifo_allocator.html#a6cd9e8ecab3988a3609f6c7e97e8d541"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="get_buffer_start"><param name="Local" value="classmemo_1_1_lifo_allocator.html#aa8a3d785a55f7eedad6b3a4e48410655"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="get_free_space"><param name="Local" value="classmemo_1_1_lifo_allocator.html#aed215c8c6b91b61727cd14a30a45d5be"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="get_used_space"><param name="Local" value="classmemo_1_1_lifo_allocator.html#ade0b34101221dfeedb5d7f9725923b3f"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="realloc"><param name="Local" value="classmemo_1_1_lifo_allocator.html#a1a08cc55562275ab5a24ad3bffd551aa"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="set_buffer"><param name="Local" value="classmemo_1_1_lifo_allocator.html#a3533caf6010dac5737ec86226924caac"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="ObjectLifoAllocator"><param name="Local" value="classmemo_1_1_object_lifo_allocator.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="TestSession"><param name="Local" value="classmemo_1_1_object_lifo_allocator_1_1_test_session.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="TestSession"><param name="Local" value="classmemo_1_1_object_lifo_allocator_1_1_test_session.html#a38b088af8017c25c8f43a026cc0d6665"><param name="ImageNumber" value="11"></OBJECT>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="ObjectLifoAllocator"><param name="Local" value="classmemo_1_1_object_lifo_allocator.html#ad77e4360d34c0a643ee89b912b5f8699"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="ObjectLifoAllocator"><param name="Local" value="classmemo_1_1_object_lifo_allocator.html#ad768f52047063f295399264dd27342e6"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="~ObjectLifoAllocator"><param name="Local" value="classmemo_1_1_object_lifo_allocator.html#a806f0dd6d04f55ea1c3029ca0e5436b6"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="alloc"><param name="Local" value="classmemo_1_1_object_lifo_allocator.html#a50ffa20602e9b6ebac857aa1f4999c7c"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="free"><param name="Local" value="classmemo_1_1_object_lifo_allocator.html#a12f6b0759afefa3345f8806c0c61ab5e"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="free_all"><param name="Local" value="classmemo_1_1_object_lifo_allocator.html#ad1edb4c75298ce34740d35b591f084ca"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="free_to_bookmark"><param name="Local" value="classmemo_1_1_object_lifo_allocator.html#a29b60e54a80435c9557dc304710f839c"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="get_bookmark"><param name="Local" value="classmemo_1_1_object_lifo_allocator.html#adb2cb8cf864e72a17661d9d1280e3b85"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="get_buffer_size"><param name="Local" value="classmemo_1_1_object_lifo_allocator.html#a6cd9e8ecab3988a3609f6c7e97e8d541"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="get_buffer_start"><param name="Local" value="classmemo_1_1_object_lifo_allocator.html#aa8a3d785a55f7eedad6b3a4e48410655"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="get_free_space"><param name="Local" value="classmemo_1_1_object_lifo_allocator.html#aed215c8c6b91b61727cd14a30a45d5be"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="get_used_space"><param name="Local" value="classmemo_1_1_object_lifo_allocator.html#ade0b34101221dfeedb5d7f9725923b3f"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="set_buffer"><param name="Local" value="classmemo_1_1_object_lifo_allocator.html#acbc560d233bc9cb7fa96728c9bf3c398"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="ObjectStack"><param name="Local" value="classmemo_1_1_object_stack.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="Config"><param name="Local" value="structmemo_1_1_object_stack_1_1_config.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="Config"><param name="Local" value="structmemo_1_1_object_stack_1_1_config.html#a539a941e29cde8d13e413c515d9801cd"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="~Config"><param name="Local" value="structmemo_1_1_object_stack_1_1_config.html#a54dfba499c9d9e1003d4c9bcbe6ad1c5"><param name="ImageNumber" value="11"></OBJECT>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="m_external_allocator"><param name="Local" value="structmemo_1_1_object_stack_1_1_config.html#a4828e6d5be1d64931e8bc8c44094c878"><param name="ImageNumber" value="11"></OBJECT>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="StateInfo"><param name="Local" value="structmemo_1_1_object_stack_1_1_state_info.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="~ObjectStack"><param name="Local" value="classmemo_1_1_object_stack.html#acdad63efefccdb65c13fab3908d99304"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="alloc"><param name="Local" value="classmemo_1_1_object_stack.html#a50ffa20602e9b6ebac857aa1f4999c7c"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="free"><param name="Local" value="classmemo_1_1_object_stack.html#a5b9f79933455057df502c53e84758201"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="free_all"><param name="Local" value="classmemo_1_1_object_stack.html#af4de2f83436cd4ed6744ced00335545a"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="AllocatorConfigFactory"><param name="Local" value="classmemo_1_1_allocator_config_factory.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="create_allocator_config"><param name="Local" value="classmemo_1_1_allocator_config_factory.html#a2cf8c8dabbc9ce300a77904564ddc486"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="register_allocator"><param name="Local" value="classmemo_1_1_allocator_config_factory.html#a2a2a5af8751a3808d57f8e96c3540da5"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="ContextConfig"><param name="Local" value="classmemo_1_1_context_config.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="add_inner_context"><param name="Local" value="classmemo_1_1_context_config.html#a38685c6c7cde5bf8972374bacc1d835f"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="allocator_config"><param name="Local" value="classmemo_1_1_context_config.html#a58d911dbf47f09d22ece112a1d4575c2"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="inner_contexts"><param name="Local" value="classmemo_1_1_context_config.html#a496db6737ee774138b18fce583a49bee"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="load"><param name="Local" value="classmemo_1_1_context_config.html#a72b4f2bdbe1ffb195f40e52569375ca9"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="name"><param name="Local" value="classmemo_1_1_context_config.html#ae1b5f66a55bbc1fcfbcf71b94b3f753d"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="set_allocator_config"><param name="Local" value="classmemo_1_1_context_config.html#a79ba652d69ba36b57802a2bcb47f2074"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="set_name"><param name="Local" value="classmemo_1_1_context_config.html#a7895db44719cdaed43d38c8ef9fe4c81"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="MemoryManager"><param name="Local" value="classmemo_1_1_memory_manager.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="Config"><param name="Local" value="structmemo_1_1_memory_manager_1_1_config.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="m_root_context"><param name="Local" value="structmemo_1_1_memory_manager_1_1_config.html#a173376b35c4468171879d674f48d4a99"><param name="ImageNumber" value="11"></OBJECT>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="allocator_config_factor"><param name="Local" value="classmemo_1_1_memory_manager.html#a59702133e9752fbaa31d9cfe1995cfb9"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="dump_contexts"><param name="Local" value="classmemo_1_1_memory_manager.html#a928653dc63282b05c38c21bacfa0ac0f"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="get_allocator"><param name="Local" value="classmemo_1_1_memory_manager.html#a81b242688db20beb28c6e7656c82a023"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="get_allocator_and_config"><param name="Local" value="classmemo_1_1_memory_manager.html#a56a6907b3e0eb9f963550e135c92335c"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="get_configuration"><param name="Local" value="classmemo_1_1_memory_manager.html#a42601416c6c1f4e257e505e96ac7fa17"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="get_pool_object_count"><param name="Local" value="classmemo_1_1_memory_manager.html#a11be2fd161d3c2dbc7a348fe71a76b27"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="StaticName"><param name="Local" value="classmemo_1_1_static_name.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="Hash"><param name="Local" value="structmemo_1_1_static_name_1_1_hash.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="StaticName"><param name="Local" value="classmemo_1_1_static_name.html#ae1293daa68e6d707b9c99705ddfdd65f"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="StaticName"><param name="Local" value="classmemo_1_1_static_name.html#affdf41e43009eb43eb867a7c30a52844"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="StaticName"><param name="Local" value="classmemo_1_1_static_name.html#a2570b7453819884a7ed189f28e064ca5"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="StaticName"><param name="Local" value="classmemo_1_1_static_name.html#a42074bda61c224317855f00f4be90f4e"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="hash"><param name="Local" value="classmemo_1_1_static_name.html#ab860439739e949fbe34e042e0e2a7c1a"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="name"><param name="Local" value="classmemo_1_1_static_name.html#a862958aa3c2b9bf36903f1f0f2e81c54"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="NamePath"><param name="Local" value="classmemo_1_1_name_path.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="Hash"><param name="Local" value="structmemo_1_1_name_path_1_1_hash.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="NamePath"><param name="Local" value="classmemo_1_1_name_path.html#a7a5a76398a3ba49d83e8edacbdc4fc7a"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="NamePath"><param name="Local" value="classmemo_1_1_name_path.html#a3a87f8bb431118f14f74aeeafabf3673"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="append_context"><param name="Local" value="classmemo_1_1_name_path.html#a7b562333ffddf830c9d4f5a6d2d750d4"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="append_path"><param name="Local" value="classmemo_1_1_name_path.html#afe6e80d899b82511a4be6495ef9df0d6"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="hash"><param name="Local" value="classmemo_1_1_name_path.html#ab860439739e949fbe34e042e0e2a7c1a"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="PoolDispatcher"><param name="Local" value="classmemo_1_1_pool_dispatcher.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="TypedPool"><param name="Local" value="classmemo_1_1_typed_pool.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="alloc"><param name="Local" value="classmemo_1_1_typed_pool.html#a0ddacbeceb9272d096853a663a432ca7"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="alloc_slot"><param name="Local" value="classmemo_1_1_typed_pool.html#a47cc17ec687b610a7e2a594cfc664a44"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="create_object"><param name="Local" value="classmemo_1_1_typed_pool.html#a158152ac4362355c610847459556a969"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="create_object"><param name="Local" value="classmemo_1_1_typed_pool.html#af0829c8e203675e22c11b5786229abc1"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="destroy_object"><param name="Local" value="classmemo_1_1_typed_pool.html#ac6e8b6f76d69e9d3020b9898f8c4924f"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="free"><param name="Local" value="classmemo_1_1_typed_pool.html#a5b9f79933455057df502c53e84758201"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="free_slot"><param name="Local" value="classmemo_1_1_typed_pool.html#ae0a5f34bc6ce1f0ee0a192375ac34d2b"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="init"><param name="Local" value="classmemo_1_1_typed_pool.html#ae2ba14bf567887c0285c4e84e7f4f3e0"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="uninit"><param name="Local" value="classmemo_1_1_typed_pool.html#afa90a5c5c3718da584a64351bf5a8876"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="UntypedPool"><param name="Local" value="classmemo_1_1_untyped_pool.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="UntypedPool"><param name="Local" value="classmemo_1_1_untyped_pool.html#a9bc7428b4d8317511136b2d908654258"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="~UntypedPool"><param name="Local" value="classmemo_1_1_untyped_pool.html#a9e0784ea0504d96dbcfb910218e76b5f"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="alloc"><param name="Local" value="classmemo_1_1_untyped_pool.html#ae170032a6c8025dbe9a100661d49d40f"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="alloc_slot"><param name="Local" value="classmemo_1_1_untyped_pool.html#a38aa39bf2c085cb907d821957cd06b81"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="free"><param name="Local" value="classmemo_1_1_untyped_pool.html#a86936431ea537e6d0442ddc055cf7693"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="free_slot"><param name="Local" value="classmemo_1_1_untyped_pool.html#a8d5eccc63e8628706fbd2e164ad40d44"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="init"><param name="Local" value="classmemo_1_1_untyped_pool.html#aac41982807279d7151a8d35b66fc1f50"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="uninit"><param name="Local" value="classmemo_1_1_untyped_pool.html#afa90a5c5c3718da584a64351bf5a8876"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      </UL>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Class Index"><param name="Local" value="classes.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Class Hierarchy"><param name="Local" value="hierarchy.html"><param name="ImageNumber" value="1"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="AllocatorConfigFactory"><param name="Local" value="classmemo_1_1_allocator_config_factory.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="AllocatorTester"><param name="Local" value="classmemo_1_1_allocator_tester.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="IAllocator::Config"><param name="Local" value="structmemo_1_1_i_allocator_1_1_config.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="CorruptionDetectorAllocator::Config"><param name="Local" value="structmemo_1_1_corruption_detector_allocator_1_1_config.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="DecoratorAllocator::Config"><param name="Local" value="structmemo_1_1_decorator_allocator_1_1_config.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="DebugAllocator::Config"><param name="Local" value="structmemo_1_1_debug_allocator_1_1_config.html"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="DefaultAllocator::Config"><param name="Local" value="structmemo_1_1_default_allocator_1_1_config.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="ObjectStack::Config"><param name="Local" value="structmemo_1_1_object_stack_1_1_config.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="RegionAllocator::Config"><param name="Local" value="structmemo_1_1_region_allocator_1_1_config.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="TlsfAllocator::Config"><param name="Local" value="structmemo_1_1_tlsf_allocator_1_1_config.html"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="MemoryManager::Config"><param name="Local" value="structmemo_1_1_memory_manager_1_1_config.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="ContextConfig"><param name="Local" value="classmemo_1_1_context_config.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="FifoAllocator"><param name="Local" value="classmemo_1_1_fifo_allocator.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="StaticName::Hash"><param name="Local" value="structmemo_1_1_static_name_1_1_hash.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="NamePath::Hash"><param name="Local" value="structmemo_1_1_name_path_1_1_hash.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="IAllocator"><param name="Local" value="classmemo_1_1_i_allocator.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="CorruptionDetectorAllocator"><param name="Local" value="classmemo_1_1_corruption_detector_allocator.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="DecoratorAllocator"><param name="Local" value="classmemo_1_1_decorator_allocator.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="DebugAllocator"><param name="Local" value="classmemo_1_1_debug_allocator.html"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="StatAllocator"><param name="Local" value="classmemo_1_1_stat_allocator.html"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="DefaultAllocator"><param name="Local" value="classmemo_1_1_default_allocator.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="RegionAllocator"><param name="Local" value="classmemo_1_1_region_allocator.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="TlsfAllocator"><param name="Local" value="classmemo_1_1_tlsf_allocator.html"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="FifoAllocator::Iterator"><param name="Local" value="classmemo_1_1_fifo_allocator_1_1_iterator.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="LifoAllocator"><param name="Local" value="classmemo_1_1_lifo_allocator.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="MemoryManager"><param name="Local" value="classmemo_1_1_memory_manager.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="NamePath"><param name="Local" value="classmemo_1_1_name_path.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="ObjectLifoAllocator"><param name="Local" value="classmemo_1_1_object_lifo_allocator.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="ObjectStack"><param name="Local" value="classmemo_1_1_object_stack.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="PoolDispatcher< TYPE, COUNT_GETTER >"><param name="Local" value="classmemo_1_1_pool_dispatcher.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="Queue"><param name="Local" value="classmemo_1_1_queue.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="ObjectStack::StateInfo"><param name="Local" value="structmemo_1_1_object_stack_1_1_state_info.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="IAllocator::StateWriter"><param name="Local" value="classmemo_1_1_i_allocator_1_1_state_writer.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="StaticName"><param name="Local" value="classmemo_1_1_static_name.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="Queue::TestSession"><param name="Local" value="classmemo_1_1_queue_1_1_test_session.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="FifoAllocator::TestSession"><param name="Local" value="classmemo_1_1_fifo_allocator_1_1_test_session.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="LifoAllocator::TestSession"><param name="Local" value="classmemo_1_1_lifo_allocator_1_1_test_session.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="ObjectLifoAllocator::TestSession"><param name="Local" value="classmemo_1_1_object_lifo_allocator_1_1_test_session.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="TypedPool< TYPE >"><param name="Local" value="classmemo_1_1_typed_pool.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="UntypedPool"><param name="Local" value="classmemo_1_1_untyped_pool.html"><param name="ImageNumber" value="11"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Class Members"><param name="Local" value="functions.html"><param name="ImageNumber" value="1"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="All"><param name="Local" value="functions.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="_"><param name="Local" value="functions.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="a"><param name="Local" value="functions_0x61.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="b"><param name="Local" value="functions_0x62.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="c"><param name="Local" value="functions_0x63.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="d"><param name="Local" value="functions_0x64.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="e"><param name="Local" value="functions_0x65.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="f"><param name="Local" value="functions_0x66.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="g"><param name="Local" value="functions_0x67.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="h"><param name="Local" value="functions_0x68.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="i"><param name="Local" value="functions_0x69.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="l"><param name="Local" value="functions_0x6c.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="m"><param name="Local" value="functions_0x6d.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="n"><param name="Local" value="functions_0x6e.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="o"><param name="Local" value="functions_0x6f.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="q"><param name="Local" value="functions_0x71.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="r"><param name="Local" value="functions_0x72.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="s"><param name="Local" value="functions_0x73.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="t"><param name="Local" value="functions_0x74.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="u"><param name="Local" value="functions_0x75.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="w"><param name="Local" value="functions_0x77.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="~"><param name="Local" value="functions_0x7e.html"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="Functions"><param name="Local" value="functions_func.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="Variables"><param name="Local" value="functions_vars.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="Enumerations"><param name="Local" value="functions_enum.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="Enumerator"><param name="Local" value="functions_eval.html"><param name="ImageNumber" value="11"></OBJECT>
+    </UL>
+  </UL>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Files"><param name="ImageNumber" value="1"></OBJECT>
+  <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="File List"><param name="Local" value="files.html"><param name="ImageNumber" value="1"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="allocators"><param name="Local" value="dir_70150a182a87c10376779ccb8c533e82.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="allocator_tester.h"><param name="Local" value="allocator__tester_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="allocators.h"><param name="Local" value="allocators_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="corruption_detector_allocator.h"><param name="Local" value="corruption__detector__allocator_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="debug_allocator.h"><param name="Local" value="debug__allocator_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="decorator_allocator.h"><param name="Local" value="decorator__allocator_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="default_allocator.h"><param name="Local" value="default__allocator_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="iallocator.h"><param name="Local" value="iallocator_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="region_allocator.h"><param name="Local" value="region__allocator_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="statistics_allocator.h"><param name="Local" value="statistics__allocator_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="tlsf_allocator.h"><param name="Local" value="tlsf__allocator_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="external_sources"><param name="Local" value="dir_6194c9c190bc5152b67e984ac75cfb81.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="tlsf"><param name="Local" value="dir_77d1d6e8f5b412cc6354e0f9c5ec03ea.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="__MACOSX"><param name="Local" value="dir_8c1b26ac3d0d65d5de3ef35cff907701.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="._tlsfbits.h"><param name="Local" value="_8__tlsfbits_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="tlsf.h"><param name="Local" value="tlsf_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="tlsfbits.h"><param name="Local" value="tlsfbits_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="fifo"><param name="Local" value="dir_e86dfcfa2a9af2b42ed8683f202ce448.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="fifo.h"><param name="Local" value="fifo_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="fifo_allocator.h"><param name="Local" value="fifo__allocator_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="queue.h"><param name="Local" value="queue_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="lifo"><param name="Local" value="dir_9f9db2ab6ffd964c1595ee772c859639.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="lifo.h"><param name="Local" value="lifo_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="lifo_allocator.h"><param name="Local" value="lifo__allocator_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="object_lifo_allocator.h"><param name="Local" value="object__lifo__allocator_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="object_stack.h"><param name="Local" value="object__stack_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="management"><param name="Local" value="dir_107c096617a77bb450d40cb30b9f2313.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="allocator_config_factory.h"><param name="Local" value="allocator__config__factory_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="context.h"><param name="Local" value="context_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="management.h"><param name="Local" value="management_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="memory_manager.h"><param name="Local" value="memory__manager_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="serialization.h"><param name="Local" value="serialization_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="static_name.h"><param name="Local" value="static__name_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="thread_root.h"><param name="Local" value="thread__root_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="memo_debugger"><param name="Local" value="dir_3f9ff4c433ff29dba86cd20c37a1f387.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="debug_help.h"><param name="Local" value="debug__help_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="memo_debugger.h"><param name="Local" value="memo__debugger_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="pool"><param name="Local" value="dir_bb112bf077852daad6db3bdad44771f9.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="pool.h"><param name="Local" value="pool_8h.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="PoolDispatcher"><param name="Local" value="classmemo_1_1_pool_dispatcher.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          </UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="MEMO_ENABLE_POOL"><param name="Local" value="pool_8h.html#ab84b49d60821c60a699d22912de615d3"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="typed_pool.h"><param name="Local" value="typed__pool_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="untyped_pool.h"><param name="Local" value="untyped__pool_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="test"><param name="Local" value="dir_d8c07e6aea2063880133e094e85de212.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="main.h"><param name="Local" value="main_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="address_functions.h"><param name="Local" value="address__functions_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="allocation_dispatcher.h"><param name="Local" value="allocation__dispatcher_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="allocation_functions.h"><param name="Local" value="allocation__functions_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="memo.h"><param name="Local" value="memo_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="memo_externals.h"><param name="Local" value="memo__externals_8h.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="MEMO_ALIGNMENT_OF"><param name="Local" value="memo__externals_8h.html#a924d8daa9e11da8f50fd634ebc58b0d1"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="MEMO_ENABLE_ASSERT"><param name="Local" value="memo__externals_8h.html#ac8aa5fe15fa11b723611c2268e87c5e9"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="MEMO_ENABLE_INLINE"><param name="Local" value="memo__externals_8h.html#a3ce727f8d28f454733973a0abdbba31b"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="MEMO_ENABLE_TEST"><param name="Local" value="memo__externals_8h.html#a8574a09de1ee903490d295004a62638e"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="MEMO_ENABLE_TLSF"><param name="Local" value="memo__externals_8h.html#a77a4538889af30ad47f374de0ced9e9a"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="MEMO_LIFO_ALLOC_DEBUG"><param name="Local" value="memo__externals_8h.html#a6ddeed145c19dade439c0f13ddfc430d"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="MEMO_MIN_ALIGNMENT"><param name="Local" value="memo__externals_8h.html#a6fa786f8cf636b406afd140d0974c9a3"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="MEMO_UNUSED"><param name="Local" value="memo__externals_8h.html#a4ccc7a257aa00bbc445e1d2c0acf3852"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="FloatNanIntegerRepresentationType"><param name="Local" value="memo__externals_8h.html#ae5655a5af673e2a1931f1053472bb3e0"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="assert_failure"><param name="Local" value="memo__externals_8h.html#aad25380b31e026e2d1abbc51e72b34da"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="debug_break"><param name="Local" value="memo__externals_8h.html#a736a83614247147ed4c43459013b3a81"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="output_message"><param name="Local" value="memo__externals_8h.html#ac1fcbb70b3066021f7b93644d7d1233d"><param name="ImageNumber" value="11"></OBJECT>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="g_config_file_name"><param name="Local" value="memo__externals_8h.html#ae10edb742aed7927cb41cef59753ccab"><param name="ImageNumber" value="11"></OBJECT>
+      </UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="std_allocator.h"><param name="Local" value="std__allocator_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="std_containers.h"><param name="Local" value="std__containers_8h_source.html"><param name="ImageNumber" value="11"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="File Members"><param name="Local" value="globals.html"><param name="ImageNumber" value="11"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="All"><param name="Local" value="globals.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="Macros"><param name="Local" value="globals_defs.html"><param name="ImageNumber" value="11"></OBJECT>
+    </UL>
+  </UL>
+</UL>
+</BODY>
+</HTML>

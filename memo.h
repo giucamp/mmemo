@@ -154,10 +154,12 @@ namespace memo
 \section whats What's Memo
 Memo is an open source C++ library that provides data-driven and object-oriented memory management.
 The classic scenario of dynamic memory allocation consists of a program requesting randomly dynamic storage to a black-box allocator that implements a set of malloc\realloc\free functions, and that doesn't know and can't predict anything about the requests of the program.
-Memo adds a layer between the allocator and the program, and allows the program to select the best memory allocation strategy with the best tuning for every part of the program. In Memo an allocation algorithm is wrapped by a class implementing the interface memo::IAllocator. 
+Memo adds a layer between the allocator and the program, and allows the program to select the best memory allocation strategy with the best tuning for every part of the program.
+
+In Memo an allocation algorithm is wrapped by a class implementing the interface memo::IAllocator. 
 Here is some common allocators:
 -	the default allocator, which wraps the system malloc\free
--	the debug allocator, which decorates another allocator adding no man's land around memory blocks and initializing memory to help to catch uninitialized variables
+-	the debug allocator, which decorates another allocator adding no man's land around memory blocks and initializing memory to help to catch uninitialized variables and dangling ponters
 -	the statistics allocator, which decorates another allocator to keep tracks of: total memory allocated, total block count, and allocation peaks
 -	the tlsf allocator, which wraps the two level segregate allocator written by Matthew Conte (http://tlsf.baisoku.org)
 
@@ -222,6 +224,20 @@ The memory configuration file can assign and tune an allocator for:
 	-	the context "zoo/graphics"
 	-	the context "robots/graphics"
 
+\section overhead Space and execution overhead
+If you allocate memory using directly an IAllocator object, you don't have any space overhead. Anyway every allocation\deallocation has a time overhead due to the virtual call. If you use the global function memo::alloc or the macro MEMO_NEW, then memo will add, at the beginning of the memory block, a pointer to the current allocator of the thread. This is the space overhead.
+Anyway, you may want to use memo just to analyze the memory usage in the debug builds of your program. In this case you can define, in the release builds, in the header memo_externals.h the macro MEMO_ONLY_DEFAULT_ALLOCATOR as 1. In this way, the global function memo::alloc and the macro MEMO_NEW will resolve to a static call to the default allocator, to avoid both space and time overhead. 
+
+\section pool Pools
+Memo supports efficient fixed-size allocations with pools (memo::TypedPool amd memo::UntypedPool). The pool is initialized with a capacity,
+and can allocate very objects up to its capacity. When the pool is full, it uses the default allocator, but this mechanism
+is transparent for the user. The pool has no space overhead, and does not fragment the memory.
+You can use the pool directly, or you can enable automatic pooling for type by using the macro MEMO_ENABLE_POOL:
+\code{.cpp}
+MEMO_ENABLE_POOL( MyClass, 2000 );
+\endcode
+This declarations tells memo to redirect every MEMO_NEW and MEMO_DELETE of MyClass to pool whose capacity is by default 2000. You can override
+this capacity in the memory configuration file.
 
 \section lifoallocator Data Stack and lifo allocations
 Memo allows to use a thread specific data stack, to perform lifo (last-in, first-out) allocations. The lifo constraint is suited to:
@@ -253,10 +269,6 @@ size and alignment allocated in-place in a single memory buffer.
 As example of this scenario consider a command queue of a thread, with every command being a struct or class with different data members, that are the parameters of the command. 
 A second and similar use case may be a command buffer for a graphic renderer.
 See memo::FifoAllocator and memo::Queue for details.
-
-\section overhead Space and execution overhead
-If you allocate memory using directly an IAllocator object, you don't have any space overhead. Anyway every allocation\deallocation has a time overhead due to the virtual call. If you use the global function memo::alloc or the macro MEMO_NEW, then memo will add, at the beginning of the memory block, a pointer to the current allocator of the thread. This is the space overhead.
-Anyway, you may want to use memo just to analyze the memory usage of your program. In this case you can define, in the header memo_externals.h, the macro MEMO_ONLY_DEFAULT_ALLOCATOR as 1. In this way, the global function memo::alloc and the macro MEMO_NEW will resolve to a static call to the default allocator, to avoid both space and time overhead. 
 
 \section corruptiondetector Detecting memory corruption
 Memo includes a special allocator to help to find bugs in the code that causes wrong memory access and memory corruption. CorruptionDetectorAllocator can detect:

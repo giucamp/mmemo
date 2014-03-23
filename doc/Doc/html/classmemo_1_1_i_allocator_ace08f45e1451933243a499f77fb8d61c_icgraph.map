@@ -1,0 +1,4 @@
+<map id="realloc" name="realloc">
+<area shape="rect" id="node2" href="$classmemo_1_1_debug_allocator.html#ae9b506f9f08866cd612df09df5729e15" title="memo::DebugAllocator\l::realloc" alt="" coords="115,5,269,46"/>
+<area shape="rect" id="node3" href="$classmemo_1_1_stat_allocator.html#ae9b506f9f08866cd612df09df5729e15" title="changes the size of the memory block allocated by alloc, possibly moving it in a new location..." alt="" coords="121,70,263,111"/>
+</map>

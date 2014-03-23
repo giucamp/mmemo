@@ -155,4 +155,10 @@ namespace memo
 		}
 	}
 
+	bool MemoryManager::get_pool_object_count( const char * i_type_name, size_t * o_result ) const
+	{
+		MEMO_UNUSED( o_result ); // to do
+		return false;
+	}
+
 } // namespace memo

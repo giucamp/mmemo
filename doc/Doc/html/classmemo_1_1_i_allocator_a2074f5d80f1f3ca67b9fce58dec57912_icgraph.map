@@ -1,0 +1,4 @@
+<map id="free" name="free">
+<area shape="rect" id="node2" href="$classmemo_1_1_debug_allocator.html#a5b9f79933455057df502c53e84758201" title="memo::DebugAllocator\l::free" alt="" coords="96,5,251,46"/>
+<area shape="rect" id="node3" href="$classmemo_1_1_stat_allocator.html#a5b9f79933455057df502c53e84758201" title="deallocates a memory block allocated by alloc or realloc. Implements IAllocator::free. The dest allocator is used to perform the operation. See DecoratorAllocator. " alt="" coords="103,70,244,111"/>
+</map>

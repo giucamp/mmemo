@@ -1,7 +1,7 @@
 
 namespace memo
 {
-	/**	\class UntypedPool
+	/**	\class TypedPool
 		Class providing efficient fixed-size allocation services for a specific type. When initialized, the pool allocates a 
 		buffer with the default allocator. This buffer is large enough to contain the number of elements specified during the
 		initialization (see UntypedPool::init).
@@ -40,21 +40,47 @@ namespace memo
 			If there is not a free sot in the pool, this method allocates using the default allocator.
 			This method allocates a block without constructing any object. You may use the new in-place to construct an object:
 			\code{.cpp}
-				new ( my_pool.alloc() ) MY_TYPE( arg1, arg2m ... )
+				new ( my_pool.alloc() ) MY_TYPE( arg1, arg2 ... )
 			\endcode
 			@return address of the newly allocated block, or nullptr if both the pool and the default allocator could not allocate the block. */
 		void * alloc()								{ return m_pool.alloc(); }
 
+		/** Allocates a block of memory. The size and the alignment of the block are those of TYPE.
+			Unlike TypedPool::alloc, this method allocates only in the pool.
+			This method allocates a block without constructing any object. You may use the new in-place to construct an object:
+			\code{.cpp}
+				new ( my_pool.alloc() ) MY_TYPE( arg1, arg2 ... )
+			\endcode
+			@return address of the newly allocated block, or nullptr if the pool could not allocate the block. */
 		void * alloc_slot()							{ return m_pool.alloc_slot(); }
 
+		/** Frees a block of memory, allocated with alloc or alloc_slot. If the block is outside the pool, this method uses the default allocator
+			to free the block. This method does not call the destructor of the object. Use destroy_object to emulate a full delete.
+			@param i_element address of the block to free. Can't be nullptr. */
 		void free( void * i_address )				{ m_pool.free( i_address ); }
 
+		/** Frees a block of memory, allocated with alloc or alloc_slot. Unlike TypedPool::free, this method can free only blocks allocated in the pool.
+			Use free_slot only if the block was allocated with alloc_slot.
+			This method does not call the destructor of the object. Use destroy_object to emulate a full delete.
+			@param i_element address of the block to free. Can't be nullptr. */
 		void free_slot( void * i_address )			{ m_pool.free_slot( i_address ); }
 
-		TYPE * create_object()								{ return new( m_pool.alloc() ) TYPE; }
-
+		/** Allocates a block of memory, and default-construct on object on it.
+			If there is not a free sot in the pool, this method allocates using the default allocator.
+			This method allocates a block constructing the object. Use alloc if you just want to allocate the memory.
+			@return pointer to the new object, or nullptr if both the pool and the default allocator could not allocate the block. */
+		TYPE* create_object()								{ return new( m_pool.alloc() ) TYPE; }
+		
+		/** Allocates a block of memory, and copy-construct on object on it.
+			If there is not a free sot in the pool, this method allocates using the default allocator.
+			This method allocates a block constructing the object. Use alloc if you just want to allocate the memory.
+			@param i_source source object to copy
+			@return pointer to the new object, or nullptr if both the pool and the default allocator could not allocate the block. */
 		TYPE * create_object( const TYPE & i_source )		{ return new( m_pool.alloc() ) TYPE( i_source ); }
 
+		/** Destroys the specified object and deallocates it. If the block is outside the pool, this method uses the default allocator
+			to free the block. This method calls the destructor of the object. Use free to just deallocate the memory.
+			@param i_object ointer to the object to delete. Can't be nullptr. */
 		void destroy_object( TYPE * i_object )				{ i_object->~TYPE(); m_pool.free( i_object ); }
 
 	private:

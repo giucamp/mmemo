@@ -1,0 +1,6 @@
+<map id="load" name="load">
+<area shape="rect" id="node2" href="$classmemo_1_1_memory_manager.html#a832a48395d7839242fbc6dd7a824879d" title="memo::MemoryManager\l::get_instance" alt="" coords="127,5,290,46"/>
+<area shape="rect" id="node3" href="$classmemo_1_1_memory_manager.html#a59702133e9752fbaa31d9cfe1995cfb9" title="memo::MemoryManager\l::allocator_config_factor" alt="" coords="127,70,290,111"/>
+<area shape="rect" id="node4" href="$classmemo_1_1_allocator_config_factory.html#a2cf8c8dabbc9ce300a77904564ddc486" title="memo::AllocatorConfigFactory\l::create_allocator_config" alt="" coords="110,135,307,177"/>
+<area shape="rect" id="node5" href="$structmemo_1_1_i_allocator_1_1_config.html#a72b4f2bdbe1ffb195f40e52569375ca9" title="memo::IAllocator::Config\l::load" alt="" coords="127,201,291,242"/>
+</map>

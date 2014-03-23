@@ -55,12 +55,12 @@ namespace memo
 
 		/** Frees a block of memory, allocated with alloc or alloc_slot. If the block is outside the pool, this method uses the default allocator
 			to free the block.
-			@param i_element address of the block to free. */
+			@param i_element address of the block to free. Can't be nullptr. */
 		void free( void * i_element );
 
 		/** Frees a block of memory allocated with alloc_slot. Unlike UntypedPool::free, this method can free only blocks allocated in the pool.
 			Use free_slot only if the block was allocated with alloc_slot.
-			@param i_element address of the block to free. */
+			@param i_element address of the block to free. Can't be nullptr. */
 		void free_slot( void * i_element );
 
 	private:

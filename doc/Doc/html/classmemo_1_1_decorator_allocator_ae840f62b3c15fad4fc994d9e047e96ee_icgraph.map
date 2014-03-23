@@ -1,0 +1,16 @@
+<map id="dest_allocator" name="dest_allocator">
+<area shape="rect" id="node2" href="$classmemo_1_1_debug_allocator.html#a31adafa97455b9ed1afc71d76ecc5250" title="memo::DebugAllocator\l::alloc" alt="" coords="157,5,312,46"/>
+<area shape="rect" id="node3" href="$classmemo_1_1_debug_allocator.html#ae9b506f9f08866cd612df09df5729e15" title="memo::DebugAllocator\l::realloc" alt="" coords="157,70,312,111"/>
+<area shape="rect" id="node4" href="$classmemo_1_1_debug_allocator.html#a5b9f79933455057df502c53e84758201" title="memo::DebugAllocator\l::free" alt="" coords="157,135,312,177"/>
+<area shape="rect" id="node5" href="$classmemo_1_1_debug_allocator.html#a503133ce3a0f9797d869d418cd6c44e3" title="memo::DebugAllocator\l::unaligned_alloc" alt="" coords="157,201,312,242"/>
+<area shape="rect" id="node6" href="$classmemo_1_1_debug_allocator.html#a1bb6ecb43bdc4d31af49a0761e396c6c" title="memo::DebugAllocator\l::unaligned_realloc" alt="" coords="157,266,312,307"/>
+<area shape="rect" id="node7" href="$classmemo_1_1_debug_allocator.html#ad879010ea7f782337c0f46c8425789ba" title="memo::DebugAllocator\l::unaligned_free" alt="" coords="157,331,312,373"/>
+<area shape="rect" id="node8" href="$classmemo_1_1_stat_allocator.html#a31adafa97455b9ed1afc71d76ecc5250" title="allocates an aligned memory block. Implements IAllocator::alloc. The dest allocator is used to perfor..." alt="" coords="164,397,305,438"/>
+<area shape="rect" id="node9" href="$classmemo_1_1_stat_allocator.html#ae9b506f9f08866cd612df09df5729e15" title="changes the size of the memory block allocated by alloc, possibly moving it in a new location..." alt="" coords="164,462,305,503"/>
+<area shape="rect" id="node10" href="$classmemo_1_1_stat_allocator.html#a5b9f79933455057df502c53e84758201" title="deallocates a memory block allocated by alloc or realloc. Implements IAllocator::free. The dest allocator is used to perform the operation. See DecoratorAllocator. " alt="" coords="164,527,305,569"/>
+<area shape="rect" id="node11" href="$classmemo_1_1_stat_allocator.html#ae4612305ce0bee1f7cdaf8622772e079" title="Implements IAllocator::dbg_check. Some basic checks is performed on the memory block. " alt="" coords="164,593,305,634"/>
+<area shape="rect" id="node12" href="$classmemo_1_1_stat_allocator.html#a503133ce3a0f9797d869d418cd6c44e3" title="allocates a new memory block. Implements IAllocator::unaligned_alloc. The dest allocator is used to p..." alt="" coords="164,658,305,699"/>
+<area shape="rect" id="node13" href="$classmemo_1_1_stat_allocator.html#a1bb6ecb43bdc4d31af49a0761e396c6c" title="changes the size of the memory block allocated by unaligned_alloc. Implements IAllocator::unaligned_r..." alt="" coords="164,723,305,765"/>
+<area shape="rect" id="node14" href="$classmemo_1_1_stat_allocator.html#ad879010ea7f782337c0f46c8425789ba" title="deallocates a memory block allocated by unaligned_alloc or unaligned_realloc. Implements IAllocator::..." alt="" coords="164,789,305,830"/>
+<area shape="rect" id="node15" href="$classmemo_1_1_stat_allocator.html#aade440d3b38b571e4c3c4a1d654ae78a" title="This function performs no action. Implements IAllocator::unaligned_dbg_check. The dest allocator is u..." alt="" coords="157,854,312,895"/>
+</map>

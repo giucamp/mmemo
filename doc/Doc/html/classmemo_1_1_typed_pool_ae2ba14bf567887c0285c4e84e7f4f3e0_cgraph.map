@@ -1,0 +1,6 @@
+<map id="init" name="init">
+<area shape="rect" id="node2" href="$classmemo_1_1_untyped_pool.html#aac41982807279d7151a8d35b66fc1f50" title="memo::UntypedPool::init" alt="" coords="93,45,259,72"/>
+<area shape="rect" id="node3" href="$classmemo_1_1_untyped_pool.html#afa90a5c5c3718da584a64351bf5a8876" title="memo::UntypedPool::\luninit" alt="" coords="311,5,459,46"/>
+<area shape="rect" id="node5" href="$classmemo_1_1_default_allocator.html#aa0efeca40d5326beeff035039fe5cc36" title="allocates an aligned memory block. Implements IAllocator::alloc. ::malloc is used to allocate the mem..." alt="" coords="307,70,464,111"/>
+<area shape="rect" id="node4" href="$classmemo_1_1_default_allocator.html#a5b9f79933455057df502c53e84758201" title="deallocates a memory block allocated by alloc or realloc. Implements IAllocator::free. ::free is used to deallocate the memory block. " alt="" coords="512,5,669,46"/>
+</map>

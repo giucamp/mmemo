@@ -1,0 +1,4 @@
+<map id="alloc" name="alloc">
+<area shape="rect" id="node2" href="$classmemo_1_1_debug_allocator.html#a31adafa97455b9ed1afc71d76ecc5250" title="memo::DebugAllocator\l::alloc" alt="" coords="104,5,259,46"/>
+<area shape="rect" id="node3" href="$classmemo_1_1_stat_allocator.html#a31adafa97455b9ed1afc71d76ecc5250" title="allocates an aligned memory block. Implements IAllocator::alloc. The dest allocator is used to perfor..." alt="" coords="111,70,252,111"/>
+</map>

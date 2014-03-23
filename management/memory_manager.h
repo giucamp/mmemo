@@ -53,6 +53,10 @@ namespace memo
 			@return true if the context was found, false	otherwise */
 		bool dump_contexts( const NamePath & i_path, IAllocator::StateWriter & i_state_writer ) const;
 
+		/** Retrieve the capacity of the pool to use for the specified type, if specified in the
+			memory configuration file. */
+		bool get_pool_object_count( const char * i_type_name, size_t * o_result ) const;
+
 	private:
 
 		MemoryManager();

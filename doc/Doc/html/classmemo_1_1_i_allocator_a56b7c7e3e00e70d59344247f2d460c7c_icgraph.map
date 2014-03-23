@@ -1,0 +1,5 @@
+<map id="unaligned_alloc" name="unaligned_alloc">
+<area shape="rect" id="node2" href="$classmemo_1_1_debug_allocator.html#a503133ce3a0f9797d869d418cd6c44e3" title="memo::DebugAllocator\l::unaligned_alloc" alt="" coords="167,5,321,46"/>
+<area shape="rect" id="node3" href="$classmemo_1_1_region_allocator.html#a1704b88387d1451cecf41537cbb20726" title="memo::RegionAllocator\l::RegionAllocator" alt="" coords="165,70,323,111"/>
+<area shape="rect" id="node4" href="$classmemo_1_1_stat_allocator.html#a503133ce3a0f9797d869d418cd6c44e3" title="allocates a new memory block. Implements IAllocator::unaligned_alloc. The dest allocator is used to p..." alt="" coords="173,135,315,177"/>
+</map>

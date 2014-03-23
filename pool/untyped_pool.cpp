@@ -20,7 +20,7 @@ namespace memo
 		m_first_free = nullptr;
 		const size_t buffer_size = m_config.m_element_size * m_config.m_element_count;
 		m_buffer_start = static_cast<FreeSlot*>( get_default_allocator().alloc( buffer_size, m_config.m_element_alignment, 0 ) );
-		if(m_buffer_start == nullptr )
+		if( m_buffer_start == nullptr )
 		{
 			m_buffer_end = nullptr;
 			return false;

@@ -20,7 +20,13 @@ namespace memo
 		}
 	};
 
-	template <>	class AllocationDispatcher<_TestClass > : public memo::PoolDispatcher< _TestClass, 20 >	{ };
+}
+
+MEMO_ENABLE_POOL( memo::_TestClass, 10 );
+
+namespace  memo
+{
+	
 
 	void test_allocators()
 	{
@@ -36,8 +42,8 @@ namespace memo
 
 		// pool
 		{
+			MEMO_DELETE( MEMO_NEW( _TestClass ) );
 			memo_externals::output_message( "testing pool..." );
-			{ _TestClass test; }
 			for( size_t i = 0; i < iterations; i++ )
 			{
 				memo::std_vector<_TestClass*>::type objects;

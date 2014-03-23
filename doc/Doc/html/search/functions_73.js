@@ -1,7 +1,7 @@
 var searchData=
 [
   ['set_5fallocator_5fconfig',['set_allocator_config',['../classmemo_1_1_context_config.html#a79ba652d69ba36b57802a2bcb47f2074',1,'memo::ContextConfig']]],
-  ['set_5fbuffer',['set_buffer',['../classmemo_1_1_fifo_allocator.html#acbc560d233bc9cb7fa96728c9bf3c398',1,'memo::FifoAllocator::set_buffer()'],['../classmemo_1_1_data_stack.html#a3533caf6010dac5737ec86226924caac',1,'memo::DataStack::set_buffer()'],['../classmemo_1_1_object_stack.html#acbc560d233bc9cb7fa96728c9bf3c398',1,'memo::ObjectStack::set_buffer()']]],
+  ['set_5fbuffer',['set_buffer',['../classmemo_1_1_fifo_allocator.html#acbc560d233bc9cb7fa96728c9bf3c398',1,'memo::FifoAllocator::set_buffer()'],['../classmemo_1_1_lifo_allocator.html#a3533caf6010dac5737ec86226924caac',1,'memo::LifoAllocator::set_buffer()'],['../classmemo_1_1_object_lifo_allocator.html#acbc560d233bc9cb7fa96728c9bf3c398',1,'memo::ObjectLifoAllocator::set_buffer()']]],
   ['set_5fname',['set_name',['../classmemo_1_1_context_config.html#a7895db44719cdaed43d38c8ef9fe4c81',1,'memo::ContextConfig']]],
   ['start_5fiteration',['start_iteration',['../classmemo_1_1_fifo_allocator_1_1_iterator.html#a81c36637760c180116c0633a8833a874',1,'memo::FifoAllocator::Iterator']]],
   ['statallocator',['StatAllocator',['../classmemo_1_1_stat_allocator.html#ac92fc572bd03b7a5fe2efd1df1bfec0b',1,'memo::StatAllocator']]],

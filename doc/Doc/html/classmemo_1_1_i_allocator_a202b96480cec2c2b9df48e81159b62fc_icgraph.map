@@ -1,0 +1,4 @@
+<map id="unaligned_realloc" name="unaligned_realloc">
+<area shape="rect" id="node2" href="$classmemo_1_1_debug_allocator.html#a1bb6ecb43bdc4d31af49a0761e396c6c" title="memo::DebugAllocator\l::unaligned_realloc" alt="" coords="176,5,331,46"/>
+<area shape="rect" id="node3" href="$classmemo_1_1_stat_allocator.html#a1bb6ecb43bdc4d31af49a0761e396c6c" title="changes the size of the memory block allocated by unaligned_alloc. Implements IAllocator::unaligned_r..." alt="" coords="183,70,324,111"/>
+</map>

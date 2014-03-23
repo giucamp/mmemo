@@ -1,11 +1,9 @@
 var searchData=
 [
-  ['datastack',['DataStack',['../classmemo_1_1_data_stack.html',1,'memo']]],
-  ['datastack',['DataStack',['../classmemo_1_1_data_stack.html#a77539065c72f0aaec70a7d83a68c6b02',1,'memo::DataStack::DataStack()'],['../classmemo_1_1_data_stack.html#abafe5eff5caea302e8113d79aae6ee53',1,'memo::DataStack::DataStack(void *i_buffer_start_address, size_t i_buffer_length)']]],
   ['dbg_5fcheck',['dbg_check',['../classmemo_1_1_corruption_detector_allocator.html#ae4612305ce0bee1f7cdaf8622772e079',1,'memo::CorruptionDetectorAllocator::dbg_check()'],['../classmemo_1_1_debug_allocator.html#ae4612305ce0bee1f7cdaf8622772e079',1,'memo::DebugAllocator::dbg_check()'],['../classmemo_1_1_default_allocator.html#ae4612305ce0bee1f7cdaf8622772e079',1,'memo::DefaultAllocator::dbg_check()'],['../classmemo_1_1_i_allocator.html#ac5b0f56c8c147c673b88ac51f107df2b',1,'memo::IAllocator::dbg_check()'],['../classmemo_1_1_stat_allocator.html#ae4612305ce0bee1f7cdaf8622772e079',1,'memo::StatAllocator::dbg_check()'],['../classmemo_1_1_tlsf_allocator.html#ae4612305ce0bee1f7cdaf8622772e079',1,'memo::TlsfAllocator::dbg_check()']]],
   ['debugallocator',['DebugAllocator',['../classmemo_1_1_debug_allocator.html',1,'memo']]],
-  ['decoratorallocator',['DecoratorAllocator',['../classmemo_1_1_decorator_allocator.html#acc7ba691ee7b8236706eca98d65fef37',1,'memo::DecoratorAllocator']]],
   ['decoratorallocator',['DecoratorAllocator',['../classmemo_1_1_decorator_allocator.html',1,'memo']]],
+  ['decoratorallocator',['DecoratorAllocator',['../classmemo_1_1_decorator_allocator.html#acc7ba691ee7b8236706eca98d65fef37',1,'memo::DecoratorAllocator']]],
   ['defaultallocator',['DefaultAllocator',['../classmemo_1_1_default_allocator.html',1,'memo']]],
   ['dest_5fallocator',['dest_allocator',['../classmemo_1_1_decorator_allocator.html#ae840f62b3c15fad4fc994d9e047e96ee',1,'memo::DecoratorAllocator::dest_allocator()'],['../classmemo_1_1_decorator_allocator.html#a9831340bb148bd9ed59b4d54f3ab17ce',1,'memo::DecoratorAllocator::dest_allocator() const ']]],
   ['dump_5fcontexts',['dump_contexts',['../classmemo_1_1_memory_manager.html#a928653dc63282b05c38c21bacfa0ac0f',1,'memo::MemoryManager']]],
