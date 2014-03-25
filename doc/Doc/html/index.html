@@ -38,18 +38,17 @@
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="whats"></a>
 What's Memo</h1>
-<p>Memo is an open source C++ library that provides data-driven and object-oriented memory management. The classic scenario of dynamic memory allocation consists of a program requesting randomly dynamic storage to a black-box allocator that implements a set of malloc functions, and that doesn't know and can't predict anything about the requests of the program. Memo adds a layer between the allocator and the program, and allows the program to select the best memory allocation strategy with the best tuning for every part of the program.</p>
+<p>Memo is an open source C++ library that provides data-driven and object-oriented memory management. The classic scenario of dynamic memory allocation consists of a program requesting randomly dynamic storage to a black-box allocator that implements a set of malloc/realloc/free functions, and that doesn't know and can't predict anything about the requests of the program. Memo adds a layer between the allocator and the program, and allows the program to select the best memory allocation strategy with the best tuning for every part of the program.</p>
 <p>In Memo an allocation algorithm is wrapped by a class implementing the interface <a class="el" href="classmemo_1_1_i_allocator.html">memo::IAllocator</a>. Here is some common allocators:</p>
 <ul>
-<li>the default allocator, which wraps the system malloc</li>
-<li>the debug allocator, which decorates another allocator adding no man's land around memory blocks and initializing memory to help to catch uninitialized variables and dangling ponters</li>
-<li>the statistics allocator, which decorates another allocator to keep tracks of: total memory allocated, total block count, and allocation peaks</li>
-<li>the tlsf allocator, which wraps the two level segregate allocator written by Matthew Conte (<a href="http://tlsf.baisoku.org">http://tlsf.baisoku.org</a>)</li>
+<li><a class="el" href="classmemo_1_1_default_allocator.html" title="Implements IAllocator using the C dynamic memory allocation (malloc, realloc and free) This implement...">memo::DefaultAllocator</a>, which wraps the system malloc/free</li>
+<li><a class="el" href="classmemo_1_1_debug_allocator.html">memo::DebugAllocator</a>, which decorates another allocator and adds no man's land around memory blocks and initializes memory to help to catch uninitialized variables and dangling pointers</li>
+<li><a class="el" href="classmemo_1_1_stat_allocator.html">memo::StatAllocator</a>, which decorates another allocator to keep tracks of: total memory allocated, total block count, and allocation peaks</li>
+<li><a class="el" href="classmemo_1_1_tlsf_allocator.html">memo::TlsfAllocator</a>, which wraps the two level segregate allocator written by Matthew Conte (<a href="http://tlsf.baisoku.org">http://tlsf.baisoku.org</a>)</li>
 </ul>
 <div class="image">
 <img src="classmemo_1_1_i_allocator__inherit__graph.png"  alt="Allocator Hierarchy"/>
 </div>
-<p>Provided that the key functions in the source code are tagged with contexts, Memo allows to select and tune a different allocator for any context without altering the code, but just editing a memory configuration file.</p>
 <h1><a class="anchor" id="usage"></a>
 Usage</h1>
 <p>Just as one can expect, Memo provides a set of global functions to allocate memory, similar to the ones of the standard C library, and a set of macros to allocate C++ objects:</p>
@@ -97,15 +96,15 @@ Usage</h1>
 </ul>
 <h1><a class="anchor" id="overhead"></a>
 Space and execution overhead</h1>
-<p>If you allocate memory using directly an IAllocator object, you don't have any space overhead. Anyway every allocation has a time overhead due to the virtual call. If you use the global function memo::alloc or the macro MEMO_NEW, then memo will add, at the beginning of the memory block, a pointer to the current allocator of the thread. This is the space overhead. Anyway, you may want to use memo just to analyze the memory usage in the debug builds of your program. In this case you can define, in the release builds, in the header <a class="el" href="memo__externals_8h.html">memo_externals.h</a> the macro MEMO_ONLY_DEFAULT_ALLOCATOR as 1. In this way, the global function memo::alloc and the macro MEMO_NEW will resolve to a static call to the default allocator, to avoid both space and time overhead.</p>
+<p>If you request memory directly to an <a class="el" href="classmemo_1_1_i_allocator.html">memo::IAllocator</a> object, you don't have any space overhead. Anyway every allocation has a time overhead due to the virtual call. If you use the global function memo::alloc or the macro MEMO_NEW, then memo will add, at the beginning of the memory block, a pointer to the allocator used to allocate. Anyway, you may want to use memo just to analyze the memory usage in the debug builds of your program. In this case you can define, in the release builds, in the header <a class="el" href="memo__externals_8h.html">memo_externals.h</a> the macro MEMO_ONLY_DEFAULT_ALLOCATOR as 1. In this way, memo::alloc and friends will resolve to a static call to malloc and friends.</p>
 <h1><a class="anchor" id="pool"></a>
 Pools</h1>
-<p>Memo supports efficient fixed-size allocations with pools (<a class="el" href="classmemo_1_1_typed_pool.html">memo::TypedPool</a> amd <a class="el" href="classmemo_1_1_untyped_pool.html">memo::UntypedPool</a>). The pool is initialized with a capacity, and can allocate very objects up to its capacity. When the pool is full, it uses the default allocator, but this mechanism is transparent for the user. The pool has no space overhead, and does not fragment the memory. You can use the pool directly, or you can enable automatic pooling for type by using the macro MEMO_ENABLE_POOL: </p>
+<p>Memo supports efficient fixed-size allocations with pools (<a class="el" href="classmemo_1_1_typed_pool.html">memo::TypedPool</a> amd <a class="el" href="classmemo_1_1_untyped_pool.html">memo::UntypedPool</a>). The pool is initialized with a capacity, and can allocate objects up to its capacity. When the pool is full, it uses the default allocator, but this mechanism is transparent for the user. The pool has no space overhead, and does not fragment the memory. You can use the pool directly, or you can enable automatic pooling for type by using the macro MEMO_ENABLE_POOL: </p>
 <div class="fragment"><div class="line"><a class="code" href="pool_8h.html#ab84b49d60821c60a699d22912de615d3">MEMO_ENABLE_POOL</a>( MyClass, 2000 );</div>
 </div><!-- fragment --><p> This declarations tells memo to redirect every MEMO_NEW and MEMO_DELETE of MyClass to pool whose capacity is by default 2000. You can override this capacity in the memory configuration file.</p>
 <h1><a class="anchor" id="lifoallocator"></a>
 Data Stack and lifo allocations</h1>
-<p>Memo allows to use a thread specific data stack, to perform lifo (last-in, first-out) allocations. The lifo constraint is suited to:</p>
+<p>Memo allows to use a thread specific data stack, to perform efficient lifo (last-in, first-out) allocations. The lifo constraint is suited to:</p>
 <ul>
 <li>blocks allocated when the program starts, and released when the program exits</li>
 <li>temporary dynamic storage needed to a function or scope, like in this example:</li>
@@ -195,7 +194,7 @@ Detecting memory corruption</h1>
         &gt;&gt; </pre> </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 23 2014 08:06:00 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 25 2014 08:07:20 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

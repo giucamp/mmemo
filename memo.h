@@ -153,19 +153,17 @@ namespace memo
 
 \section whats What's Memo
 Memo is an open source C++ library that provides data-driven and object-oriented memory management.
-The classic scenario of dynamic memory allocation consists of a program requesting randomly dynamic storage to a black-box allocator that implements a set of malloc\realloc\free functions, and that doesn't know and can't predict anything about the requests of the program.
+The classic scenario of dynamic memory allocation consists of a program requesting randomly dynamic storage to a black-box allocator that implements a set of malloc/realloc/free functions, and that doesn't know and can't predict anything about the requests of the program.
 Memo adds a layer between the allocator and the program, and allows the program to select the best memory allocation strategy with the best tuning for every part of the program.
 
 In Memo an allocation algorithm is wrapped by a class implementing the interface memo::IAllocator. 
 Here is some common allocators:
--	the default allocator, which wraps the system malloc\free
--	the debug allocator, which decorates another allocator adding no man's land around memory blocks and initializing memory to help to catch uninitialized variables and dangling ponters
--	the statistics allocator, which decorates another allocator to keep tracks of: total memory allocated, total block count, and allocation peaks
--	the tlsf allocator, which wraps the two level segregate allocator written by Matthew Conte (http://tlsf.baisoku.org)
+-	memo::DefaultAllocator, which wraps the system malloc/free
+-	memo::DebugAllocator, which decorates another allocator and adds no man's land around memory blocks and initializes memory to help to catch uninitialized variables and dangling pointers
+-	memo::StatAllocator, which decorates another allocator to keep tracks of: total memory allocated, total block count, and allocation peaks
+-	memo::TlsfAllocator, which wraps the two level segregate allocator written by Matthew Conte (http://tlsf.baisoku.org)
 
 ![Allocator Hierarchy](classmemo_1_1_i_allocator__inherit__graph.png)
-
-Provided that the key functions in the source code are tagged with contexts, Memo allows to select and tune a different allocator for any context without altering the code, but just editing a memory configuration file.
 
 \section usage Usage
 Just as one can expect, Memo provides a set of global functions to allocate memory, similar to the ones of the standard C library, and a set of macros to allocate C++ objects:
@@ -181,7 +179,7 @@ MEMO_DELETE( bell );
 
 \endcode
 
-The allocation requests are redirected to an object implementing the interface IAllocator. But which one is used? Every thread has its own current allocator, that is used to allocate new memory blocks. Anyway, when a  realloc or free is requested, the operation is performed by the allocator that allocated the block, regardless or the current allocator of the thread.
+The allocation requests are redirected to an object implementing the interface IAllocator. But which one is used? Every thread has its own current allocator, that is used to allocate new memory blocks. Anyway, when a realloc or free is requested, the operation is performed by the allocator that allocated the block, regardless or the current allocator of the thread.
 The memory configuration file can associate a startup allocator to every thread, otherwise the default allocator is assigned.
 
 Memo allows to change the thread's current allocator, but it's not recommended. The best practice is opening contexts on the callstack:
@@ -217,7 +215,7 @@ void load_robots( const char * i_file_name )
 }
 \endcode
 
-The Context objects pushed on the call stack form a context path.  The function load_archive,  called from load_animals, sets on the calling thread the context with the path "zoo/graphics". If the same function is called  from load_robots, the path of the context is "robots/graphics".
+The Context objects pushed on the call stack form a context path. The function load_archive, called from load_animals, sets on the calling thread the context with the path "zoo/graphics". If the same function is called  from load_robots, the path of the context is "robots/graphics".
 
 The memory configuration file can assign and tune an allocator for:
 -	the context "robots", and all its child context
@@ -225,12 +223,12 @@ The memory configuration file can assign and tune an allocator for:
 	-	the context "robots/graphics"
 
 \section overhead Space and execution overhead
-If you allocate memory using directly an IAllocator object, you don't have any space overhead. Anyway every allocation\deallocation has a time overhead due to the virtual call. If you use the global function memo::alloc or the macro MEMO_NEW, then memo will add, at the beginning of the memory block, a pointer to the current allocator of the thread. This is the space overhead.
-Anyway, you may want to use memo just to analyze the memory usage in the debug builds of your program. In this case you can define, in the release builds, in the header memo_externals.h the macro MEMO_ONLY_DEFAULT_ALLOCATOR as 1. In this way, the global function memo::alloc and the macro MEMO_NEW will resolve to a static call to the default allocator, to avoid both space and time overhead. 
+If you request memory directly to an memo::IAllocator object, you don't have any space overhead. Anyway every allocation\deallocation has a time overhead due to the virtual call. If you use the global function memo::alloc or the macro MEMO_NEW, then memo will add, at the beginning of the memory block, a pointer to the allocator used to allocate.
+Anyway, you may want to use memo just to analyze the memory usage in the debug builds of your program. In this case you can define, in the release builds, in the header memo_externals.h the macro MEMO_ONLY_DEFAULT_ALLOCATOR as 1. In this way, memo::alloc and friends will resolve to a static call to malloc and friends.
 
 \section pool Pools
 Memo supports efficient fixed-size allocations with pools (memo::TypedPool amd memo::UntypedPool). The pool is initialized with a capacity,
-and can allocate very objects up to its capacity. When the pool is full, it uses the default allocator, but this mechanism
+and can allocate objects up to its capacity. When the pool is full, it uses the default allocator, but this mechanism
 is transparent for the user. The pool has no space overhead, and does not fragment the memory.
 You can use the pool directly, or you can enable automatic pooling for type by using the macro MEMO_ENABLE_POOL:
 \code{.cpp}
@@ -240,7 +238,7 @@ This declarations tells memo to redirect every MEMO_NEW and MEMO_DELETE of MyCla
 this capacity in the memory configuration file.
 
 \section lifoallocator Data Stack and lifo allocations
-Memo allows to use a thread specific data stack, to perform lifo (last-in, first-out) allocations. The lifo constraint is suited to:
+Memo allows to use a thread specific data stack, to perform efficient lifo (last-in, first-out) allocations. The lifo constraint is suited to:
 - blocks allocated when the program starts, and released when the program exits
 - temporary dynamic storage needed to a function or scope, like in this example:
 
