@@ -1,6 +1,4 @@
 
-
-
 namespace memo
 {
 	/**	\class Queue
@@ -33,6 +31,27 @@ namespace memo
 		  @return the address of the first byte in the block, or nullptr if the allocation fails
 		*/
 		void * alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset );
+
+		/** allocates a new memory block for an instance of the type TYPE. This method just allocates: no constructor is called. 
+			If the allocation fails nullptr is returned. If the requested size is zero the return value is a non-null address.
+			The content of the newly allocated block is undefined.
+			You can use this method with  the in-place new:
+			\code{.cpp}
+				MyType * my_object = new ( queue.typed_alloc<MyType>() ) MyType( arg1, arg2 ... );
+			\endcode
+		  @return the address of the first byte in the block, or nullptr if the allocation fails
+		*/
+		template < typename TYPE > void * typed_alloc() 
+				{ return alloc( sizeof(TYPE), MEMO_ALIGNMENT_OF(TYPE), 0 ); }
+
+		/** allocates a new memory block for an array of the type TYPE. This method just allocates: no constructor is called. 
+			If the allocation fails nullptr is returned. If the requested size is zero the return value is a non-null address.
+			The content of the newly allocated block is undefined.
+			@param i_count length of the allocated array
+		  @return the address of the first byte in the block, or nullptr if the allocation fails
+		*/
+		template < typename TYPE > TYPE * typed_array_alloc( size_t i_count ) 
+				{ return static_cast< TYPE * >( alloc( i_count * sizeof(TYPE), MEMO_ALIGNMENT_OF(TYPE), 0 ) ); }
 		
 		/** returns the oldest block in the buffer (the front of the queue).
 		  @return the address of the first byte in the oldest block, or nullptr if the queue is empty
