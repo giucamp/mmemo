@@ -82,7 +82,7 @@ namespace memo
 	// ObjectStack::alloc
 	void * ObjectStack::alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset, DeallocationCallback i_deallocation_callback )
 	{
-		MEMO_ASSERT( m_last_page != nullptr ); // the allocator must be initialized
+		MEMO_ASSERT( m_last_page != nullptr ); // the stack must be initialized first
 
 		// try to allocate in the last page
 		void * result = m_last_page->m_lifo_allocator.alloc( i_size, i_alignment, i_alignment_offset, i_deallocation_callback );
@@ -105,7 +105,7 @@ namespace memo
 	// ObjectStack::free
 	void ObjectStack::free( void * i_address )
 	{
-		MEMO_ASSERT( m_last_page != nullptr ); // the allocator must be initialized
+		MEMO_ASSERT( m_last_page != nullptr ); // the stack must be initialized first
 
 		PageHeader * const last_page = m_last_page;
 
