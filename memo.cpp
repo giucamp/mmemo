@@ -30,7 +30,7 @@ namespace memo
 		uint32_t generate_rand_32()
 		{
 			MEMO_ASSERT( RAND_MAX >= 0xFF );
-			uint32_t result = rand() & 0xFF;
+			uint32_t result = static_cast< uint32_t >( rand() ) & 0xFF;
 			result <<= 8;
 			result |= rand() & 0xFF;
 			result <<= 8;
@@ -58,7 +58,6 @@ namespace memo
 		}
 
 		int position = 0;
-		bool some_nonzero_digit = false;
 		while( (curr_value >= 1.0 || position <= 3) && dest >= i_dest_buffer )
 		{
 			++position;

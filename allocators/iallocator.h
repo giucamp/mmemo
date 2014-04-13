@@ -29,6 +29,8 @@ namespace memo
 		{
 		public:
 
+			virtual ~Config() { }
+
 			/** Loads the properties of the configurations from the given stream. This functions loops the properties 
 				in the input stream trying to recognize them with try_recognize_property. If a property is not recognized,
 				or if any other issue occurs, an eroor is reported with serialization::IConfigReader::output_message.
