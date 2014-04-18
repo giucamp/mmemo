@@ -244,7 +244,6 @@ namespace memo
 
 		void Queue::TestSession::fill_and_empty_test( size_t i_iterations )
 		{
-			size_t alloc_count = 0;
 			size_t max_alloc_count = 0;
 			size_t fill_iterations = 0;
 			size_t empty_iterations = 0;

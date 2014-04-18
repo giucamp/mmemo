@@ -220,6 +220,7 @@
     <ClInclude Include="..\fifo\fifo.h" />
     <ClInclude Include="..\fifo\fifo_allocator.h" />
     <ClInclude Include="..\fifo\queue.h" />
+    <ClInclude Include="..\lifo\auto_lifo.h" />
     <ClInclude Include="..\lifo\lifo.h" />
     <ClInclude Include="..\lifo\lifo_allocator.h" />
     <ClInclude Include="..\lifo\object_lifo_allocator.h" />
@@ -243,6 +244,7 @@
     <None Include="..\allocation_functions.inl" />
     <None Include="..\allocators\default_allocator.inl" />
     <None Include="..\fifo\fifo.inl" />
+    <None Include="..\lifo\auto_lifo.inl" />
     <None Include="..\lifo\lifo.inl" />
     <None Include="..\lifo\lifo_allocator.inl" />
     <None Include="..\lifo\object_lifo_allocator.inl" />
@@ -328,7 +330,7 @@
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ProgramDataBaseFileName>$(SolutionDir)\..\bin\msc100\$(Platform)_$(Configuration)\$(ProjectName)\intermediate.pdb</ProgramDataBaseFileName>
@@ -345,7 +347,7 @@
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ProgramDataBaseFileName>$(SolutionDir)\..\bin\msc100\$(Platform)_$(Configuration)\$(ProjectName)\intermediate.pdb</ProgramDataBaseFileName>
@@ -360,7 +362,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
@@ -384,7 +386,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>

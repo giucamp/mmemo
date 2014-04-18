@@ -49,6 +49,7 @@ namespace memo
 		// deallocate
 		void deallocate( pointer i_pointer, size_type i_count )
 		{ 
+			MEMO_UNUSED( i_count );
 			if( i_pointer != nullptr )
 			{
 				if( MEMO_ALIGNMENT_OF( TYPE ) > MEMO_MIN_ALIGNMENT ) 

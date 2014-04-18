@@ -8,7 +8,6 @@ namespace memo
 		{
 			if( i_dest_buffer_length > 0 )
 			{
-				char * curr_pos = o_dest;
 				for( size_t index = 0; index < i_dest_buffer_length - 1; index++ )
 				{
 					o_dest[index] = i_source[index];

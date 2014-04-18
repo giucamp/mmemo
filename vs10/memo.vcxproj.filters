@@ -205,6 +205,9 @@
       <Filter>pool</Filter>
     </ClInclude>
     <ClInclude Include="..\allocation_dispatcher.h" />
+    <ClInclude Include="..\lifo\auto_lifo.h">
+      <Filter>lifo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\allocators\default_allocator.inl">
@@ -235,6 +238,9 @@
     </None>
     <None Include="..\pool\typed_pool.inl">
       <Filter>pool</Filter>
+    </None>
+    <None Include="..\lifo\auto_lifo.inl">
+      <Filter>lifo</Filter>
     </None>
   </ItemGroup>
 </Project>

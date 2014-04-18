@@ -54,7 +54,7 @@ namespace memo
 		startup_info.cb = sizeof( startup_info );
 		strcpy_s( memo_debugger_name, i_config.m_memo_debugger_name.c_str() );
 		sprintf_s( commnand_line, "%d", GetCurrentProcessId() );
-		BOOL result = CreateProcessA( memo_debugger_name, commnand_line, 
+		/*BOOL result =*/ CreateProcessA( memo_debugger_name, commnand_line, 
 			NULL, NULL, FALSE, CREATE_NEW_CONSOLE, NULL, NULL, &startup_info, &process_information );
 
 		while( !IsDebuggerPresent() )
