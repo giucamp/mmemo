@@ -14,7 +14,7 @@
 	 TypedPool uses the default allocator.
 	This macro must be used in the global namespace, only once, and after TYPE has been defined. */
 #define MEMO_ENABLE_POOL( TYPE, DEFAULT_CAPACITY ) namespace memo {																		\
-	template <>	class AllocationDispatcher<_TestClass > : public memo::PoolDispatcher< _TestClass, AllocationDispatcher<_TestClass > >	\
+	template <>	class AllocationDispatcher<TYPE> : public memo::PoolDispatcher< TYPE, AllocationDispatcher<TYPE > >	\
 	{																																	\
 	public:																																\
 		static const char * type_name() { return #TYPE; }																				\

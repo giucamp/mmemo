@@ -75,12 +75,29 @@ namespace memo
 		If the request size is zero the return value is a non-null address that points to a 
 		zero-sized memory block.
 		The content of the newly allocated block is undefined. 
+		If MEMO_ONLY_DEFAULT_ALLOCATOR is false, this function adds as header to the block a pointer to the allocator used.
 		@param i_size size of the block in bytes
 		@param i_alignment alignment requested for the block. It must be an integer power of 2
 		@param i_alignment_offset offset from beginning of the block of the address that respects the alignment
 		@return the address of the first byte in the block, or nullptr if the allocation fails
 	*/
 	void * alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset );
+
+	/** allocates a new memory block using the specified allocator 
+		The address of the block with the specified offset respects the specified alignment. 
+		Anyway the first byte of the block is aligned such that it can be used to store any int 
+		or pointer variable.
+		If the request size is zero the return value is a non-null address that points to a 
+		zero-sized memory block.
+		The content of the newly allocated block is undefined. 
+		If MEMO_ONLY_DEFAULT_ALLOCATOR is false, this function adds as header to the block a pointer to the allocator used.
+		@param i_allocator allocator to use to perform the allocation. If MEMO_ONLY_DEFAULT_ALLOCATOR is true, this parameter is ignored.
+		@param i_size size of the block in bytes
+		@param i_alignment alignment requested for the block. It must be an integer power of 2
+		@param i_alignment_offset offset from beginning of the block of the address that respects the alignment
+		@return the address of the first byte in the block, or nullptr if the allocation fails
+	*/
+	void * alloc( IAllocator & i_allocator, size_t i_size, size_t i_alignment, size_t i_alignment_offset );
 
 	/** changes the size of the memory block allocated by memo::alloc, using the allocator that 
 		allocated it. The block is possibly moved it in a new location.
@@ -126,10 +143,24 @@ namespace memo
 		If the request size is zero the return value is a non-null address that points to a 
 		zero-sized memory block.
 		The content of the newly allocated block is undefined. 
+		If MEMO_ONLY_DEFAULT_ALLOCATOR is false, this function adds as header to the block a pointer to the allocator used.
 		@param i_size size of the block in bytes
 		@return the address of the first byte in the block, or nullptr if the allocation fails
 	*/
 	void * unaligned_alloc( size_t i_size );
+
+	/** allocates a new memory block using the specified allocator. 
+		The first byte of the block is aligned such that it can be used to store any int 
+		or pointer variable.
+		If the request size is zero the return value is a non-null address that points to a 
+		zero-sized memory block.
+		The content of the newly allocated block is undefined. 
+		If MEMO_ONLY_DEFAULT_ALLOCATOR is false, this function adds as header to the block a pointer to the allocator used.
+		@param i_allocator allocator to use to perform the allocation. If MEMO_ONLY_DEFAULT_ALLOCATOR is true, this parameter is ignored.
+		@param i_size size of the block in bytes
+		@return the address of the first byte in the block, or nullptr if the allocation fails
+	*/
+	void * unaligned_alloc( IAllocator & i_allocator, size_t i_size );
 
 	/** changes the size of the memory block allocated by memo::unaligned_alloc, using the allocator
 		that allocated it. The block is possibly moved it in a new location.

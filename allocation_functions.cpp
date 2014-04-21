@@ -13,6 +13,11 @@ namespace memo
 			return DefaultAllocator::s_alloc( i_size, i_alignment, i_alignment_offset );
 		}
 
+		void * alloc( IAllocator & /*i_allocator*/, size_t i_size, size_t i_alignment, size_t i_alignment_offset )
+		{
+			return DefaultAllocator::s_alloc( i_size, i_alignment, i_alignment_offset );
+		}
+
 		void * realloc( void * i_address, size_t i_new_size, size_t i_alignment, size_t i_alignment_offset )
 		{
 			return DefaultAllocator::s_realloc( i_address, i_new_size, i_alignment, i_alignment_offset );
@@ -29,6 +34,11 @@ namespace memo
 		}
 	
 		void * unaligned_alloc( size_t i_size )
+		{
+			return DefaultAllocator::s_unaligned_alloc( i_size );
+		}
+
+		void * unaligned_alloc( IAllocator & /*i_allocator*/, size_t i_size )
 		{
 			return DefaultAllocator::s_unaligned_alloc( i_size );
 		}
@@ -54,23 +64,27 @@ namespace memo
 		{
 			IAllocator * m_allocator;		
 		};
-		
-		// alloc
-		void * alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset )
-		{
-			IAllocator * current_allocator = memo_externals::get_current_thread_allocator();
 
+		void * alloc( IAllocator & i_allocator, size_t i_size, size_t i_alignment, size_t i_alignment_offset )
+		{
 			_AllocationHeader * header = static_cast<_AllocationHeader*>(
-				current_allocator->alloc( i_size + sizeof(_AllocationHeader), i_alignment, i_alignment_offset + sizeof(_AllocationHeader) ) );
-			
+				i_allocator.alloc( i_size + sizeof(_AllocationHeader), i_alignment, i_alignment_offset + sizeof(_AllocationHeader) ) );
+
 			if( header != nullptr )
 			{
-				header->m_allocator = current_allocator;
+				header->m_allocator = &i_allocator;
 
 				return header + 1;
 			}
 			else
 				return nullptr;
+		}
+		
+		// alloc
+		void * alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset )
+		{
+			IAllocator * current_allocator = memo_externals::get_current_thread_allocator();
+			return alloc( *current_allocator, i_size, i_alignment, i_alignment_offset );
 		}
 
 		// realloc
@@ -113,12 +127,17 @@ namespace memo
 		void * unaligned_alloc( size_t i_size )
 		{
 			IAllocator * current_allocator = memo_externals::get_current_thread_allocator();
+			return unaligned_alloc( *current_allocator, i_size );
+		}
 
-			_AllocationHeader * header = static_cast<_AllocationHeader*>(current_allocator->unaligned_alloc( i_size + sizeof(_AllocationHeader) ) );
+		// unaligned_alloc
+		void * unaligned_alloc( IAllocator & i_allocator, size_t i_size )
+		{
+			_AllocationHeader * header = static_cast<_AllocationHeader*>(i_allocator.unaligned_alloc( i_size + sizeof(_AllocationHeader) ) );
 
 			if( header != nullptr )
 			{
-				header->m_allocator = current_allocator;
+				header->m_allocator = &i_allocator;
 
 				return header + 1;
 			}

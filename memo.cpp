@@ -7,6 +7,11 @@
 
 #include "memo.h"
 
+#ifdef _MSC_VER
+	#pragma warning( push )
+	#pragma warning( disable: 4127 ) // conditional expression is constant
+#endif
+
 #if defined( _MSC_VER ) && defined( MEMO_ENABLE_TLSF )
 	#define WIN32_LEAN_AND_MEAN
 	#include "windows.h" // needed for CorruptionDetectorAllocator
@@ -164,4 +169,8 @@ namespace memo
 #include "management\management.cpp"
 #if MEMO_ENABLE_TEST
 	#include "memo_test.cpp"
+#endif
+
+#ifdef _MSC_VER
+	#pragma warning( pop )
 #endif

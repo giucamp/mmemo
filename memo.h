@@ -9,6 +9,11 @@
 #include <deque>
 #include <queue>
 
+#ifdef _MSC_VER
+	#pragma warning( push )
+	#pragma warning( disable: 4127 ) // conditional expression is constant
+#endif
+
 namespace memo // classes' forward declarations 
 {
 	// allocators
@@ -147,6 +152,9 @@ namespace memo
 
 #endif // #ifndef MEMO_INCLUDED
 
+#ifdef _MSC_VER
+	#pragma warning( pop )
+#endif
 
 
 /*! \mainpage Memo: overwiew and usage
