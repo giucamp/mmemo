@@ -59,61 +59,63 @@
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        {</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="structmemo_1_1_i_allocator_1_1_config.html#a72b4f2bdbe1ffb195f40e52569375ca9">load</a>( serialization::IConfigReader &amp; i_config_reader );</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <a class="code" href="classmemo_1_1_i_allocator.html">IAllocator</a> * <a class="code" href="structmemo_1_1_i_allocator_1_1_config.html#a32ff819f4667e4ee4b34aefbab84782b">create_allocator</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <span class="keyword">virtual</span> ~<a class="code" href="structmemo_1_1_i_allocator_1_1_config.html">Config</a>() { }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="structmemo_1_1_i_allocator_1_1_config.html#a72b4f2bdbe1ffb195f40e52569375ca9">load</a>( serialization::IConfigReader &amp; i_config_reader );</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <a class="code" href="classmemo_1_1_i_allocator.html">IAllocator</a> * <a class="code" href="structmemo_1_1_i_allocator_1_1_config.html#a32ff819f4667e4ee4b34aefbab84782b">create_allocator</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="structmemo_1_1_i_allocator_1_1_config.html#af79569e13d6b26f478edd3b76911312e">try_recognize_property</a>( serialization::IConfigReader &amp; i_config_reader ) = 0;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="keyword">virtual</span> <a class="code" href="classmemo_1_1_i_allocator.html">IAllocator</a> * <a class="code" href="structmemo_1_1_i_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">configure_allocator</a>( <a class="code" href="classmemo_1_1_i_allocator.html">IAllocator</a> * i_new_allocator ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        };</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="structmemo_1_1_i_allocator_1_1_config.html#af79569e13d6b26f478edd3b76911312e">try_recognize_property</a>( serialization::IConfigReader &amp; i_config_reader ) = 0;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="keyword">virtual</span> <a class="code" href="classmemo_1_1_i_allocator.html">IAllocator</a> * <a class="code" href="structmemo_1_1_i_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">configure_allocator</a>( <a class="code" href="classmemo_1_1_i_allocator.html">IAllocator</a> * i_new_allocator ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        };</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> * <a class="code" href="classmemo_1_1_i_allocator.html#a502e2c01bb5cb2b3b4cd6f57c626c9c1">alloc</a>( <span class="keywordtype">size_t</span> i_size, <span class="keywordtype">size_t</span> i_alignment, <span class="keywordtype">size_t</span> i_alignment_offset ) = 0;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> * <a class="code" href="classmemo_1_1_i_allocator.html#ace08f45e1451933243a499f77fb8d61c">realloc</a>( <span class="keywordtype">void</span> * i_address, <span class="keywordtype">size_t</span> i_new_size, <span class="keywordtype">size_t</span> i_alignment, <span class="keywordtype">size_t</span> i_alignment_offset ) = 0;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classmemo_1_1_i_allocator.html#a2074f5d80f1f3ca67b9fce58dec57912">free</a>( <span class="keywordtype">void</span> * i_address ) = 0;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classmemo_1_1_i_allocator.html#ac5b0f56c8c147c673b88ac51f107df2b">dbg_check</a>( <span class="keywordtype">void</span> * i_address ) = 0;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> * <a class="code" href="classmemo_1_1_i_allocator.html#a502e2c01bb5cb2b3b4cd6f57c626c9c1">alloc</a>( <span class="keywordtype">size_t</span> i_size, <span class="keywordtype">size_t</span> i_alignment, <span class="keywordtype">size_t</span> i_alignment_offset ) = 0;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> * <a class="code" href="classmemo_1_1_i_allocator.html#ace08f45e1451933243a499f77fb8d61c">realloc</a>( <span class="keywordtype">void</span> * i_address, <span class="keywordtype">size_t</span> i_new_size, <span class="keywordtype">size_t</span> i_alignment, <span class="keywordtype">size_t</span> i_alignment_offset ) = 0;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classmemo_1_1_i_allocator.html#a2074f5d80f1f3ca67b9fce58dec57912">free</a>( <span class="keywordtype">void</span> * i_address ) = 0;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classmemo_1_1_i_allocator.html#ac5b0f56c8c147c673b88ac51f107df2b">dbg_check</a>( <span class="keywordtype">void</span> * i_address ) = 0;</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> * <a class="code" href="classmemo_1_1_i_allocator.html#a56b7c7e3e00e70d59344247f2d460c7c">unaligned_alloc</a>( <span class="keywordtype">size_t</span> i_size ) = 0;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> * <a class="code" href="classmemo_1_1_i_allocator.html#a202b96480cec2c2b9df48e81159b62fc">unaligned_realloc</a>( <span class="keywordtype">void</span> * i_address, <span class="keywordtype">size_t</span> i_new_size ) = 0;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classmemo_1_1_i_allocator.html#a419e6240602d01284e67b38ef6f95911">unaligned_free</a>( <span class="keywordtype">void</span> * i_address ) = 0;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classmemo_1_1_i_allocator.html#a438a0ba99be29dd5334efec6d001b40d">unaligned_dbg_check</a>( <span class="keywordtype">void</span> * i_address ) = 0;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
-<div class="line"><a name="l00137"></a><span class="lineno"><a class="line" href="classmemo_1_1_i_allocator.html#ac67faf58bc98b2a837b75827b155000e">  137</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classmemo_1_1_i_allocator.html#ac67faf58bc98b2a837b75827b155000e">~IAllocator</a>() { }</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> * <a class="code" href="classmemo_1_1_i_allocator.html#a56b7c7e3e00e70d59344247f2d460c7c">unaligned_alloc</a>( <span class="keywordtype">size_t</span> i_size ) = 0;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> * <a class="code" href="classmemo_1_1_i_allocator.html#a202b96480cec2c2b9df48e81159b62fc">unaligned_realloc</a>( <span class="keywordtype">void</span> * i_address, <span class="keywordtype">size_t</span> i_new_size ) = 0;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classmemo_1_1_i_allocator.html#a419e6240602d01284e67b38ef6f95911">unaligned_free</a>( <span class="keywordtype">void</span> * i_address ) = 0;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classmemo_1_1_i_allocator.html#a438a0ba99be29dd5334efec6d001b40d">unaligned_dbg_check</a>( <span class="keywordtype">void</span> * i_address ) = 0;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;</div>
+<div class="line"><a name="l00139"></a><span class="lineno"><a class="line" href="classmemo_1_1_i_allocator.html#ac67faf58bc98b2a837b75827b155000e">  139</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classmemo_1_1_i_allocator.html#ac67faf58bc98b2a837b75827b155000e">~IAllocator</a>() { }</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;</div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;</div>
-<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="classmemo_1_1_i_allocator_1_1_state_writer.html">  143</a></span>&#160;        <span class="keyword">class </span><a class="code" href="classmemo_1_1_i_allocator_1_1_state_writer.html">StateWriter</a></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        {</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> tab( <span class="keyword">const</span> <span class="keywordtype">char</span> * i_section_name ) = 0;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;</div>
+<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="classmemo_1_1_i_allocator_1_1_state_writer.html">  145</a></span>&#160;        <span class="keyword">class </span><a class="code" href="classmemo_1_1_i_allocator_1_1_state_writer.html">StateWriter</a></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        {</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> untab() = 0;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> tab( <span class="keyword">const</span> <span class="keywordtype">char</span> * i_section_name ) = 0;</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classmemo_1_1_i_allocator_1_1_state_writer.html#ae0a7b68f37c9219a7d8f4bc6f6775cc4">write</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> * i_property_name, <span class="keyword">const</span> <span class="keywordtype">char</span> * i_property_value ) = 0;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classmemo_1_1_i_allocator_1_1_state_writer.html#a7781a8003cc8bee0424c8b937fe7f978">write_uint</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> * i_property_name, <span class="keywordtype">size_t</span> i_mem_size );</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classmemo_1_1_i_allocator_1_1_state_writer.html#af79a38097846b165eb4b06436b727e2f">write_mem_size</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> * i_property_name, <span class="keywordtype">size_t</span> i_mem_size );</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        };</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classmemo_1_1_i_allocator.html#a627cfb25a78006c09db973842404a06b">dump_state</a>( <a class="code" href="classmemo_1_1_i_allocator_1_1_state_writer.html">StateWriter</a> &amp; i_state_writer ) = 0;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    };</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;} <span class="comment">// namespace memo</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> untab() = 0;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classmemo_1_1_i_allocator_1_1_state_writer.html#ae0a7b68f37c9219a7d8f4bc6f6775cc4">write</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> * i_property_name, <span class="keyword">const</span> <span class="keywordtype">char</span> * i_property_value ) = 0;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classmemo_1_1_i_allocator_1_1_state_writer.html#a7781a8003cc8bee0424c8b937fe7f978">write_uint</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> * i_property_name, <span class="keywordtype">size_t</span> i_mem_size );</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classmemo_1_1_i_allocator_1_1_state_writer.html#af79a38097846b165eb4b06436b727e2f">write_mem_size</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> * i_property_name, <span class="keywordtype">size_t</span> i_mem_size );</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        };</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classmemo_1_1_i_allocator.html#a627cfb25a78006c09db973842404a06b">dump_state</a>( <a class="code" href="classmemo_1_1_i_allocator_1_1_state_writer.html">StateWriter</a> &amp; i_state_writer ) = 0;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    };</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;} <span class="comment">// namespace memo</span></div>
 <div class="ttc" id="structmemo_1_1_i_allocator_1_1_config_html"><div class="ttname"><a href="structmemo_1_1_i_allocator_1_1_config.html">memo::IAllocator::Config</a></div><div class="ttdef"><b>Definition:</b> iallocator.h:28</div></div>
 <div class="ttc" id="classmemo_1_1_i_allocator_html_ac5b0f56c8c147c673b88ac51f107df2b"><div class="ttname"><a href="classmemo_1_1_i_allocator.html#ac5b0f56c8c147c673b88ac51f107df2b">memo::IAllocator::dbg_check</a></div><div class="ttdeci">virtual void dbg_check(void *i_address)=0</div></div>
 <div class="ttc" id="classmemo_1_1_i_allocator_html_a2074f5d80f1f3ca67b9fce58dec57912"><div class="ttname"><a href="classmemo_1_1_i_allocator.html#a2074f5d80f1f3ca67b9fce58dec57912">memo::IAllocator::free</a></div><div class="ttdeci">virtual void free(void *i_address)=0</div></div>
@@ -122,7 +124,7 @@
 <div class="ttc" id="classmemo_1_1_i_allocator_html_a627cfb25a78006c09db973842404a06b"><div class="ttname"><a href="classmemo_1_1_i_allocator.html#a627cfb25a78006c09db973842404a06b">memo::IAllocator::dump_state</a></div><div class="ttdeci">virtual void dump_state(StateWriter &amp;i_state_writer)=0</div></div>
 <div class="ttc" id="structmemo_1_1_i_allocator_1_1_config_html_af79569e13d6b26f478edd3b76911312e"><div class="ttname"><a href="structmemo_1_1_i_allocator_1_1_config.html#af79569e13d6b26f478edd3b76911312e">memo::IAllocator::Config::try_recognize_property</a></div><div class="ttdeci">virtual bool try_recognize_property(serialization::IConfigReader &amp;i_config_reader)=0</div></div>
 <div class="ttc" id="structmemo_1_1_i_allocator_1_1_config_html_a72b4f2bdbe1ffb195f40e52569375ca9"><div class="ttname"><a href="structmemo_1_1_i_allocator_1_1_config.html#a72b4f2bdbe1ffb195f40e52569375ca9">memo::IAllocator::Config::load</a></div><div class="ttdeci">void load(serialization::IConfigReader &amp;i_config_reader)</div><div class="ttdef"><b>Definition:</b> iallocator_config.cpp:19</div></div>
-<div class="ttc" id="classmemo_1_1_i_allocator_html_ac67faf58bc98b2a837b75827b155000e"><div class="ttname"><a href="classmemo_1_1_i_allocator.html#ac67faf58bc98b2a837b75827b155000e">memo::IAllocator::~IAllocator</a></div><div class="ttdeci">virtual ~IAllocator()</div><div class="ttdef"><b>Definition:</b> iallocator.h:137</div></div>
+<div class="ttc" id="classmemo_1_1_i_allocator_html_ac67faf58bc98b2a837b75827b155000e"><div class="ttname"><a href="classmemo_1_1_i_allocator.html#ac67faf58bc98b2a837b75827b155000e">memo::IAllocator::~IAllocator</a></div><div class="ttdeci">virtual ~IAllocator()</div><div class="ttdef"><b>Definition:</b> iallocator.h:139</div></div>
 <div class="ttc" id="classmemo_1_1_i_allocator_html_a502e2c01bb5cb2b3b4cd6f57c626c9c1"><div class="ttname"><a href="classmemo_1_1_i_allocator.html#a502e2c01bb5cb2b3b4cd6f57c626c9c1">memo::IAllocator::alloc</a></div><div class="ttdeci">virtual void * alloc(size_t i_size, size_t i_alignment, size_t i_alignment_offset)=0</div></div>
 <div class="ttc" id="classmemo_1_1_i_allocator_html"><div class="ttname"><a href="classmemo_1_1_i_allocator.html">memo::IAllocator</a></div><div class="ttdef"><b>Definition:</b> iallocator.h:11</div></div>
 <div class="ttc" id="classmemo_1_1_i_allocator_html_a202b96480cec2c2b9df48e81159b62fc"><div class="ttname"><a href="classmemo_1_1_i_allocator.html#a202b96480cec2c2b9df48e81159b62fc">memo::IAllocator::unaligned_realloc</a></div><div class="ttdeci">virtual void * unaligned_realloc(void *i_address, size_t i_new_size)=0</div></div>
@@ -132,13 +134,13 @@
 <div class="ttc" id="structmemo_1_1_i_allocator_1_1_config_html_abe516b5956aa7ddcb9e6fcc0c30d102f"><div class="ttname"><a href="structmemo_1_1_i_allocator_1_1_config.html#abe516b5956aa7ddcb9e6fcc0c30d102f">memo::IAllocator::Config::configure_allocator</a></div><div class="ttdeci">virtual IAllocator * configure_allocator(IAllocator *i_new_allocator) const </div><div class="ttdef"><b>Definition:</b> iallocator_config.cpp:13</div></div>
 <div class="ttc" id="classmemo_1_1_i_allocator_html_a438a0ba99be29dd5334efec6d001b40d"><div class="ttname"><a href="classmemo_1_1_i_allocator.html#a438a0ba99be29dd5334efec6d001b40d">memo::IAllocator::unaligned_dbg_check</a></div><div class="ttdeci">virtual void unaligned_dbg_check(void *i_address)=0</div></div>
 <div class="ttc" id="classmemo_1_1_i_allocator_html_abe68613d98ba9a392a9ef421a3471bd2"><div class="ttname"><a href="classmemo_1_1_i_allocator.html#abe68613d98ba9a392a9ef421a3471bd2">memo::IAllocator::type_name</a></div><div class="ttdeci">static const char * type_name()</div><div class="ttdef"><b>Definition:</b> iallocator.h:20</div></div>
-<div class="ttc" id="classmemo_1_1_i_allocator_1_1_state_writer_html"><div class="ttname"><a href="classmemo_1_1_i_allocator_1_1_state_writer.html">memo::IAllocator::StateWriter</a></div><div class="ttdef"><b>Definition:</b> iallocator.h:143</div></div>
+<div class="ttc" id="classmemo_1_1_i_allocator_1_1_state_writer_html"><div class="ttname"><a href="classmemo_1_1_i_allocator_1_1_state_writer.html">memo::IAllocator::StateWriter</a></div><div class="ttdef"><b>Definition:</b> iallocator.h:145</div></div>
 <div class="ttc" id="classmemo_1_1_i_allocator_1_1_state_writer_html_ae0a7b68f37c9219a7d8f4bc6f6775cc4"><div class="ttname"><a href="classmemo_1_1_i_allocator_1_1_state_writer.html#ae0a7b68f37c9219a7d8f4bc6f6775cc4">memo::IAllocator::StateWriter::write</a></div><div class="ttdeci">virtual void write(const char *i_property_name, const char *i_property_value)=0</div></div>
 <div class="ttc" id="classmemo_1_1_i_allocator_html_a419e6240602d01284e67b38ef6f95911"><div class="ttname"><a href="classmemo_1_1_i_allocator.html#a419e6240602d01284e67b38ef6f95911">memo::IAllocator::unaligned_free</a></div><div class="ttdeci">virtual void unaligned_free(void *i_address)=0</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 25 2014 08:07:19 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Apr 30 2014 08:20:38 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

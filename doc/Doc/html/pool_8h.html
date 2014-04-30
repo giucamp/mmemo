@@ -103,7 +103,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><span class="keyword">namespace </span>memo {                                                                        \</div>
-<div class="line">    template &lt;&gt; <span class="keyword">class </span>AllocationDispatcher&lt;_TestClass &gt; : <span class="keyword">public</span> <a class="code" href="classmemo_1_1_pool_dispatcher.html">memo::PoolDispatcher</a>&lt; _TestClass, AllocationDispatcher&lt;_TestClass &gt; &gt;  \</div>
+<div class="line">    template &lt;&gt; <span class="keyword">class </span>AllocationDispatcher&lt;TYPE&gt; : <span class="keyword">public</span> <a class="code" href="classmemo_1_1_pool_dispatcher.html">memo::PoolDispatcher</a>&lt; TYPE, AllocationDispatcher&lt;TYPE &gt; &gt; \</div>
 <div class="line">    {                                                                                                                                   \</div>
 <div class="line">    public:                                                                                                                             \</div>
 <div class="line">        static <span class="keyword">const</span> <span class="keywordtype">char</span> * type_name() { <span class="keywordflow">return</span> #TYPE; }                                                                               \</div>
@@ -122,7 +122,7 @@ Macros</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 25 2014 08:07:19 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Apr 30 2014 08:20:38 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

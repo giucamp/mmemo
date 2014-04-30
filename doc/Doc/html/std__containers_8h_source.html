@@ -92,7 +92,7 @@
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="comment">// std_map&lt; KEY, VALUE &gt;::type</span></div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> KEY, <span class="keyword">typename</span> VALUE&gt; <span class="keyword">struct </span>std_map</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        { <span class="keyword">typedef</span> std::map&lt; KEY, VALUE, std::less&lt; KEY &gt;, StdAllocator&lt; std::pair&lt;KEY, VALUE&gt; &gt; &gt; type; };</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        { <span class="keyword">typedef</span> std::map&lt; KEY, VALUE, typename std::less&lt; KEY &gt;, <span class="keyword">typename</span> StdAllocator&lt; std::pair&lt;KEY, VALUE&gt; &gt; &gt; type; };</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="comment">// std_multimap&lt; KEY, VALUE &gt;::type</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> KEY, <span class="keyword">typename</span> VALUE&gt; <span class="keyword">struct </span>std_multimap</div>
@@ -122,11 +122,15 @@
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">template</span> &lt; <span class="keyword">typename</span> VALUE, <span class="keyword">typename</span> HASH = std::hash&lt;KEY&gt;, <span class="keyword">typename</span> PREDICATE = std::equal_to&lt;KEY&gt; &gt; <span class="keyword">struct </span>std_unordered_multiset</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        { <span class="keyword">typedef</span> std::unordered_multiset&lt; VALUE, HASH, PREDICATE, StdAllocator&lt; VALUE &gt; &gt; type; };</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;} <span class="comment">// namespace memo</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="comment">// std_priority_queue&lt; VALUE, CONTAINER = std::vector&lt;KEY&gt;, PREDICATE = std::less&lt;KEY&gt; &gt;::type</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    template &lt; typename VALUE, typename CONTAINER = memo::std_vector&lt;VALUE&gt;::type, <span class="keyword">typename</span> PREDICATE = std::less&lt; typename CONTAINER::value_type &gt; &gt; <span class="keyword">struct </span>std_priority_queue</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        { <span class="keyword">typedef</span> std::priority_queue&lt; VALUE, CONTAINER, PREDICATE &gt; type; };</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;} <span class="comment">// namespace memo</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 25 2014 08:07:19 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Apr 30 2014 08:20:38 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

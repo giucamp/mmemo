@@ -51,7 +51,7 @@
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;typed_pool.h&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
 <div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="pool_8h.html#ab84b49d60821c60a699d22912de615d3">   16</a></span>&#160;<span class="preprocessor">#define MEMO_ENABLE_POOL( TYPE, DEFAULT_CAPACITY ) namespace memo {                                                                     \</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">    template &lt;&gt; class AllocationDispatcher&lt;_TestClass &gt; : public memo::PoolDispatcher&lt; _TestClass, AllocationDispatcher&lt;_TestClass &gt; &gt;  \</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">    template &lt;&gt; class AllocationDispatcher&lt;TYPE&gt; : public memo::PoolDispatcher&lt; TYPE, AllocationDispatcher&lt;TYPE &gt; &gt; \</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">    {                                                                                                                                   \</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">    public:                                                                                                                             \</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">        static const char * type_name() { return #TYPE; }                                                                               \</span></div>
@@ -118,7 +118,7 @@
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 25 2014 08:07:19 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Apr 30 2014 08:20:38 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

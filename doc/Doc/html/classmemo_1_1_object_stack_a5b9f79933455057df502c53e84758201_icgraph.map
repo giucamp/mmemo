@@ -1,0 +1,5 @@
+<map id="free" name="free">
+<area shape="rect" id="node2" href="$classmemo_1_1_auto_lifo.html#a51fba37ebbe41a03e92ae67e644de268" title="memo::AutoLifo::alloc" alt="" coords="97,5,245,32"/>
+<area shape="rect" id="node3" href="$classmemo_1_1_auto_lifo.html#abf497051a70931bfbdaa18c63609bba9" title="memo::AutoLifo::free" alt="" coords="99,56,242,83"/>
+<area shape="rect" id="node4" href="$classmemo_1_1_auto_lifo.html#a3f1dd174d35ce5d4b1687f088b5e5720" title="memo::AutoLifo::~AutoLifo" alt="" coords="293,56,469,83"/>
+</map>

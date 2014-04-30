@@ -67,6 +67,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9419268280646dc4ab7b01d6fa3741c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31adafa97455b9ed1afc71d76ecc5250"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmemo_1_1_queue.html#a31adafa97455b9ed1afc71d76ecc5250">alloc</a> (size_t i_size, size_t i_alignment, size_t i_alignment_offset)</td></tr>
 <tr class="separator:a31adafa97455b9ed1afc71d76ecc5250"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8edc733684780b66d6ea4818de25c2ab"><td class="memTemplParams" colspan="2">template&lt;typename TYPE &gt; </td></tr>
+<tr class="memitem:a8edc733684780b66d6ea4818de25c2ab"><td class="memTemplItemLeft" align="right" valign="top">void *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmemo_1_1_queue.html#a8edc733684780b66d6ea4818de25c2ab">typed_alloc</a> ()</td></tr>
+<tr class="separator:a8edc733684780b66d6ea4818de25c2ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b5d20f7f7e46c9cd9b0a298eede6b10"><td class="memTemplParams" colspan="2">template&lt;typename TYPE &gt; </td></tr>
+<tr class="memitem:a1b5d20f7f7e46c9cd9b0a298eede6b10"><td class="memTemplItemLeft" align="right" valign="top">TYPE *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmemo_1_1_queue.html#a1b5d20f7f7e46c9cd9b0a298eede6b10">typed_array_alloc</a> (size_t i_count)</td></tr>
+<tr class="separator:a1b5d20f7f7e46c9cd9b0a298eede6b10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbc8a3c21c450f6a783eb94c407eab2e"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmemo_1_1_queue.html#abbc8a3c21c450f6a783eb94c407eab2e">get_first_block</a> ()</td></tr>
 <tr class="separator:abbc8a3c21c450f6a783eb94c407eab2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24ae09b7d0734e64ee5da7d1055824fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmemo_1_1_queue.html#a24ae09b7d0734e64ee5da7d1055824fa">free_first</a> (void *i_first_block)</td></tr>
@@ -134,6 +140,15 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the address of the first byte in the block, or nullptr if the allocation fails </dd></dl>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classmemo_1_1_queue_a31adafa97455b9ed1afc71d76ecc5250_icgraph.png" border="0" usemap="#classmemo_1_1_queue_a31adafa97455b9ed1afc71d76ecc5250_icgraph" alt=""/></div>
+<map name="classmemo_1_1_queue_a31adafa97455b9ed1afc71d76ecc5250_icgraph" id="classmemo_1_1_queue_a31adafa97455b9ed1afc71d76ecc5250_icgraph">
+<area shape="rect" id="node2" href="classmemo_1_1_queue.html#a8edc733684780b66d6ea4818de25c2ab" title="typed_alloc" alt="" coords="123,5,211,32"/><area shape="rect" id="node3" href="classmemo_1_1_queue.html#a1b5d20f7f7e46c9cd9b0a298eede6b10" title="typed_array_alloc" alt="" coords="105,56,229,83"/></map>
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="ac8bb3912a3ce86b15842e79d0b421204"></a>
@@ -192,6 +207,82 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a8edc733684780b66d6ea4818de25c2ab"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* typed_alloc </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>allocates a new memory block for an instance of the type TYPE. This method just allocates: no constructor is called. If the allocation fails nullptr is returned. If the requested size is zero the return value is a non-null address. The content of the newly allocated block is undefined. You can use this method with the in-place new: </p>
+<div class="fragment"><div class="line">MyType * my_object = <span class="keyword">new</span> ( queue.typed_alloc&lt;MyType&gt;() ) MyType( arg1, arg2 ... );</div>
+</div><!-- fragment --> <dl class="section return"><dt>Returns</dt><dd>the address of the first byte in the block, or nullptr if the allocation fails </dd></dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classmemo_1_1_queue_a8edc733684780b66d6ea4818de25c2ab_cgraph.png" border="0" usemap="#classmemo_1_1_queue_a8edc733684780b66d6ea4818de25c2ab_cgraph" alt=""/></div>
+<map name="classmemo_1_1_queue_a8edc733684780b66d6ea4818de25c2ab_cgraph" id="classmemo_1_1_queue_a8edc733684780b66d6ea4818de25c2ab_cgraph">
+<area shape="rect" id="node2" href="classmemo_1_1_queue.html#a31adafa97455b9ed1afc71d76ecc5250" title="alloc" alt="" coords="142,5,191,32"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a1b5d20f7f7e46c9cd9b0a298eede6b10"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TYPE* typed_array_alloc </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>i_count</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>allocates a new memory block for an array of the type TYPE. This method just allocates: no constructor is called. If the allocation fails nullptr is returned. If the requested size is zero the return value is a non-null address. The content of the newly allocated block is undefined. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i_count</td><td>length of the allocated array </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the address of the first byte in the block, or nullptr if the allocation fails </dd></dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classmemo_1_1_queue_a1b5d20f7f7e46c9cd9b0a298eede6b10_cgraph.png" border="0" usemap="#classmemo_1_1_queue_a1b5d20f7f7e46c9cd9b0a298eede6b10_cgraph" alt=""/></div>
+<map name="classmemo_1_1_queue_a1b5d20f7f7e46c9cd9b0a298eede6b10_cgraph" id="classmemo_1_1_queue_a1b5d20f7f7e46c9cd9b0a298eede6b10_cgraph">
+<area shape="rect" id="node2" href="classmemo_1_1_queue.html#a31adafa97455b9ed1afc71d76ecc5250" title="alloc" alt="" coords="179,5,229,32"/></map>
+</div>
+</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>D:/SmartGit/mmemo/fifo/<a class="el" href="queue_8h_source.html">queue.h</a></li>
 <li>D:/SmartGit/mmemo/fifo/queue.cpp</li>
@@ -199,7 +290,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 25 2014 08:07:20 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Apr 30 2014 08:20:40 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>
