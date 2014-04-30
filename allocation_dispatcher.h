@@ -10,20 +10,14 @@ namespace memo
 			This function is an internal service, and is not supposed to be called directly. Use MEMO_NEW instead. */
 		static void * typed_alloc()
 		{
-			if( MEMO_ALIGNMENT_OF( TYPE ) <= MEMO_MIN_ALIGNMENT )
-				return unaligned_alloc( sizeof(TYPE) );
-			else
-				return alloc( sizeof(TYPE), MEMO_ALIGNMENT_OF( TYPE ), 0 );
+			return alloc( sizeof(TYPE), MEMO_ALIGNMENT_OF( TYPE ), 0 );
 		}
 
 		/** typed_alloc<TYPE>( i_allocator ) - allocates an object of a given type with the specified allocator. No constructor is called.
 			This function is an internal service, and is not supposed to be called directly. Use MEMO_NEW_ALLOC instead. */
 		static void * typed_alloc( IAllocator & i_allocator )
 		{
-			if( MEMO_ALIGNMENT_OF( TYPE ) <= MEMO_MIN_ALIGNMENT )
-				return i_allocator.unaligned_alloc( sizeof(TYPE) );
-			else
-				return i_allocator.alloc( sizeof(TYPE), MEMO_ALIGNMENT_OF( TYPE ), 0 );
+			return i_allocator.alloc( sizeof(TYPE), MEMO_ALIGNMENT_OF( TYPE ), 0 );
 		}
 
 		/** _delete( i_pointer ) - destroys and deallocates an object of a given type with the allocator used to allocate it.
@@ -31,10 +25,7 @@ namespace memo
 		static void _delete( TYPE * i_pointer )
 		{
 			i_pointer->~TYPE();
-			if( MEMO_ALIGNMENT_OF( TYPE ) <= MEMO_MIN_ALIGNMENT )
-				memo::unaligned_free( i_pointer );
-			else
-				memo::free( i_pointer );
+			memo::free( i_pointer );
 		}
 
 		/** _delete( i_allocator, i_pointer ) - destroys and deallocates an object of a given type with the specified allocator.
@@ -42,10 +33,7 @@ namespace memo
 		static void _delete( IAllocator & i_allocator, TYPE * i_pointer )
 		{
 			i_pointer->~TYPE();
-			if( MEMO_ALIGNMENT_OF( TYPE ) <= MEMO_MIN_ALIGNMENT )
-				i_allocator.unaligned_free( i_pointer );
-			else
-				i_allocator.free( i_pointer );
+			i_allocator.free( i_pointer );
 		}
 
 		/** lifo_delete( i_pointer ) - destroys and deallocates an object of a given type with the lifo allocator.
@@ -62,10 +50,7 @@ namespace memo
 		{
 			_ArrayHeader * header;
 
-			if( MEMO_ALIGNMENT_OF( TYPE ) <= MEMO_MIN_ALIGNMENT )
-				header = static_cast<_ArrayHeader*>( unaligned_alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader) ) );
-			else
-				header = static_cast<_ArrayHeader*>( alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader), MEMO_ALIGNMENT_OF( TYPE ), sizeof(_ArrayHeader) ) );
+			header = static_cast<_ArrayHeader*>( alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader), MEMO_ALIGNMENT_OF( TYPE ), sizeof(_ArrayHeader) ) );
 		
 			if( header == nullptr )
 				return nullptr;
@@ -85,10 +70,7 @@ namespace memo
 		{
 			_ArrayHeader * header;
 
-			if( MEMO_ALIGNMENT_OF( TYPE ) <= MEMO_MIN_ALIGNMENT )
-				header = static_cast<_ArrayHeader*>( i_allocator.unaligned_alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader) ) );
-			else
-				header = static_cast<_ArrayHeader*>( i_allocator.alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader), MEMO_ALIGNMENT_OF( TYPE ), sizeof(_ArrayHeader) ) );
+			header = static_cast<_ArrayHeader*>( i_allocator.alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader), MEMO_ALIGNMENT_OF( TYPE ), sizeof(_ArrayHeader) ) );
 		
 			if( header == nullptr )
 				return nullptr;
@@ -112,10 +94,7 @@ namespace memo
 		{
 			_ArrayHeader * header;
 
-			if( MEMO_ALIGNMENT_OF( TYPE ) <= MEMO_MIN_ALIGNMENT )
-				header = static_cast<_ArrayHeader*>( unaligned_alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader) ) );
-			else
-				header = static_cast<_ArrayHeader*>( alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader), MEMO_ALIGNMENT_OF( TYPE ), sizeof(_ArrayHeader) ) );
+			header = static_cast<_ArrayHeader*>( alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader), MEMO_ALIGNMENT_OF( TYPE ), sizeof(_ArrayHeader) ) );
 		
 			if( header == nullptr )
 				return nullptr;
@@ -139,10 +118,7 @@ namespace memo
 		{
 			_ArrayHeader * header;
 
-			if( MEMO_ALIGNMENT_OF( TYPE ) <= MEMO_MIN_ALIGNMENT )
-				header = static_cast<_ArrayHeader*>( i_allocator.unaligned_alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader) ) );
-			else
-				header = static_cast<_ArrayHeader*>( i_allocator.alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader), MEMO_ALIGNMENT_OF( TYPE ), sizeof(_ArrayHeader) ) );
+			header = static_cast<_ArrayHeader*>( i_allocator.alloc( sizeof(TYPE) * i_size + sizeof(_ArrayHeader), MEMO_ALIGNMENT_OF( TYPE ), sizeof(_ArrayHeader) ) );
 		
 			if( header == nullptr )
 				return nullptr;
@@ -168,11 +144,8 @@ namespace memo
 				curr->~TYPE();
 				curr--;
 			}
-
-			if( MEMO_ALIGNMENT_OF( TYPE ) <= MEMO_MIN_ALIGNMENT )
-				return unaligned_free( header );
-			else
-				return free( header );
+			
+			return free( header );
 		}
 
 		/** delete_array( i_allocator, i_pointer ) - destroys and deallocates an array of a given type with with the specified allocator.
@@ -188,10 +161,7 @@ namespace memo
 				curr--;
 			}
 
-			if( MEMO_ALIGNMENT_OF( TYPE ) <= MEMO_MIN_ALIGNMENT )
-				return i_allocator.unaligned_free( header );
-			else
-				return i_allocator.free( header );
+			return i_allocator.free( header );
 		}
 
 	}; // end of DefaultAllocationDispatcher<TYPE>

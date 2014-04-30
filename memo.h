@@ -150,12 +150,12 @@ namespace memo
 
 #endif
 
-#endif // #ifndef MEMO_INCLUDED
 
 #ifdef _MSC_VER
 	#pragma warning( pop )
 #endif
 
+#endif // #ifndef MEMO_INCLUDED
 
 /*! \mainpage Memo: overwiew and usage
 

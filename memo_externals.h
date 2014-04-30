@@ -46,9 +46,7 @@
 
 /** \def MEMO_MIN_ALIGNMENT 
 	This macro should evaluate to an integer equal to the minimum required alignment for any allocated memory block.
-	Any ::malloc implementation has a minimum alignment, suitable to store in the memory block any primitive type.
-	When memo allocates an object of a known type (for example MEMO_NEW, or memo::StdAllocator), if the alignment
-	required by the type is equal or less than MEMO_MIN_ALIGNMENT, the unaligned allocation functions are used. */
+	Any ::malloc implementation has a minimum alignment, suitable to store in the memory block any primitive type. */
 #define MEMO_MIN_ALIGNMENT			MEMO_ALIGNMENT_OF( void* )
 
 

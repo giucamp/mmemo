@@ -48,7 +48,7 @@ namespace memo
 
 	// std_map< KEY, VALUE >::type
 	template <typename KEY, typename VALUE> struct std_map
-		{ typedef std::map< KEY, VALUE, std::less< KEY >, StdAllocator< std::pair<KEY, VALUE> > > type; };
+		{ typedef std::map< KEY, VALUE, typename std::less< KEY >, typename StdAllocator< std::pair<KEY, VALUE> > > type; };
 
 	// std_multimap< KEY, VALUE >::type
 	template <typename KEY, typename VALUE> struct std_multimap
@@ -77,5 +77,9 @@ namespace memo
 	// std_unordered_multiset< VALUE, HASH = std::hash<KEY>, PREDICATE = std::equal_to<KEY> >::type
 	template < typename VALUE, typename HASH = std::hash<KEY>, typename PREDICATE = std::equal_to<KEY> > struct std_unordered_multiset
 		{ typedef std::unordered_multiset< VALUE, HASH, PREDICATE, StdAllocator< VALUE > > type; };
+
+	// std_priority_queue< VALUE, CONTAINER = std::vector<KEY>, PREDICATE = std::less<KEY> >::type
+	template < typename VALUE, typename CONTAINER = memo::std_vector<VALUE>::type, typename PREDICATE = std::less< typename CONTAINER::value_type > > struct std_priority_queue
+		{ typedef std::priority_queue< VALUE, CONTAINER, PREDICATE > type; };
 
 } // namespace memo

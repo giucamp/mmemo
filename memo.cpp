@@ -14,9 +14,8 @@
 
 #if defined( _MSC_VER ) && defined( MEMO_ENABLE_TLSF )
 	#define WIN32_LEAN_AND_MEAN
+	#define NOMINMAX
 	#include "windows.h" // needed for CorruptionDetectorAllocator
-	#undef min
-	#undef max
 #endif
 
 namespace memo

@@ -183,6 +183,20 @@ namespace memo
 			m_put_page = i_page->m_next_page;
 	}
 
+	void Queue::clear()
+	{
+		MEMO_ASSERT( m_last_page != nullptr ); // the allocator must be initialized
+
+		m_peek_page->m_fifo_allocator.clear();
+
+		do {
+
+			m_peek_page = m_peek_page->m_next_page;
+		
+			m_peek_page->m_fifo_allocator.clear();
+
+		} while( m_peek_page != m_put_page );
+	}
 
 	#if MEMO_ENABLE_TEST
 
