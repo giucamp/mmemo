@@ -57,6 +57,8 @@
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmemo_1_1_queue_1_1_iterator.html">Iterator</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmemo_1_1_queue_1_1_test_session.html">TestSession</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">tester ///  <a href="classmemo_1_1_queue_1_1_test_session.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -228,7 +230,8 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>allocates a new memory block for an instance of the type TYPE. This method just allocates: no constructor is called. If the allocation fails nullptr is returned. If the requested size is zero the return value is a non-null address. The content of the newly allocated block is undefined. You can use this method with the in-place new: </p>
-<div class="fragment"><div class="line">MyType * my_object = <span class="keyword">new</span> ( queue.typed_alloc&lt;MyType&gt;() ) MyType( arg1, arg2 ... );</div>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> * <a class="code" href="classmemo_1_1_queue.html#a31adafa97455b9ed1afc71d76ecc5250">alloc</a> = queue.typed_alloc&lt;MyType&gt;();</div>
+<div class="line">MyType * my_object = alloc != <span class="keyword">nullptr</span> ? <span class="keyword">new</span>( <a class="code" href="classmemo_1_1_queue.html#a31adafa97455b9ed1afc71d76ecc5250">alloc</a> ) MyType( arg1, arg2 ... ) : <span class="keyword">nullptr</span>;</div>
 </div><!-- fragment --> <dl class="section return"><dt>Returns</dt><dd>the address of the first byte in the block, or nullptr if the allocation fails </dd></dl>
 
 <p><div class="dynheader">
@@ -290,7 +293,7 @@ Here is the call graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Apr 30 2014 08:20:40 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 15 2014 08:12:47 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

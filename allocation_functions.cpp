@@ -193,7 +193,7 @@ namespace memo
 	ObjectStack & get_lifo_allocator()
 	{
 		ThreadRoot * thread_context = memo_externals::get_thread_root();
-		MEMO_ASSERT( thread_context != nullptr );
+		MEMO_ASSERT( thread_context != nullptr ); // create a memo::ThreadRoot object on the call stack of the thread procedure
 		return thread_context->lifo_allocator();
 	}
 	

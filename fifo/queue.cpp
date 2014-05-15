@@ -198,6 +198,48 @@ namespace memo
 		} while( m_peek_page != m_put_page );
 	}
 
+	Queue::Iterator::Iterator()
+		: m_curr_page( nullptr ), m_queue( nullptr )
+	{
+
+	}
+
+	void Queue::Iterator::start_iteration( const Queue & i_queue )
+	{
+		m_queue = &i_queue;
+		m_curr_page = i_queue.m_first_page;
+		if( m_curr_page != nullptr )
+		{
+			m_inner_iterator.start_iteration( m_curr_page->m_fifo_allocator );
+		}		
+	}
+
+	bool Queue::Iterator::is_over() const
+	{
+		return m_curr_page == nullptr || ( m_inner_iterator.is_over() && m_curr_page == m_queue->m_last_page );
+	}
+
+	void Queue::Iterator::operator ++ ( int )
+	{
+		MEMO_ASSERT( !is_over() );
+
+		if( !m_inner_iterator.is_over() )
+		{
+			++m_inner_iterator;
+		}
+		else
+		{
+			m_curr_page = m_curr_page->m_next_page;
+		}
+	}
+
+	void * Queue::Iterator::curr_block() const
+	{
+		MEMO_ASSERT( !is_over() );
+
+		return m_inner_iterator.curr_block();
+	}
+
 	#if MEMO_ENABLE_TEST
 
 		Queue::TestSession::TestSession()

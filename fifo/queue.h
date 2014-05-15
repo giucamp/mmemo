@@ -9,6 +9,13 @@ namespace memo
 	*/
 	class Queue
 	{
+	private:
+		struct PageHeader
+		{
+			FifoAllocator m_fifo_allocator;
+			PageHeader * m_next_page;
+		};
+
 	public:
 
 		/** default constructor. The memory buffer must be assigned before using the queue (see set_buffer) */
@@ -37,7 +44,8 @@ namespace memo
 			The content of the newly allocated block is undefined.
 			You can use this method with  the in-place new:
 			\code{.cpp}
-				MyType * my_object = new ( queue.typed_alloc<MyType>() ) MyType( arg1, arg2 ... );
+				void * alloc = queue.typed_alloc<MyType>();
+				MyType * my_object = alloc != nullptr ? new( alloc ) MyType( arg1, arg2 ... ) : nullptr;
 			\endcode
 		  @return the address of the first byte in the block, or nullptr if the allocation fails
 		*/
@@ -47,11 +55,11 @@ namespace memo
 		/** allocates a new memory block for an array of the type TYPE. This method just allocates: no constructor is called. 
 			If the allocation fails nullptr is returned. If the requested size is zero the return value is a non-null address.
 			The content of the newly allocated block is undefined.
-			@param i_count length of the allocated array
+		  @param i_count length of the allocated array
 		  @return the address of the first byte in the block, or nullptr if the allocation fails
 		*/
 		template < typename TYPE > TYPE * typed_array_alloc( size_t i_count ) 
-				{ return static_cast< TYPE * >( alloc( i_count * sizeof(TYPE), MEMO_ALIGNMENT_OF(TYPE), 0 ) ); }
+			{ return static_cast< TYPE * >( alloc( i_count * sizeof(TYPE), MEMO_ALIGNMENT_OF(TYPE), 0 ) ); }
 		
 		/** returns the oldest block in the buffer (the front of the queue).
 		  @return the address of the first byte in the oldest block, or nullptr if the queue is empty
@@ -65,6 +73,49 @@ namespace memo
 				
 		/** frees all the blocks in the queue */
 		void clear();
+
+
+		/** This class enumerates, from the oldest to the newest, all the living allocation in a FifoAllocator. 
+			This is an example of how this class may be used:
+			\code{.cpp}
+			for( Iterator it( fifo_allocator ); !it.is_over(); it++ )
+			{
+				// ...
+			}
+			\endcode
+			*/
+		class Iterator
+		{
+		public:
+
+			/** Construct an uninitialized iterator. Call start_iteration before using it. */
+			Iterator();
+
+			/** Construct an iterator and assigns to it a Queue. */
+			Iterator( const Queue & i_queue )		{ start_iteration( i_queue ); }
+
+			/** Starts iterating a Queue, moving to its oldest allocation */
+			void start_iteration( const Queue & i_queue );
+
+			/** Returns whether the iteration of the LifoALlocator is finished. When this method returns true,
+					the iteration cannot longer be used, unless start_iteration is called. */
+			bool is_over() const;
+
+			/** Moves to the next allocation. This method cannot be called if is_over() returns true. */
+			void operator ++ ( int );
+
+			/** Moves to the next allocation. This method cannot be called if is_over() returns true. */
+			Iterator & operator ++ ()					{ (*this)++; return *this; }
+
+			/** Returns the adders of the current memory block. This method cannot be called if is_over() returns true. */
+			void * curr_block() const;
+
+		private:
+			FifoAllocator::Iterator m_inner_iterator;
+			PageHeader * m_curr_page;
+			const Queue * m_queue;
+		};
+
 
 
 					/// tester ///
@@ -103,12 +154,6 @@ namespace memo
 		Queue & operator = ( const Queue & );
 
 	private: // internal services
-
-		struct PageHeader
-		{
-			FifoAllocator m_fifo_allocator;
-			PageHeader * m_next_page;
-		};
 
 		PageHeader * create_page( size_t i_min_size );
 
