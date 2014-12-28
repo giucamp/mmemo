@@ -80,7 +80,7 @@ namespace memo
 
 		/** Destroys the specified object and deallocates it. If the block is outside the pool, this method uses the default allocator
 			to free the block. This method calls the destructor of the object. Use free to just deallocate the memory.
-			@param i_object ointer to the object to delete. Can't be nullptr. */
+			@param i_object pointer to the object to delete. Can't be nullptr. */
 		void destroy_object( TYPE * i_object )				{ i_object->~TYPE(); m_pool.free( i_object ); }
 
 	private:

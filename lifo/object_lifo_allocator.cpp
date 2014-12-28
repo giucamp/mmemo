@@ -15,7 +15,8 @@ namespace memo
 	}
 
 	// ObjectLifoAllocator::alloc
-	void * ObjectLifoAllocator::alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset, DeallocationCallback i_deallocation_callback )
+	void * ObjectLifoAllocator::alloc( size_t i_size, size_t i_alignment, size_t i_alignment_offset, 
+		DeallocationCallback i_deallocation_callback )
 	{
 		MEMO_ASSERT( m_start_address != nullptr ); // no buffer assigned?
 		MEMO_ASSERT( is_integer_power_of_2( i_alignment ) );

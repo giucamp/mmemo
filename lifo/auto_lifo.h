@@ -12,7 +12,14 @@ namespace memo
 		
 		/** allocates memory with memo::lifo_alloc. If a block was already allocated, 
 			it is freed before the new allocation. */
-		void * alloc( size_t i_size, size_t i_alignment );
+		void * alloc( size_t i_size, size_t i_alignment, DeallocationCallback i_deallocation_callback = nullptr );
+
+		/** allocates memory with memo::lifo_alloc. The returned pointer is typed, but the objects are not constructed. 
+			If a block was already allocated, it is freed before the new allocation. 
+			@param i_count number of objects in the allocated block. */
+		template <typename TYPE>
+			TYPE * typed_alloc( size_t i_count = 1 )
+				{ return static_cast<TYPE*>( alloc( sizeof(TYPE) * i_count, MEMO_ALIGNMENT_OF(TYPE) ) ); }
 
 		/** frees the allocated block, if any */
 		void free();
@@ -40,6 +47,7 @@ namespace memo
 		ObjectStack & m_thread_stack;
 		void * m_buffer;
 		size_t m_size, m_alignment;
+		DeallocationCallback m_deallocation_callback;
 	};
 
 } // namespace memo

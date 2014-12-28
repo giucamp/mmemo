@@ -6,7 +6,7 @@ namespace memo
 		it manages it as a circular buffer, allowing allocation of variable size and alignment. The FIFO constraint
 		requires that only the oldest allocated block can be freed. FifoAllocator allows to get the address of the
 		oldest allocated block, so that it can be consumed before being freed.
-		If an allocation can be committed because there is not enough remaining space in the buffer, FifoAllocator
+		If an allocation can't be committed because there is not enough remaining space in the buffer, FifoAllocator
 		returns nullptr. If you need a FIFO memory manager that can grow, you can use memo::Queue.
 		FifoAllocator provide an iterator inner-class, that can enumerate all the living blocks in a FifoAllocator.
 		This class is not thread safe.
