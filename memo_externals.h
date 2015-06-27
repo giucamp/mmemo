@@ -52,7 +52,7 @@
 
 /** \def MEMO_ENABLE_TEST 
 	If this macro evaluates to non-zero, some classes with testing purpose are defined */
-#define MEMO_ENABLE_TEST			(1)
+#define MEMO_ENABLE_TEST			(MEMO_ENABLE_ASSERT)
 
 /** \def MEMO_ENABLE_INLINE
 	If this macro evaluates to non-zero, functions suitable for inline expansion are declared inline and defined in every 

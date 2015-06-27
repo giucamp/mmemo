@@ -2,7 +2,7 @@
 namespace memo
 {
 	/**	\class FifoAllocator
-		Class implementing LIFO-ordered allocation services. The user assign a memory buffer to FifoAllocator, and 
+		Class implementing LIFO-ordered allocation services. The user assigns a memory buffer to FifoAllocator, and 
 		it manages it as a circular buffer, allowing allocation of variable size and alignment. The FIFO constraint
 		requires that only the oldest allocated block can be freed. FifoAllocator allows to get the address of the
 		oldest allocated block, so that it can be consumed before being freed.

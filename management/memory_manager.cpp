@@ -104,6 +104,9 @@ namespace memo
 
 			bool result = dump_contexts( path, i_state_writer );
 			MEMO_ASSERT( result );
+			#if !MEMO_ENABLE_ASSERT
+				MEMO_UNUSED(result);
+			#endif
 		}
 
 		i_state_writer.untab();
