@@ -67,6 +67,12 @@
 	Currently only the macro MEMO_NEW_ARRAY_SRC exploits r-value references. */
 #define MEMO_ENABLE_RVALUE_REFERENCES	1
 
+#if defined( _MSC_VER ) && _MSC_VER >= 1800
+	#define MEMO_ENABLE_TEMPLATE_USING	1
+#else
+	#define MEMO_ENABLE_TEMPLATE_USING	0
+#endif
+
 /** \def MEMO_UNUSED( var )
 	This macro should avoid the compiler warning for the variable\parameter var to be not used */
 #define MEMO_UNUSED( var )			&var

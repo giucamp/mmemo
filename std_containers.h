@@ -78,13 +78,66 @@ namespace memo
 	template < typename VALUE, typename HASH = std::hash<KEY>, typename PREDICATE = std::equal_to<KEY> > struct std_unordered_multiset
 		{ typedef std::unordered_multiset< VALUE, HASH, PREDICATE, StdAllocator< VALUE > > type; };
 
-	// std_priority_queue< VALUE, CONTAINER = std::vector<KEY>, PREDICATE = std::less<KEY> >::type
+	// std_priority_queue< VALUE, CONTAINER = std_vector<KEY>, PREDICATE = std::less<KEY> >::type
 	template < typename VALUE, typename CONTAINER = memo::std_vector<VALUE>::type, typename PREDICATE = std::less< typename CONTAINER::value_type > > struct std_priority_queue
 		{ typedef std::priority_queue< VALUE, CONTAINER, PREDICATE > type; };
 
-	#if 0
+	#if MEMO_ENABLE_TEMPLATE_USING
+	
+		// StdString
+		typedef std::basic_string< char, std::char_traits<char>, StdAllocator< char > > StdString;
+
+		// StdWString
+		typedef std::basic_string< wchar_t, std::char_traits<wchar_t>, StdAllocator< wchar_t > > StdWString;
+
 		// StdVector< TYPE >
-		template <typename TYPE> using std_vector = std::vector< TYPE, StdAllocator<TYPE> >;
+		template <typename TYPE> using StdVector = std::vector< TYPE, StdAllocator<TYPE> >;
+
+		// StdList< TYPE >
+		template <typename TYPE> using StdList = std::list < TYPE, StdAllocator<TYPE> > ;
+
+		// StdQueue< TYPE >
+		template <typename TYPE> using StdQueue = std::queue < TYPE, std::queue< TYPE, StdAllocator<TYPE> > > ;
+
+		// StdDeque< TYPE >
+		template <typename TYPE> using StdDeque = std::deque < TYPE, std::deque< TYPE, StdAllocator<TYPE> > >;
+
+		// StdMap< KEY, VALUE, PREDICATE = std::less >
+		template < typename KEY, typename VALUE, typename PREDICATE = typename std::less< KEY > >
+			using StdMap = std::map< KEY, VALUE, PREDICATE, typename StdAllocator< std::pair<KEY, VALUE> > >;
+
+		// StdMultiMap< KEY, VALUE, PREDICATE = std::less >
+		template <typename KEY, typename VALUE, typename PREDICATE = typename std::less< KEY > > 
+			using StdMultiMap = std::multimap< KEY, VALUE, PREDICATE, typename StdAllocator< std::pair<KEY, VALUE> > >;
+
+		// StdSet< VALUE, PREDICATE = std::less >
+		template <typename VALUE, typename PREDICATE = typename std::less< VALUE > >
+			using StdSet = std::set< VALUE, PREDICATE, typename StdAllocator< VALUE > >;
+
+		// StdMultiSet< KEY, VALUE, PREDICATE = std::less >
+		template <typename VALUE, typename PREDICATE = typename std::less< VALUE > >
+			using StdMultiSet = std::multiset< VALUE, PREDICATE, typename StdAllocator< VALUE > >;
+
+		// StdUnorderedMap< KEY, VALUE, HASH = std::hash<KEY>, PREDICATE = std::equal_to<KEY> >::type
+		template <typename KEY, typename VALUE, typename HASH = std::hash<KEY>, typename PREDICATE = std::equal_to<KEY> > 
+			using StdUnorderedMap = std::unordered_map< KEY, VALUE, HASH, PREDICATE, StdAllocator< std::pair<KEY, VALUE> > >;
+
+		// StdUnorderedMultimap< KEY, VALUE, HASH = std::hash<KEY>, PREDICATE = std::equal_to<KEY> >::type
+		template <typename KEY, typename VALUE, typename HASH = std::hash<KEY>, typename PREDICATE = std::equal_to<KEY> > 
+			using StdUnorderedMultimap = std::unordered_multimap< KEY, VALUE, HASH, PREDICATE, StdAllocator< std::pair<KEY, VALUE> > > ;
+
+		// StdUnorderedSet< VALUE, HASH = std::hash<KEY>, PREDICATE = std::equal_to<KEY> >::type
+		template < typename VALUE, typename HASH = std::hash<KEY>, typename PREDICATE = std::equal_to<KEY> >
+			using StdUnorderedSet = std::unordered_set< VALUE, HASH, PREDICATE, StdAllocator< VALUE > > ;
+
+		// StdUnorderedMultiset< VALUE, HASH = std::hash<KEY>, PREDICATE = std::equal_to<KEY> >::type
+		template < typename VALUE, typename HASH = std::hash<KEY>, typename PREDICATE = std::equal_to<KEY> > 
+			using StdUnorderedMultiset = std::unordered_multiset< VALUE, HASH, PREDICATE, StdAllocator< VALUE > >;
+					
+		// StdPriorityQueue< VALUE, CONTAINER = StdVector<KEY>, PREDICATE = std::less<KEY> >
+		template < typename VALUE, typename CONTAINER = memo::StdVector<VALUE>, typename PREDICATE = std::less< typename CONTAINER::value_type > >
+			using StdPriorityQueue = std::priority_queue< VALUE, CONTAINER, PREDICATE >;
+
 	#endif
 
 } // namespace memo
