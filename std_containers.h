@@ -82,4 +82,9 @@ namespace memo
 	template < typename VALUE, typename CONTAINER = memo::std_vector<VALUE>::type, typename PREDICATE = std::less< typename CONTAINER::value_type > > struct std_priority_queue
 		{ typedef std::priority_queue< VALUE, CONTAINER, PREDICATE > type; };
 
+	#if 0
+		// StdVector< TYPE >
+		template <typename TYPE> using std_vector = std::vector< TYPE, StdAllocator<TYPE> >;
+	#endif
+
 } // namespace memo

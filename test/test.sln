@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "memo", "..\vs10\memo.vcxproj", "{35750162-1519-4241-B129-2C7BD34E49E7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "memo", "..\vs2013\memo.vcxproj", "{35750162-1519-4241-B129-2C7BD34E49E7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "memo_debugger", "..\memo_debugger\memo_debugger.vcxproj", "{7C8695FF-AFB2-4E0D-A78E-AEB75CF10E35}"
 EndProject
