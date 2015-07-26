@@ -259,7 +259,7 @@ namespace memo
 			const size_t alignment = std::max<size_t>( 1 << (generate_rand_32() & 7), MEMO_ALIGNMENT_OF( int ) );
 			const size_t alignment_offset = std::min<size_t>( size, (generate_rand_32() & 31) );
 			
-			memo::std_vector< int >::type vect;
+			memo::StdVector< int > vect;
 			vect.reserve( size );
 							
 			int * alloc = static_cast<int*>( m_fifo_allocator->alloc( size * sizeof(int), alignment, alignment_offset ) );

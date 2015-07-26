@@ -21,7 +21,6 @@ namespace std
 
 } // namespace std
 
-
 namespace memo
 {
 	// std_string
@@ -84,6 +83,14 @@ namespace memo
 
 	#if MEMO_ENABLE_TEMPLATE_USING
 	
+		// make_shared
+		template< typename TYPE, typename... PARAM_TYPES > 
+			inline std::shared_ptr<TYPE> make_shared( PARAM_TYPES && ... i_params )
+				{ return std::allocate_shared<TYPE>(StdAllocator<TYPE>(), forward<PARAM_TYPES>(i_params)...); }
+
+		// MEMO_MAKE_SHARED
+		#define MEMO_MAKE_SHARED(TYPE, ...) ::std::allocate_shared<TYPE>(::memo::StdAllocator<TYPE>(), __VA_ARGS__);
+			
 		// StdString
 		typedef std::basic_string< char, std::char_traits<char>, StdAllocator< char > > StdString;
 

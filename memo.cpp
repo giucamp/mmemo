@@ -20,16 +20,16 @@
 
 namespace memo
 {
-	#if MEMO_ENABLE_TEST
+	// generate_rand_32
+	uint32_t generate_rand_32( uint32_t & io_rand_seed )
+	{
+		const uint32_t even = 0xAAAAAAAA, odd = 0x55555555;
+		io_rand_seed ^= even;
+		io_rand_seed += odd;
+		return io_rand_seed;
+	}
 
-		// generate_rand_32
-		uint32_t generate_rand_32( uint32_t & io_rand_seed )
-		{
-			const uint32_t even = 0xAAAAAAAA, odd = 0x55555555;
-			io_rand_seed ^= even;
-			io_rand_seed += odd;
-			return io_rand_seed;
-		}
+	#if MEMO_ENABLE_TEST
 
 		uint32_t generate_rand_32()
 		{

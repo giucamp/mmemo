@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <deque>
 #include <queue>
+#include <memory>
 
 #ifdef _MSC_VER
 	#pragma warning( push )
