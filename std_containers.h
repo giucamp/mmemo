@@ -39,7 +39,7 @@ namespace memo
 
 	// std_queue< TYPE >::type
 	template <typename TYPE> struct std_queue
-		{ typedef std::queue< TYPE, std::deque< TYPE, StdAllocator<TYPE> > > type; };
+		{ typedef std::queue< TYPE, std::vector< TYPE, StdAllocator<TYPE> > > type; };
 
 	// std_deque< TYPE >::type
 	template <typename TYPE> struct std_deque
@@ -104,10 +104,10 @@ namespace memo
 		template <typename TYPE> using StdList = std::list < TYPE, StdAllocator<TYPE> > ;
 
 		// StdQueue< TYPE >
-		template <typename TYPE> using StdQueue = std::queue < TYPE, std::queue< TYPE, StdAllocator<TYPE> > > ;
+		template <typename TYPE> using StdQueue = std::queue< TYPE, std::deque< TYPE, StdAllocator<TYPE> > > ;
 
 		// StdDeque< TYPE >
-		template <typename TYPE> using StdDeque = std::deque < TYPE, std::deque< TYPE, StdAllocator<TYPE> > >;
+		template <typename TYPE> using StdDeque = std::deque< TYPE, StdAllocator<TYPE> >;
 
 		// StdMap< KEY, VALUE, PREDICATE = std::less >
 		template < typename KEY, typename VALUE, typename PREDICATE = typename std::less< KEY > >
