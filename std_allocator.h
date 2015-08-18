@@ -67,8 +67,8 @@ namespace memo
 		// size
 		size_type max_size() const										{ return std::numeric_limits<size_type>::max() / sizeof(TYPE); }
 
-		bool operator == ( const StdAllocator & )						{ return true; }
-		bool operator != ( const StdAllocator & )						{ return false; }
+		bool operator == ( const StdAllocator & ) const						{ return true; }
+		bool operator != ( const StdAllocator & ) const						{ return false; }
 	};
 
 } // namespace memo

@@ -4,6 +4,16 @@
 		Creates a new instance of TYPE using the current allocator of the calling thread */
 #define MEMO_NEW( TYPE, ... )						new ( ::memo::AllocationDispatcher<TYPE>::typed_alloc() ) TYPE( __VA_ARGS__ )
 
+/*namespace memo
+{
+	template< typename TYPE, typename... PARAM_TYPES >
+		inline TYPE * _new(PARAM_TYPES && ... i_params)
+	{
+		return MEMO_NEW(TYPE, std::forward<PARAM_TYPES>(i_params)...);
+	}
+}*/
+
+
 /** \def MEMO_DELETE( TYPE * pointer ) 
 		Destroys an object created with MEMO_NEW, using the allocator that allocated the object */
 #define MEMO_DELETE( pointer )						::memo::_delete( pointer ) // this function redirects the call to the AllocationDispatcher

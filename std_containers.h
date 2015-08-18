@@ -83,11 +83,6 @@ namespace memo
 
 	#if MEMO_ENABLE_TEMPLATE_USING
 	
-		// make_shared
-		template< typename TYPE, typename... PARAM_TYPES > 
-			inline std::shared_ptr<TYPE> make_shared( PARAM_TYPES && ... i_params )
-				{ return std::allocate_shared<TYPE>(StdAllocator<TYPE>(), forward<PARAM_TYPES>(i_params)...); }
-
 		// MEMO_MAKE_SHARED
 		#define MEMO_MAKE_SHARED(TYPE, ...) ::std::allocate_shared<TYPE>(::memo::StdAllocator<TYPE>(), __VA_ARGS__);
 			
@@ -144,6 +139,29 @@ namespace memo
 		// StdPriorityQueue< VALUE, CONTAINER = StdVector<KEY>, PREDICATE = std::less<KEY> >
 		template < typename VALUE, typename CONTAINER = memo::StdVector<VALUE>, typename PREDICATE = std::less< typename CONTAINER::value_type > >
 			using StdPriorityQueue = std::priority_queue< VALUE, CONTAINER, PREDICATE >;
+			
+
+		// make_shared
+		template< typename TYPE, typename... PARAM_TYPES >
+			inline std::shared_ptr<TYPE> make_shared(PARAM_TYPES && ... i_params)
+		{
+			return std::allocate_shared<TYPE>(StdAllocator<TYPE>(), std::forward<PARAM_TYPES>(i_params)...);
+		}
+
+		template< typename TYPE>
+			struct _Deleter
+		{
+			void operator () (TYPE * i_object)
+			{
+				MEMO_DELETE(i_object);
+			}
+		};
+
+		template< typename TYPE>
+			using unique_ptr = std::unique_ptr< TYPE, _Deleter<TYPE> >;
+		
+		template< typename TYPE>
+			using vector_unique_ptr = StdVector < unique_ptr<TYPE> >;
 
 	#endif
 
