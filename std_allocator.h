@@ -59,10 +59,10 @@ namespace memo
 			}			
 		}
 
-		// construction/destruction
-		void construct( pointer i_pointer, const TYPE & i_source )		{ new( i_pointer ) TYPE( i_source ); }
-		void destroy( pointer i_pointer )								{ i_pointer->~TYPE(); 
-																		  MEMO_UNUSED( i_pointer ); } // workaround for msc bug (Incorrect "unreferenced formal parameter" warning for explicit destruction)
+		template <typename... PARAMS>
+			void construct( pointer i_pointer, PARAMS && ... i_params)		{ new( i_pointer ) TYPE( std::forward<PARAMS>(i_params)... ); }
+		void destroy( pointer i_pointer )									{ i_pointer->~TYPE(); 
+																			  MEMO_UNUSED( i_pointer ); } // workaround for msc bug (Incorrect "unreferenced formal parameter" warning for explicit destruction)
 
 		// size
 		size_type max_size() const										{ return std::numeric_limits<size_type>::max() / sizeof(TYPE); }
